@@ -1,3 +1,5 @@
+package model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,20 +13,26 @@ import simple.JSONArray;
 import simple.JSONObject;
 
 /**
- * @author noebr
- *
- */
-/**
- * @author noebr
+ * @author Noe Breton
  *
  */
 public class algoNotationRecherche {
+
+	/**
+	 * 	path of the TDs folder
+	 */
+	private static String path;
+	// "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"
+	
+	public algoNotationRecherche(String path) {
+		algoNotationRecherche.path = path;
+	}
 
 	public static void main(String[] args) {
 		HashMap<String, String> hm = new HashMap<>();
 		hm.put("legal", "mid");
 		hm.put("NeedToKnow", "high");
-		System.out.println(schearTD(hm, "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"));
+		System.out.println(schearTD(hm));
 
 	}
 
@@ -32,12 +40,12 @@ public class algoNotationRecherche {
 	 * find TDs whose matches with level of privacy of one or multiple concept in an
 	 * HashMap
 	 * 
-	 * @param concepts :  HasMap of concepts and their level of privacy, key: concept name / value: level privacy : hight/mid/low
-	 * @param path: path of the TDs folder 
+	 * @param concepts : HasMap of concepts and their level of privacy, key: concept
+	 *                 name / value: level privacy : hight/mid/low
 	 * @return an ArrayList of String of name of TD whose Level of Privacy in
 	 *         required Concept match with the HashMap
 	 */
-	private static ArrayList<String> schearTD(HashMap<String, String> concepts, String path) {
+	private static ArrayList<String> schearTD(HashMap<String, String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		File dir = new File(path);
 		File[] liste = dir.listFiles();
@@ -66,7 +74,8 @@ public class algoNotationRecherche {
 
 	/**
 	 * @param ThingDescription : JSON object of the TD
-	 * @param concepts :  HasMap of concepts and their level of privacy, key: concept name / value: level privacy : hight/mid/low
+	 * @param concepts         : HasMap of concepts and their level of privacy, key:
+	 *                         concept name / value: level privacy : hight/mid/low
 	 * @return true if a concept is written in the TD, false else
 	 */
 	private static boolean containConcept(JSONObject ThingDescription, HashMap<String, String> concepts) {
@@ -86,6 +95,14 @@ public class algoNotationRecherche {
 			}
 		}
 		return b;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		algoNotationRecherche.path = path;
 	}
 
 }
