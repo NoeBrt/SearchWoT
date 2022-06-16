@@ -10,28 +10,44 @@ import parser.ParseException;
 import simple.JSONArray;
 import simple.JSONObject;
 
+/**
+ * @author noebr
+ *
+ */
+/**
+ * @author noebr
+ *
+ */
 public class algoNotationRecherche {
+
 	public static void main(String[] args) {
 		HashMap<String, String> hm = new HashMap<>();
 		hm.put("legal", "mid");
-		hm.put("NeedToKnow", "hight");
-		System.out.println(schearTD(hm,"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark\\anotation_exemple"));
-		
+		hm.put("NeedToKnow", "high");
+		System.out.println(schearTD(hm, "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"));
+
 	}
 
-	private static ArrayList<String> schearTD(HashMap<String, String> Hm, String path) {
+	/**
+	 * find TDs whose matches with level of privacy of one or multiple concept in an
+	 * HashMap
+	 * 
+	 * @param concepts :  HasMap of concepts and their level of privacy, key: concept name / value: level privacy : hight/mid/low
+	 * @param path: path of the TDs folder 
+	 * @return an ArrayList of String of name of TD whose Level of Privacy in
+	 *         required Concept match with the HashMap
+	 */
+	private static ArrayList<String> schearTD(HashMap<String, String> concepts, String path) {
 		JSONParser jsonParser = new JSONParser();
 		File dir = new File(path);
 		File[] liste = dir.listFiles();
-		ArrayList<String> s= new ArrayList<>();
+		ArrayList<String> resultTD = new ArrayList<>();
 		for (File item : liste) {
 			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
-					// Read JSON file
-					Object obj = jsonParser.parse(reader);
-					JSONObject ThingDescription = (JSONObject) obj;
-					if (containConcept(ThingDescription,Hm)) {
-						s.add(item.getName());
+					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
+					if (containConcept(ThingDescription, concepts)) {
+						resultTD.add(item.getName());
 					}
 
 				} catch (FileNotFoundException e) {
@@ -45,17 +61,22 @@ public class algoNotationRecherche {
 			}
 		}
 
-		return s;
+		return resultTD;
 	}
 
-	private static boolean containConcept(JSONObject ThingDescription, HashMap<String, String> hm) {
+	/**
+	 * @param ThingDescription : JSON object of the TD
+	 * @param concepts :  HasMap of concepts and their level of privacy, key: concept name / value: level privacy : hight/mid/low
+	 * @return true if a concept is written in the TD, false else
+	 */
+	private static boolean containConcept(JSONObject ThingDescription, HashMap<String, String> concepts) {
 		Object PrivacyPolicy = ThingDescription.get("privacyPolicy");
 		JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
 		boolean b = false;
-		for (String concept : hm.keySet()) {
+		for (String concept : concepts.keySet()) {
 			for (Object e : PrivacyPolicy2) {
 				if (((JSONObject) e).get("concept").toString().contains(concept)) {
-					if (((JSONObject) e).get("levelPrivacy").toString().equals(hm.get(concept))) {
+					if (((JSONObject) e).get("levelPrivacy").toString().equals(concepts.get(concept))) {
 						b = true;
 
 					} else {
