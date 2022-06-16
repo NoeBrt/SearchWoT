@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class App extends Application {
 	public static Stage primaryStage;
@@ -20,17 +21,16 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoT.fxml"));
-			BorderPane root = view1.load();
-			root.prefWidthProperty().bind(Bindings.divide(primaryStage.widthProperty(), 3.0));
-			root.prefHeightProperty().bind(Bindings.divide(primaryStage.heightProperty(), 3.0));
+			VBox root = view1.load();
+		
 			root.pickOnBoundsProperty();
 			Scene scene = new Scene(root, 800, 600);
-		/*	primaryStage.setScene(scene);
+			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
-			primaryStage.setTitle("Granulometrie V2.5");
-			primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
+			primaryStage.setTitle("WoT");
+		//	primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
 			primaryStage.show();
-			*/
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
