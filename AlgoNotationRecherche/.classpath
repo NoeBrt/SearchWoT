@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="libExterne"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="libExterne"/>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.base.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.controls.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.fxml.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.graphics.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.media.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.swing.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx.web.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/javafx-swt.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/noebr/OneDrive - Université de Tours/stage/WSstage/granulometrie/Granulometrie_Project/libFx/mysql-connector-java-8.0.27.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
