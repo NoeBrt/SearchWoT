@@ -21,19 +21,11 @@ public class algoNotationRecherche {
 	/**
 	 * 	path of the TDs folder
 	 */
-	private static String path;
+	private String path;
 	// "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"
 	
 	public algoNotationRecherche(String path) {
-		algoNotationRecherche.path = path;
-	}
-
-	public static void main(String[] args) {
-		HashMap<String, String> hm = new HashMap<>();
-		hm.put("legal", "mid");
-		hm.put("NeedToKnow", "high");
-		System.out.println(schearTD(hm));
-
+		this.path = path;
 	}
 
 	/**
@@ -45,17 +37,17 @@ public class algoNotationRecherche {
 	 * @return an ArrayList of String of name of TD whose Level of Privacy in
 	 *         required Concept match with the HashMap
 	 */
-	private static ArrayList<String> schearTD(HashMap<String, String> concepts) {
+	public  HashMap<String, String> schearTD(HashMap<String, String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		File dir = new File(path);
 		File[] liste = dir.listFiles();
-		ArrayList<String> resultTD = new ArrayList<>();
+		HashMap<String, String> resultTD = new HashMap<>();
 		for (File item : liste) {
 			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
 					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
 					if (containConcept(ThingDescription, concepts)) {
-						resultTD.add(item.getName());
+						resultTD.put(item.getName(),formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"),4));
 					}
 
 				} catch (FileNotFoundException e) {
@@ -68,9 +60,34 @@ public class algoNotationRecherche {
 
 			}
 		}
-
 		return resultTD;
 	}
+	/*
+	public String getItemByName(String name) {
+		JSONParser jsonParser = new JSONParser();
+		File dir = new File(path);
+		File[] liste = dir.listFiles();
+		ArrayList<String> resultTD = new ArrayList<>();
+		for (File item : liste) {
+			if (item.isFile()) {
+				try (FileReader reader = new FileReader(item)) {
+					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
+				
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		return resultTD;
+	}
+		
+	}*/
 
 	/**
 	 * @param ThingDescription : JSON object of the TD
@@ -78,7 +95,7 @@ public class algoNotationRecherche {
 	 *                         concept name / value: level privacy : hight/mid/low
 	 * @return true if a concept is written in the TD, false else
 	 */
-	private static boolean containConcept(JSONObject ThingDescription, HashMap<String, String> concepts) {
+	private boolean containConcept(JSONObject ThingDescription, HashMap<String, String> concepts) {
 		Object PrivacyPolicy = ThingDescription.get("privacyPolicy");
 		JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
 		boolean b = false;
@@ -96,13 +113,54 @@ public class algoNotationRecherche {
 		}
 		return b;
 	}
+	public static String formatJSONStr(final String json_str, final int indent_width) {
+	    final char[] chars = json_str.toCharArray();
+	    final String newline = System.lineSeparator();
 
+	    String ret = "";
+	    boolean begin_quotes = false;
+
+	    for (int i = 0, indent = 0; i < chars.length; i++) {
+	        char c = chars[i];
+
+	        if (c == '\"') {
+	            ret += c;
+	            begin_quotes = !begin_quotes;
+	            continue;
+	        }
+
+	        if (!begin_quotes) {
+	            switch (c) {
+	            case '{':
+	            case '[':
+	                ret += c + newline + String.format("%" + (indent += indent_width) + "s", "");
+	                continue;
+	            case '}':
+	            case ']':
+	                ret += newline + ((indent -= indent_width) > 0 ? String.format("%" + indent + "s", "") : "") + c;
+	                continue;
+	            case ':':
+	                ret += c + " ";
+	                continue;
+	            case ',':
+	                ret += c + newline + (indent > 0 ? String.format("%" + indent + "s", "") : "");
+	                continue;
+	            default:
+	                if (Character.isWhitespace(c)) continue;
+	            }
+	        }
+
+	        ret += c + (c == '\\' ? "" + chars[++i] : "");
+	    }
+
+	    return ret;
+	}
 	public String getPath() {
 		return path;
 	}
 
 	public void setPath(String path) {
-		algoNotationRecherche.path = path;
+		this.path = path;
 	}
 
 }
