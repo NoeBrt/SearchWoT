@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/noebr/ontologies/2022/5/WoT"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/noebr/ontologies/2022/5/WoT">
+    <Prefix name="" IRI="http://www.semanticweb.org/noebr/ontologies/2022/5/WoT"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Access"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Accountability"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Administration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Anonimity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Collection"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Collector"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Confidentality"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Copy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DirectCollection"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Disclose"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IndirectCollection"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Legal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Modification"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NeedToKnow"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Notice"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OtherCollector"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Private_Policy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Provider"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PurposeOf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Record"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Retention"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ServiceCompletion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Transparency"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Unlinkability"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Unobservability"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Access"/>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Accountability"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Administration"/>
+        <Class IRI="#PurposeOf"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Anonimity"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Collection"/>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Collector"/>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Confidentality"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Copy"/>
+        <Class IRI="#Access"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DirectCollection"/>
+        <Class IRI="#Collection"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Disclose"/>
+        <Class IRI="#Confidentality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IndirectCollection"/>
+        <Class IRI="#Collection"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Legal"/>
+        <Class IRI="#PurposeOf"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Modification"/>
+        <Class IRI="#Access"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NeedToKnow"/>
+        <Class IRI="#Confidentality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Notice"/>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OtherCollector"/>
+        <Class IRI="#Collector"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PersonnalInformationHandling"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Provider"/>
+        <Class IRI="#Collector"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PurposeOf"/>
+        <Class IRI="#Confidentality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Record"/>
+        <Class IRI="#Access"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Retention"/>
+        <Class IRI="#PersonnalInformationHandling"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ServiceCompletion"/>
+        <Class IRI="#PurposeOf"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transparency"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Unlinkability"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Unobservability"/>
+        <Class IRI="#Private_Policy"/>
+    </SubClassOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

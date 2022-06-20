@@ -1,17 +1,14 @@
 
 package application;
 
-import java.sql.SQLException;
 
 import controller.CtrlView;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
+
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+
 import javafx.scene.layout.VBox;
 
 public class App extends Application {
@@ -20,7 +17,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoT.fxml"));
+			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoTImp.fxml"));
 			VBox root = view1.load();
 		
 			root.pickOnBoundsProperty();

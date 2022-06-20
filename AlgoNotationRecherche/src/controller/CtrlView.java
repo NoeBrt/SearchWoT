@@ -19,10 +19,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
@@ -37,51 +40,57 @@ public class CtrlView implements Initializable {
 	ObservableList<Concept> conceptsList = FXCollections.observableArrayList();
 	@FXML
 	private Button searchButton;
-	@FXML
-	private TableView<Concept> tableView;
-	@FXML
-	TableColumn<Concept, TextField> conceptName;
-	@FXML
-	TableColumn<Concept, StringProperty> levelPrivacy;
-	@FXML
-	private RadioButton and;
-	@FXML
-	private RadioButton or;
 	static ObservableList<String> Resultlist;
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
 	@FXML
 	private TextFlow tdDetail;
 
-	@FXML
-	public void add() {
-		conceptsList.add(new Concept("test"));
-		System.out.println(conceptsList.get(0).toString());
-		System.out.println(levelPrivacy.getCellData(1));
-		System.out.println(levelPrivacy.getCellObservableValue(0));
-	}
-
 	private HashMap<String, String> resultMap;
 
 	@FXML
+	TreeView<String> tree = new TreeView<String>();
+
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		TreeItem<String> root = new TreeItem<String>("Private_Policy");
+		tree.setFixedCellSize(25);
+		root.setExpanded(true);
+		TreeItem<String> itemJava = new TreeItem<String>("Confidentality");
+		TreeItem<String> itemJSP = new TreeItem<String>("Notice");
+		TreeItem<String> itemSpring = new TreeItem<String>("record");
+		tree.setRoot(root);
+		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		itemJava.getChildren().add(itemJSP);
+		itemJava.getChildren().add(itemSpring);
+		root.getChildren().add(itemJava);
+	}
+	
+
+	@FXML
 	public void resultSchearch() {
-		algoNotationRecherche a = new algoNotationRecherche(
-				"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple");
-		HashMap<String, String> hm = new HashMap<>();
-		hm.put("Disclose", "mid");
-		resultMap = a.schearTD(hm);
-		Resultlist = FXCollections.observableArrayList(resultMap.keySet());
-		resultView.setFixedCellSize(25);
-		resultView.setItems(Resultlist);
-		System.out.println(resultView.getItems());
+		if (!tree.getSelectionModel().isEmpty()) {
+			algoNotationRecherche a = new algoNotationRecherche(
+					"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple");
+			HashMap<String, String> hm = new HashMap<>();
+			for (TreeItem<String> it : tree.getSelectionModel().getSelectedItems()) {
+				hm.put(it.getValue(), "mid");
+			}
+			System.out.println(tree.getSelectionModel().getSelectedItem().getValue());
+			resultMap = a.schearTD(hm);
+			Resultlist = FXCollections.observableArrayList(resultMap.keySet());
+			resultView.setFixedCellSize(25);
+			resultView.setItems(Resultlist);
+			System.out.println(resultView.getItems());
+		}
 	}
 
 	@FXML
 	public void displayDetailTd() {
-		tdDetail.getChildren().clear();
-		System.out.println(resultMap.get(resultView.getSelectionModel().getSelectedItem()));
-		Text t1 = new Text(resultMap.get(resultView.getSelectionModel().getSelectedItem()));
-		tdDetail.getChildren().add(t1);
+		if (!resultView.getSelectionModel().isEmpty()) {
+			tdDetail.getChildren().clear();
+			Text t1 = new Text(resultMap.get(resultView.getSelectionModel().getSelectedItem()));
+			tdDetail.getChildren().add(t1);
+		}
 
 	}
 
@@ -89,50 +98,6 @@ public class CtrlView implements Initializable {
 	public void remove() {
 		if (!conceptsList.isEmpty())
 			conceptsList.remove(conceptsList.size() - 1);
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		conceptsList = FXCollections.observableArrayList(new Concept("test"));
-		tableView.setEditable(true);
-		tableView.setFixedCellSize(30);
-		ObservableList<String> level = FXCollections.observableArrayList("hight", "mid", "low");
-
-		// TODO Auto-generated method stub
-		conceptName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		// levelPrivacy.setCellFactory(ComboBoxTableCell.forTableColumn(ancestors));
-		levelPrivacy.setCellValueFactory(i -> {
-			final StringProperty value = i.getValue().getlevelPrivacy();
-			// binding to constant value
-			return Bindings.createObjectBinding(() -> value);
-		});
-		levelPrivacy.setCellFactory(col -> {
-			TableCell<Concept, StringProperty> c = new TableCell<>();
-			final ComboBox<String> comboBox = new ComboBox<>(level);
-			comboBox.setValue("choose");
-
-			c.itemProperty().addListener((observable, oldValue, newValue) -> {
-				if (oldValue != null) {
-					comboBox.valueProperty().unbindBidirectional(oldValue);
-				}
-				if (newValue != null) {
-					comboBox.valueProperty().unbindBidirectional(newValue);
-					conceptsList.get(0).setlevelPrivacy(newValue.get());
-
-				}
-			});
-			c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((Node) null).otherwise(comboBox));
-			return c;
-		});
-		System.out.println(levelPrivacy.getCellObservableValue(0));
-
-		// levelPrivacy.setCellFactory(ComboBoxTableCell.forTableColumn("Friends",
-		// "Family", "Work Contacts"));
-
-		tableView.setItems(conceptsList);
-		System.out.println(levelPrivacy.getText());
-
-		// levelPrivacy.setCellValueFactory(new PropertyValueFactory<>());
 	}
 
 }
