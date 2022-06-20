@@ -2,6 +2,12 @@
 package application;
 
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import controller.CtrlView;
 import javafx.application.Application;
 
@@ -27,12 +33,11 @@ public class App extends Application {
 			primaryStage.setTitle("WoT");
 		//	primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
 			primaryStage.show();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
