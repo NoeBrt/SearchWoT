@@ -1,36 +1,25 @@
 package controller;
 
 import java.net.URL;
+import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
-import javax.swing.JTextField;
+import org.semanticweb.owlapi.model.OWLException;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.StringProperty;
+import DAO.OntologieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import model.algoNotationRecherche;
@@ -40,7 +29,6 @@ import model.algoNotationRecherche;
  */
 public class CtrlView implements Initializable {
 
-	ObservableList<Concept> conceptsList = FXCollections.observableArrayList();
 	@FXML
 	private Button searchButton;
 	static ObservableList<String> Resultlist;
@@ -55,37 +43,65 @@ public class CtrlView implements Initializable {
 	TreeView<String> tree = new TreeView<String>();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		TreeItem<String> root = new TreeItem<String>("Private_Policy");
+		try {
+			initTreeView();
+		} catch (OWLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void initTreeView() throws OWLException {
+		// TreeItem<String> root = new TreeItem<String>("Private_Policy");
 		tree.setFixedCellSize(25);
+		// Privacy Policy is the Ontology classe I Use
+		TreeItem<String> root = new TreeItem<String>("PrivacyPolicy");
 		root.setExpanded(true);
-		TreeItem<String> itemJava = new TreeItem<String>("Confidentality");
-		TreeItem<String> itemJSP = new TreeItem<String>("Notice");
-		TreeItem<String> itemSpring = new TreeItem<String>("record");
+		OntologieDAO ont = new OntologieDAO("WotPriv.owl");
+		// hashmap of the ontology
+		HashMap<String, ArrayList<String>> hm = ont.getClassesHashMap();
+		TreeItem<String> children = new TreeItem<String>("");
+		System.out.println(hm);
+		int i = 0;
+		// work only for my ontology
+		for (String s : hm.get(root.getValue())) {
+			TreeItem<String> tI = new TreeItem<String>(s);
+			root.getChildren().add(tI);
+			if (hm.containsKey(s)) {
+				for (String s1 : hm.get(s)) {
+					TreeItem<String> n = new TreeItem<String>(s1);
+					TreeItem<String> tI1 = root.getChildren().get(root.getChildren().indexOf(tI));
+					tI1.getChildren().add(n);
+					if (hm.containsKey(s1)) {
+						for (String s2 : hm.get(s1)) {
+							tI1.getChildren().get(tI1.getChildren().indexOf(n)).getChildren()
+									.add(new TreeItem<String>(s2));
+						}
+					}
+				}
+			}
+		}
 		tree.setRoot(root);
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		itemJava.getChildren().add(itemJSP);
-		itemJava.getChildren().add(itemSpring);
-		root.getChildren().add(itemJava);
 	}
-	
+
 
 	@FXML
 	public void resultSchearch() {
 		if (!tree.getSelectionModel().isEmpty()) {
 			algoNotationRecherche a = new algoNotationRecherche(
 					"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple");
-			HashMap<String, String> hm = new HashMap<>();
-			for (TreeItem<String> it : tree.getSelectionModel().getSelectedItems()) {
-				hm.put(it.getValue(), "mid");
-			}
-			System.out.println(tree.getSelectionModel().getSelectedItem().getValue());
-			resultMap = a.schearTD(hm);
+			ArrayList<String> SelectedConcepts = new ArrayList<>();
+			tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
+			resultMap = a.schearTD(SelectedConcepts);
 			Resultlist = FXCollections.observableArrayList(resultMap.keySet());
 			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
-			System.out.println(resultView.getItems());
 		}
 	}
+		
+	
+	
 
 	@FXML
 	public void displayDetailTd() {
@@ -95,12 +111,6 @@ public class CtrlView implements Initializable {
 			tdDetail.getChildren().add(t1);
 		}
 
-	}
-
-	@FXML
-	public void remove() {
-		if (!conceptsList.isEmpty())
-			conceptsList.remove(conceptsList.size() - 1);
 	}
 
 }

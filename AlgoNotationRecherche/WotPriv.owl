@@ -64,7 +64,7 @@
         <Class IRI="#PersonnalInformationHandling"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Provider"/>
@@ -134,11 +134,11 @@
         </ObjectIntersectionOf>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
         <Class IRI="#PersonnalInformationHandling"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
         <ObjectIntersectionOf>
             <Class IRI="#Accountability"/>
             <Class IRI="#Anonimity"/>
