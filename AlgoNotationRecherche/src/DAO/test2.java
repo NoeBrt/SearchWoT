@@ -1,5 +1,8 @@
 package DAO;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import org.semanticweb.owlapi.model.OWLException;
 
 public class test2 {
@@ -9,7 +12,9 @@ public class test2 {
 		OntologieDAO t = new OntologieDAO("WotPriv.owl");
 			//System.out.println(t.getClassesName());
 		//	t.getClassesHashMap();
-			t.getClassesTreeInverted("PrivacyPolicy");
-	}
+			//t.getClassesTreeInverted("PrivacyPolicy");
+		File f=new File("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
+}
+
 
 }

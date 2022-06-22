@@ -90,7 +90,7 @@ public class CtrlView implements Initializable {
 	public void resultSchearch() {
 		if (!tree.getSelectionModel().isEmpty()) {
 			algoNotationRecherche a = new algoNotationRecherche(
-					"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple");
+					"C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			ArrayList<String> SelectedConcepts = new ArrayList<>();
 			tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
 			resultMap = a.schearTD(SelectedConcepts);

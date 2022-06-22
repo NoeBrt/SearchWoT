@@ -40,9 +40,8 @@ public class algoNotationRecherche {
 	public HashMap<String, String> schearTD(HashMap<String, String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		File dir = new File(path);
-		File[] liste = dir.listFiles();
 		HashMap<String, String> resultTD = new HashMap<>();
-		for (File item : liste) {
+		for (File item : listFileRecur(dir,".json")) {
 			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
 					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
@@ -63,13 +62,27 @@ public class algoNotationRecherche {
 		}
 		return resultTD;
 	}
+	
+	private static ArrayList<File>  listFileRecur(File rep,String extentionName) {
+		return listFileRecur(rep,new ArrayList<File>(),extentionName);
+	}
+	
+	private static ArrayList<File>  listFileRecur(File rep,ArrayList<File> f,String extentionName) {
+		if (rep.isFile()&&!rep.isHidden()&&rep.getName().endsWith(extentionName)) {
+			f.add(rep);
+			return f;
+		}else if (rep.isDirectory()&&!rep.isHidden()) {
+			for (File d:rep.listFiles())
+				listFileRecur(d,f,extentionName);
+		}
+		return f;
+	}
 
 	public HashMap<String, String> schearTD(ArrayList<String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		File dir = new File(path);
-		File[] liste = dir.listFiles();
 		HashMap<String, String> resultTD = new HashMap<>();
-		for (File item : liste) {
+		for (File item : listFileRecur(dir,".json")) {
 			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
 					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
