@@ -90,14 +90,14 @@
 				<StackPane>
 					<children>
 						<TreeView fx:id="tree" prefHeight="474.0"
-							prefWidth="286.0" onMouseClicked="#resultSchearch" onKeyPressed="#resultSchearch"/>
+							prefWidth="286.0"  />
 					</children>
 				</StackPane>
 				<StackPane prefHeight="551.0" prefWidth="290.0">
 					<children>
 						<ListView fx:id="resultView" editable="true"
-							fixedCellSize="5.0" onMouseClicked="#displayDetailTd"
-							prefHeight="551.0" prefWidth="246.0" onKeyPressed="#displayDetailTd" />
+							fixedCellSize="5.0"
+							prefHeight="551.0" prefWidth="246.0"/>
 					</children>
 				</StackPane>
 				<StackPane prefHeight="551.0" prefWidth="351.0">

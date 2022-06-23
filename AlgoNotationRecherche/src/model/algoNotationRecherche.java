@@ -21,11 +21,10 @@ public class algoNotationRecherche {
 	/**
 	 * path of the TDs folder
 	 */
-	private String path;
 	// "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"
-
+	File dir;
 	public algoNotationRecherche(String path) {
-		this.path = path;
+		this.dir=new File(path);
 	}
 
 	/**
@@ -39,16 +38,14 @@ public class algoNotationRecherche {
 	 */
 	public HashMap<String, String> schearTD(HashMap<String, String> concepts) {
 		JSONParser jsonParser = new JSONParser();
-		File dir = new File(path);
 		HashMap<String, String> resultTD = new HashMap<>();
 		for (File item : listFileRecur(dir,".json")) {
-			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
 					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
 					if (containConcept(ThingDescription, concepts)) {
 						resultTD.put(ThingDescription.get("title").toString(),
-								formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4));
-					}
+								formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4));}
+					
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -58,7 +55,7 @@ public class algoNotationRecherche {
 					e.printStackTrace();
 				}
 
-			}
+			
 		}
 		return resultTD;
 	}
@@ -80,7 +77,6 @@ public class algoNotationRecherche {
 
 	public HashMap<String, String> schearTD(ArrayList<String> concepts) {
 		JSONParser jsonParser = new JSONParser();
-		File dir = new File(path);
 		HashMap<String, String> resultTD = new HashMap<>();
 		for (File item : listFileRecur(dir,".json")) {
 			if (item.isFile()) {
@@ -199,12 +195,18 @@ public class algoNotationRecherche {
 		return ret;
 	}
 
-	public String getPath() {
-		return path;
+	
+
+	public File getDir() {
+		return dir;
+	}
+
+	public void setDir(File dir) {
+		this.dir = dir;
 	}
 
 	public void setPath(String path) {
-		this.path = path;
+		this.dir=new File(path);
 	}
 
 }

@@ -60,7 +60,6 @@ public class OntologieDAO {
 			OWLClass pizza = fac3.getOWLClass(docIRI);
 			NodeSet<OWLClass> subClses = reasonerFactory3.getSuperClasses(pizza, true);
 			Set<OWLClass> clses = subClses.getFlattened();
-			System.out.println("Subclasses of " + s + "  : ");
 			// instanciate the hashmap
 			for (OWLClass cls1 : clses) {
 				// cls1.getIRI().getShortForm() is the name of an ontology classes in String
@@ -70,7 +69,6 @@ public class OntologieDAO {
 						hm.put(s, new ArrayList<String>());
 					}
 					hm.get(s).add(cls1.getIRI().getShortForm());
-					System.out.println(" " + cls1.getIRI().getShortForm());
 				}
 				System.out.println();
 			}

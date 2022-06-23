@@ -27,7 +27,7 @@ public class App extends Application {
 			primaryStage.getIcons().add(new Image("application/icon.png"));
 			// primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
 			primaryStage.show();
-
+	        scene.getStylesheets().add("/controller/cssViewWoTImp.css");
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
 				System.exit(0);
