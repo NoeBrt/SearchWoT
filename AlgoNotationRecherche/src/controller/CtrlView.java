@@ -110,6 +110,7 @@ public class CtrlView implements Initializable {
 
 					}
 				}
+				
 			};
 			cell.setOnMouseClicked(event -> {
 				if (cell.isEmpty()) {
@@ -119,16 +120,17 @@ public class CtrlView implements Initializable {
 					if(cell.isSelected()) {
 						tree.getSelectionModel().clearSelection(cell.getIndex());
 						selectAllSubItemsRec(cell.getTreeItem());
-					DisplayResultSearch();}else {
-					}
+					DisplayResultSearch();}
+					
 				}
 			});
+		
 			return cell;
 		});
 
 	}
 	
-	private void DisplayResultSearch() {
+	public void DisplayResultSearch() {
 		ArrayList<String> SelectedConcepts = new ArrayList<>();
 		tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
 		resultMap = algoSearch.schearTD(SelectedConcepts);
