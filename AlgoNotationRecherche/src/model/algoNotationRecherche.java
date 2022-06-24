@@ -5,7 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import parser.JSONParser;
 import parser.ParseException;
@@ -32,7 +39,7 @@ public class algoNotationRecherche {
 
 	public algoNotationRecherche(File dir) {
 		this.dir = dir;
-		JsonFileList=listFileRecur(dir, ".json");
+		JsonFileList = listFileRecur(dir, ".json");
 	}
 
 	/**
@@ -67,9 +74,50 @@ public class algoNotationRecherche {
 		return resultTD;
 	}
 
+	public LinkedHashMap<File, ArrayList<String>> sortByValue(HashMap<File, ArrayList<String>> map) {
+		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(lengthComparator))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+	}
+	private Comparator<List<String>> lengthComparator = new Comparator<List<String>>() {
+		  public int compare(List<String> a, List<String> b) {
+		    return a.size() - b.size(); 
+		    // size() is always nonnegative, so this won't have crazy overflow bugs
+		  }
+		};
+
+	public HashMap<File, ArrayList<String>> listFileRecur(File rep, HashMap<File, ArrayList<String>> f, String extentionName)
+			throws IOException, ParseException {
+		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
+			JSONParser jsonParser = new JSONParser();
+			FileReader reader = new FileReader(rep);
+			JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
+			JSONArray PrivacyPolicy2 = ((JSONArray) ThingDescription.get("privacyPolicy"));
+			PrivacyPolicy2.toArray();
+			f.put(rep,new ArrayList<String>(PrivacyPolicy2));
+			return f;
+		} else if (rep.isDirectory() && !rep.isHidden()) {
+			for (File d : rep.listFiles())
+				listFileRecur(d, f, extentionName);
+		}
+		return f;
+	}
+
 	private static ArrayList<File> listFileRecur(File rep, String extentionName) {
 		return listFileRecur(rep, new ArrayList<File>(), extentionName);
 	}
+
+	/*
+	 * public LinkedList<File> shortList(ArrayList<File> List) throws IOException,
+	 * ParseException { JSONParser jsonParser = new JSONParser(); for (File f :
+	 * List) { FileReader reader = new FileReader(f); JSONObject ThingDescription =
+	 * (JSONObject) jsonParser.parse(reader); JSONArray PrivacyPolicy2 =
+	 * ((JSONArray) ThingDescription.get("privacyPolicy")); if
+	 * (PrivacyPolicy2.size()) { } }
+	 * 
+	 * return null;
+	 * 
+	 * }
+	 */
 
 	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
@@ -157,9 +205,6 @@ public class algoNotationRecherche {
 		return b;
 	}
 
-	
-	
-	
 	public ArrayList<File> getJsonFileList() {
 		return JsonFileList;
 	}
@@ -226,4 +271,49 @@ public class algoNotationRecherche {
 		JsonFileList = listFileRecur(dir, ".json");
 	}
 
+	public static void triFusion(int tableau[]) {
+		int longueur = tableau.length;
+		if (longueur > 0) {
+			triFusion(tableau, 0, longueur - 1);
+		}
+	}
+
+	private static void triFusion(int tableau[], int deb, int fin) {
+		if (deb != fin) {
+			int milieu = (fin + deb) / 2;
+			triFusion(tableau, deb, milieu);
+			triFusion(tableau, milieu + 1, fin);
+			fusion(tableau, deb, milieu, fin);
+		}
+	}
+
+	private static void fusion(int tableau[], int deb1, int fin1, int fin2) {
+		int deb2 = fin1 + 1;
+
+		// on recopie les éléments du début du tableau
+		int table1[] = new int[fin1 - deb1 + 1];
+		for (int i = deb1; i <= fin1; i++) {
+			table1[i - deb1] = tableau[i];
+		}
+
+		int compt1 = deb1;
+		int compt2 = deb2;
+
+		for (int i = deb1; i <= fin2; i++) {
+			if (compt1 == deb2) // c'est que tous les éléments du premier tableau ont été utilisés
+			{
+				break; // tous les éléments ont donc été classés
+			} else if (compt2 == (fin2 + 1)) // c'est que tous les éléments du second tableau ont été utilisés
+			{
+				tableau[i] = table1[compt1 - deb1]; // on ajoute les éléments restants du premier tableau
+				compt1++;
+			} else if (table1[compt1 - deb1] < tableau[compt2]) {
+				tableau[i] = table1[compt1 - deb1]; // on ajoute un élément du premier tableau
+				compt1++;
+			} else {
+				tableau[i] = tableau[compt2]; // on ajoute un élément du second tableau
+				compt2++;
+			}
+		}
+	}
 }

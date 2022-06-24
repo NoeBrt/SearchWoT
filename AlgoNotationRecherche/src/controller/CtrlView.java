@@ -2,40 +2,30 @@ package controller;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 
 import DAO.OntologieDAO;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import model.algoNotationRecherche;
 
 /**
@@ -123,12 +113,11 @@ public class CtrlView implements Initializable {
 					Platform.runLater(() -> tree.getSelectionModel().clearSelection());
 				} else {
 					if (cell.isSelected()) {
-						if (event.isAltDown()) {
+						if (!event.isAltDown()) {
 							tree.getSelectionModel().clearSelection(cell.getIndex());
 							selectAllSubItemsRec(cell.getTreeItem());
 						}
 						DisplayResultSearch();
-
 					}
 				}
 			});
