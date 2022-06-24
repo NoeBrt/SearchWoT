@@ -22,9 +22,17 @@ public class algoNotationRecherche {
 	 * path of the TDs folder
 	 */
 	// "C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE\\anotation_exemple"
-	File dir;
+	private File dir;
+	private ArrayList<File> JsonFileList;
+
 	public algoNotationRecherche(String path) {
-		this.dir=new File(path);
+		this.dir = new File(path);
+		JsonFileList = listFileRecur(dir, ".json");
+	}
+
+	public algoNotationRecherche(File dir) {
+		this.dir = dir;
+		listFileRecur(dir, ".json");
 	}
 
 	/**
@@ -39,38 +47,37 @@ public class algoNotationRecherche {
 	public HashMap<String, String> schearTD(HashMap<String, String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		HashMap<String, String> resultTD = new HashMap<>();
-		for (File item : listFileRecur(dir,".json")) {
-				try (FileReader reader = new FileReader(item)) {
-					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
-					if (containConcept(ThingDescription, concepts)) {
-						resultTD.put(ThingDescription.get("title").toString(),
-								formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4));}
-					
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
+		for (File item : JsonFileList) {
+			try (FileReader reader = new FileReader(item)) {
+				JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
+				if (containConcept(ThingDescription, concepts)) {
+					resultTD.put(ThingDescription.get("title").toString(),
+							formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4));
 				}
 
-			
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 		}
 		return resultTD;
 	}
-	
-	private static ArrayList<File>  listFileRecur(File rep,String extentionName) {
-		return listFileRecur(rep,new ArrayList<File>(),extentionName);
+
+	private static ArrayList<File> listFileRecur(File rep, String extentionName) {
+		return listFileRecur(rep, new ArrayList<File>(), extentionName);
 	}
-	
-	private static ArrayList<File>  listFileRecur(File rep,ArrayList<File> f,String extentionName) {
-		if (rep.isFile()&&!rep.isHidden()&&rep.getName().endsWith(extentionName)) {
+
+	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
+		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			f.add(rep);
 			return f;
-		}else if (rep.isDirectory()&&!rep.isHidden()) {
-			for (File d:rep.listFiles())
-				listFileRecur(d,f,extentionName);
+		} else if (rep.isDirectory() && !rep.isHidden()) {
+			for (File d : rep.listFiles())
+				listFileRecur(d, f, extentionName);
 		}
 		return f;
 	}
@@ -78,7 +85,7 @@ public class algoNotationRecherche {
 	public HashMap<String, String> schearTD(ArrayList<String> concepts) {
 		JSONParser jsonParser = new JSONParser();
 		HashMap<String, String> resultTD = new HashMap<>();
-		for (File item : listFileRecur(dir,".json")) {
+		for (File item : listFileRecur(dir, ".json")) {
 			if (item.isFile()) {
 				try (FileReader reader = new FileReader(item)) {
 					JSONObject ThingDescription = (JSONObject) jsonParser.parse(reader);
@@ -99,7 +106,6 @@ public class algoNotationRecherche {
 		}
 		return resultTD;
 	}
-	
 
 	/**
 	 * @param ThingDescription : JSON object of the TD
@@ -151,6 +157,17 @@ public class algoNotationRecherche {
 		return b;
 	}
 
+	
+	
+	
+	public ArrayList<File> getJsonFileList() {
+		return JsonFileList;
+	}
+
+	public void setJsonFileList(ArrayList<File> jsonFileList) {
+		JsonFileList = jsonFileList;
+	}
+
 	public static String formatJSONStr(final String json_str, final int indent_width) {
 		final char[] chars = json_str.toCharArray();
 		final String newline = System.lineSeparator();
@@ -195,8 +212,6 @@ public class algoNotationRecherche {
 		return ret;
 	}
 
-	
-
 	public File getDir() {
 		return dir;
 	}
@@ -206,7 +221,7 @@ public class algoNotationRecherche {
 	}
 
 	public void setPath(String path) {
-		this.dir=new File(path);
+		this.dir = new File(path);
 	}
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
@@ -21,14 +22,20 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.algoNotationRecherche;
 
 /**
@@ -39,21 +46,21 @@ public class CtrlView implements Initializable {
 	@FXML
 	private Button searchButton;
 	private HashMap<String, String> resultMap = new HashMap<String, String>();;
-
 	ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
-
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
 	@FXML
 	private TextFlow tdDetail;
-
 	@FXML
 	TreeView<String> tree = new TreeView<String>();
 	static algoNotationRecherche algoSearch;
+	public Label leftStatut;
+
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			algoSearch = new algoNotationRecherche("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
+			leftStatut.setText("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
 			setSelectedResultDisplayDetailTd();
@@ -95,8 +102,8 @@ public class CtrlView implements Initializable {
 		tree.setFixedCellSize(25);
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-
 	}
+
 	public void setClikedCellAction() {
 		tree.setCellFactory(tree -> {
 			TreeCell<String> cell = new TreeCell<String>() {
@@ -110,26 +117,27 @@ public class CtrlView implements Initializable {
 
 					}
 				}
-				
 			};
 			cell.setOnMouseClicked(event -> {
 				if (cell.isEmpty()) {
 					Platform.runLater(() -> tree.getSelectionModel().clearSelection());
-					// do whatever you need with the treeItem...
-				} else  {
-					if(cell.isSelected()) {
-						tree.getSelectionModel().clearSelection(cell.getIndex());
-						selectAllSubItemsRec(cell.getTreeItem());
-					DisplayResultSearch();}
-					
+				} else {
+					if (cell.isSelected()) {
+						if (event.isAltDown()) {
+							tree.getSelectionModel().clearSelection(cell.getIndex());
+							selectAllSubItemsRec(cell.getTreeItem());
+						}
+						DisplayResultSearch();
+
+					}
 				}
 			});
-		
+
 			return cell;
 		});
 
 	}
-	
+
 	public void DisplayResultSearch() {
 		ArrayList<String> SelectedConcepts = new ArrayList<>();
 		tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
@@ -138,18 +146,22 @@ public class CtrlView implements Initializable {
 	}
 
 	private void selectAllSubItemAndParent(TreeItem<String> courant) {
-			tree.getSelectionModel().select(courant);
-			for (TreeItem<String> e : courant.getChildren()) {
-				selectAllSubItemAndParent(e);}
+		tree.getSelectionModel().select(courant);
+		for (TreeItem<String> e : courant.getChildren()) {
+			selectAllSubItemAndParent(e);
+		}
 
 	}
+
 	private void selectAllSubItemsRec(TreeItem<String> courant) {
 		if (courant.getChildren().isEmpty()) {
 			tree.getSelectionModel().select(courant);
-		}else {	
-		for (TreeItem<String> e : courant.getChildren()) {
-			selectAllSubItemsRec(e);}}
-		
+		} else {
+			for (TreeItem<String> e : courant.getChildren()) {
+				selectAllSubItemsRec(e);
+			}
+		}
+
 	}
 
 	@FXML
@@ -159,10 +171,27 @@ public class CtrlView implements Initializable {
 			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
 				Text t1 = new Text(resultMap.get(resultView.getSelectionModel().getSelectedItem()));
 				tdDetail.getChildren().setAll(t1);
-
 			}
 		});
 
 	}
+	public void menuButtonClikedOpenTd() {
+		DirectoryChooser dc = new DirectoryChooser();
+	//	fc.getExtensionFilters().add(new ExtensionFilter("JPG Files", "*.jpg"));
+		// fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.png"));
+		File file = dc.showDialog(null);
+
+		if (file != null) {
+			algoSearch.setDir(file);
+			if(!tree.getSelectionModel().isEmpty()) {
+			 DisplayResultSearch();}
+			leftStatut.setText(file.getAbsolutePath());
+		}
+
+		else {
+			System.out.println("invalide file");
+		}
+	}
+	
 
 }
