@@ -32,7 +32,7 @@ public class algoNotationRecherche {
 
 	public algoNotationRecherche(File dir) {
 		this.dir = dir;
-		listFileRecur(dir, ".json");
+		JsonFileList=listFileRecur(dir, ".json");
 	}
 
 	/**
@@ -218,10 +218,12 @@ public class algoNotationRecherche {
 
 	public void setDir(File dir) {
 		this.dir = dir;
+		JsonFileList = listFileRecur(dir, ".json");
 	}
 
 	public void setPath(String path) {
 		this.dir = new File(path);
+		JsonFileList = listFileRecur(dir, ".json");
 	}
 
 }
