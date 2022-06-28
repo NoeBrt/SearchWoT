@@ -55,6 +55,7 @@
 						<MenuItem mnemonicParsing="false" text="Save" />
 						<MenuItem mnemonicParsing="false" text="Save As…" />
 						<MenuItem mnemonicParsing="false" text="Revert" />
+						<MenuItem mnemonicParsing="false" text="Load new Ontology" onAction="#loadOntologyAction" />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Preferences…" />
 						<SeparatorMenuItem mnemonicParsing="false" />
@@ -99,7 +100,7 @@
 							prefHeight="551.0" prefWidth="246.0"/>
 					</children>
 				</StackPane>
-				<StackPane prefHeight="551.0" prefWidth="351.0" fx:id="textFlowPane">
+				<StackPane prefHeight="551.0" prefWidth="351.0" >
 					<children>
 						<ScrollPane prefHeight="-1.0" prefWidth="-1.0">
 							<content>

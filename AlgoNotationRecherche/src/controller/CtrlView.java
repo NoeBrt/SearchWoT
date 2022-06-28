@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -24,11 +25,12 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
+
 import model.algoNotationRecherche;
 import parser.ParseException;
 
@@ -50,6 +52,7 @@ public class CtrlView implements Initializable {
 	static algoNotationRecherche algoSearch;
 	public Label leftStatut;
 	public Label rightStatut;
+	
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -61,7 +64,7 @@ public class CtrlView implements Initializable {
 			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
 			setSelectedResultDisplayDetailTd();
-			initTreeView();
+			setTreeView("PrivacyPolicy", new OntologieDAO("WotPriv.owl"));
 			setClikedCellAction();
 		} catch (OWLException e) {
 			// TODO Auto-generated catch block
@@ -75,38 +78,16 @@ public class CtrlView implements Initializable {
 		}
 	}
 
-	private void initTreeView() throws OWLException {
-		// TreeItem<String> root = new TreeItem<String>("Private_Policy");
-		// Privacy Policy is the Ontology classe I Use
-		TreeItem<String> root = new TreeItem<String>("PrivacyPolicy");
+	private void setTreeView(String rootName,OntologieDAO onto) throws OWLException {
+		TreeItem<String> root = new TreeItem<String>(rootName);
 		root.setExpanded(true);
-		OntologieDAO ont = new OntologieDAO("WotPriv.owl");
-		// hashmap of the ontology
+		OntologieDAO ont = onto;
 		HashMap<String, ArrayList<String>> hm = ont.getClassesHashMap();
-		// work only for my ontology
-		for (String s : hm.get(root.getValue())) {
-			TreeItem<String> tI = new TreeItem<String>(s);
-			root.getChildren().add(tI);
-			if (hm.containsKey(s)) {
-				for (String s1 : hm.get(s)) {
-					TreeItem<String> n = new TreeItem<String>(s1);
-					TreeItem<String> tI1 = root.getChildren().get(root.getChildren().indexOf(tI));
-					tI1.getChildren().add(n);
-					if (hm.containsKey(s1)) {
-						for (String s2 : hm.get(s1)) {
-							tI1.getChildren().get(tI1.getChildren().indexOf(n)).getChildren()
-									.add(new TreeItem<String>(s2));
-						}
-					}
-				}
-			}
-		}
-		tree.setRoot(root);
+		tree.setRoot(TreeSubItemsRec(root, hm));
 		tree.setFixedCellSize(25);
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 	}
-
+	
 	public void setClikedCellAction() {
 		tree.setCellFactory(tree -> {
 			TreeCell<String> cell = new TreeCell<String>() {
@@ -167,6 +148,19 @@ public class CtrlView implements Initializable {
 
 	}
 
+	public TreeItem<String> TreeSubItemsRec(TreeItem<String> courant, HashMap<String, ArrayList<String>> map) {
+		if (map.containsKey(courant.getValue())) {
+			for (String s : map.get(courant.getValue())) {
+				TreeItem<String> t = new TreeItem<String>(s);
+				courant.getChildren().add(t);
+				TreeSubItemsRec(t, map);
+			}
+		}
+
+		return courant;
+
+	}
+
 	@FXML
 	public void setSelectedResultDisplayDetailTd() {
 		resultView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -181,8 +175,6 @@ public class CtrlView implements Initializable {
 
 	public void menuButtonClikedOpenTd() throws IOException, ParseException {
 		DirectoryChooser dc = new DirectoryChooser();
-		// fc.getExtensionFilters().add(new ExtensionFilter("JPG Files", "*.jpg"));
-		// fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.png"));
 		File file = dc.showDialog(null);
 
 		if (file != null) {
@@ -197,6 +189,20 @@ public class CtrlView implements Initializable {
 		else {
 			System.out.println("invalide file");
 		}
+	}
+
+	public void loadOntologyAction() throws IOException {
+				CtrlLoadOntology.showInterfaceLoad();
+				try {
+					setTreeView(CtrlLoadOntology.valueRootListBox,CtrlLoadOntology.ontology);
+				} catch (OWLException e) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("OWL Exception");
+					alert.setHeaderText("ERROR");
+					alert.setContentText("CANT'T LOAD OWL FILE");
+					alert.showAndWait();
+				}
+		
 	}
 
 }

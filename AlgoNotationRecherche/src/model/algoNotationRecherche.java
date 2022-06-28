@@ -38,7 +38,7 @@ public class algoNotationRecherche {
 
 	public algoNotationRecherche(String path) throws IOException, ParseException {
 		this.dir = new File(path);
-		// JsonFileList = listFileRecur(dir, ".json");
+		 JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
 
@@ -109,10 +109,10 @@ public class algoNotationRecherche {
 		}
 		return f;
 	}
-	/*
-	 * private static ArrayList<File> listFileRecur(File rep, String extentionName)
-	 * { return listFileRecur(rep, new ArrayList<File>(), extentionName); }
-	 */
+	
+	 private static ArrayList<File> listFileRecur(File rep, String extentionName)
+	 { return listFileRecur(rep, new ArrayList<File>(), extentionName); }
+	 
 	/*
 	 * public LinkedList<File> shortList(ArrayList<File> List) throws IOException,
 	 * ParseException { JSONParser jsonParser = new JSONParser(); for (File f :
@@ -123,15 +123,15 @@ public class algoNotationRecherche {
 	 * 
 	 * return null;
 	 * 
-	 * }
-	 */
-	/*
-	 * private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f,
-	 * String extentionName) { if (rep.isFile() && !rep.isHidden() &&
-	 * rep.getName().endsWith(extentionName)) { f.add(rep); return f; } else if
-	 * (rep.isDirectory() && !rep.isHidden()) { for (File d : rep.listFiles())
-	 * listFileRecur(d, f, extentionName); } return f; }
-	 */
+	 * }*/
+	 
+	
+	  private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f,
+	 String extentionName) { if (rep.isFile() && !rep.isHidden() &&
+	 rep.getName().endsWith(extentionName)) { f.add(rep); return f; } else if
+	  (rep.isDirectory() && !rep.isHidden()) { for (File d : rep.listFiles())
+	  listFileRecur(d, f, extentionName); } return f; }
+	 
 
 	public LinkedHashMap<String, String> schearTD(ArrayList<String> concepts) {
 		int nbSameTitleTd = 0;
@@ -139,7 +139,7 @@ public class algoNotationRecherche {
 		LinkedHashMap<String, String> resultTD = new LinkedHashMap<>();
 		getListTdContainConcept(concepts, a);
 		for (JSONObject ThingDescription : a) {
-			String textJson = formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4);
+			String textJson = formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 5);
 			if (!resultTD.containsKey(ThingDescription.get("title").toString())
 					|| textJson.equals(resultTD.get(ThingDescription.get("title").toString()))) {
 				resultTD.put(ThingDescription.get("title").toString(), textJson);
