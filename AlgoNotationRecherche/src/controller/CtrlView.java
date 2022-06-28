@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import model.algoNotationRecherche;
+import parser.ParseException;
 
 /**
  * @author Noe
@@ -50,6 +52,7 @@ public class CtrlView implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			algoSearch = new algoNotationRecherche("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
+			algoSearch.getJsonObjectList().forEach(object -> System.out.println(object.get("title")));
 			leftStatut.setText("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
@@ -57,6 +60,12 @@ public class CtrlView implements Initializable {
 			initTreeView();
 			setClikedCellAction();
 		} catch (OWLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -133,14 +142,14 @@ public class CtrlView implements Initializable {
 		resultMap = algoSearch.schearTD(SelectedConcepts);
 		Resultlist.setAll(resultMap.keySet());
 	}
-
+/*
 	private void selectAllSubItemAndParent(TreeItem<String> courant) {
 		tree.getSelectionModel().select(courant);
 		for (TreeItem<String> e : courant.getChildren()) {
 			selectAllSubItemAndParent(e);
 		}
 
-	}
+	}*/
 
 	private void selectAllSubItemsRec(TreeItem<String> courant) {
 		if (courant.getChildren().isEmpty()) {
@@ -164,7 +173,7 @@ public class CtrlView implements Initializable {
 		});
 
 	}
-	public void menuButtonClikedOpenTd() {
+	public void menuButtonClikedOpenTd() throws IOException, ParseException {
 		DirectoryChooser dc = new DirectoryChooser();
 	//	fc.getExtensionFilters().add(new ExtensionFilter("JPG Files", "*.jpg"));
 		// fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.png"));
