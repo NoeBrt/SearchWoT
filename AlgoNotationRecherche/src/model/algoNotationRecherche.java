@@ -45,6 +45,7 @@ public class algoNotationRecherche {
 		this.dir = new File(path);
 		// JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
+		sortByConceptNumber(JsonObjectList);
 
 	}
 
@@ -52,6 +53,8 @@ public class algoNotationRecherche {
 		this.dir = dir;
 		// JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
+		sortByConceptNumber(JsonObjectList);
+
 	}
 
 	/**
@@ -127,35 +130,37 @@ public class algoNotationRecherche {
 	 * 
 	 * }
 	 */
-/*
-	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
-		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
-			f.add(rep);
-			return f;
-		} else if (rep.isDirectory() && !rep.isHidden()) {
-			for (File d : rep.listFiles())
-				listFileRecur(d, f, extentionName);
-		}
-		return f;
-	}*/
+	/*
+	 * private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f,
+	 * String extentionName) { if (rep.isFile() && !rep.isHidden() &&
+	 * rep.getName().endsWith(extentionName)) { f.add(rep); return f; } else if
+	 * (rep.isDirectory() && !rep.isHidden()) { for (File d : rep.listFiles())
+	 * listFileRecur(d, f, extentionName); } return f; }
+	 */
 
 	public LinkedHashMap<String, String> schearTD(ArrayList<String> concepts) {
+		int nbSameTitleTd = 0;
 		LinkedList<JSONObject> a = new LinkedList<>();
 		LinkedHashMap<String, String> resultTD = new LinkedHashMap<>();
+		getListTdContainConcept(concepts, a);
+		for (JSONObject ThingDescription : a) {
+			String textJson = formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4);
+			if (!resultTD.containsKey(ThingDescription.get("title").toString())
+					|| textJson.equals(resultTD.get(ThingDescription.get("title").toString()))) {
+				resultTD.put(ThingDescription.get("title").toString(), textJson);
+			} else {
+				resultTD.put(ThingDescription.get("title").toString() + " (" + ++nbSameTitleTd + ")", textJson);
+			}
+		}
+		return resultTD;
+	}
+
+	private void getListTdContainConcept(ArrayList<String> concepts, LinkedList<JSONObject> a) {
 		for (JSONObject ThingDescription : JsonObjectList) {
 			if (containConcepts(ThingDescription, concepts)) {
 				a.add(ThingDescription);
 			}
 		}
-
-		a = (LinkedList<JSONObject>) sortByConceptNumber(a);
-		System.out.println(a);
-		a.forEach(test -> System.out.println(test.get("title")+",  "+((JSONArray)test.get("privacyPolicy")).size()));
-		for (JSONObject ThingDescription : a) {
-			resultTD.put(ThingDescription.get("title").toString(),
-					formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4));
-		}
-		return resultTD;
 	}
 
 	/**
