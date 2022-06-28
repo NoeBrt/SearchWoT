@@ -24,6 +24,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -47,13 +49,15 @@ public class CtrlView implements Initializable {
 	TreeView<String> tree = new TreeView<String>();
 	static algoNotationRecherche algoSearch;
 	public Label leftStatut;
-
+	public Label rightStatut;
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			algoSearch = new algoNotationRecherche("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			algoSearch.getJsonObjectList().forEach(object -> System.out.println(object.get("title")));
 			leftStatut.setText("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
+			rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
+			rightStatut.setTextFill(Color.web("#008080"));
 			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
 			setSelectedResultDisplayDetailTd();
@@ -141,15 +145,16 @@ public class CtrlView implements Initializable {
 		tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
 		resultMap = algoSearch.schearTD(SelectedConcepts);
 		Resultlist.setAll(resultMap.keySet());
-	}
-/*
-	private void selectAllSubItemAndParent(TreeItem<String> courant) {
-		tree.getSelectionModel().select(courant);
-		for (TreeItem<String> e : courant.getChildren()) {
-			selectAllSubItemAndParent(e);
-		}
+		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 
-	}*/
+	}
+	/*
+	 * private void selectAllSubItemAndParent(TreeItem<String> courant) {
+	 * tree.getSelectionModel().select(courant); for (TreeItem<String> e :
+	 * courant.getChildren()) { selectAllSubItemAndParent(e); }
+	 * 
+	 * }
+	 */
 
 	private void selectAllSubItemsRec(TreeItem<String> courant) {
 		if (courant.getChildren().isEmpty()) {
@@ -173,23 +178,25 @@ public class CtrlView implements Initializable {
 		});
 
 	}
+
 	public void menuButtonClikedOpenTd() throws IOException, ParseException {
 		DirectoryChooser dc = new DirectoryChooser();
-	//	fc.getExtensionFilters().add(new ExtensionFilter("JPG Files", "*.jpg"));
+		// fc.getExtensionFilters().add(new ExtensionFilter("JPG Files", "*.jpg"));
 		// fc.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.png"));
 		File file = dc.showDialog(null);
 
 		if (file != null) {
 			algoSearch.setDir(file);
-			if(!tree.getSelectionModel().isEmpty()) {
-			 DisplayResultSearch();}
+			if (!tree.getSelectionModel().isEmpty()) {
+				DisplayResultSearch();
+			}
 			leftStatut.setText(file.getAbsolutePath());
+			rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		}
 
 		else {
 			System.out.println("invalide file");
 		}
 	}
-	
 
 }
