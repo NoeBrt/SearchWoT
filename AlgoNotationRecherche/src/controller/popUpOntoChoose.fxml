@@ -7,18 +7,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlLoadOntology" >
+<AnchorPane id="Content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlLoadOntology">
    <children>
-      <Button layoutX="14.0" layoutY="49.0" mnemonicParsing="false" text="open owl file" onAction="#openOWlFile" />
+      <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#openOWlFile" text="open (.owl)" />
       <Label layoutX="77.0" layoutY="42.0" />
-      <Label layoutX="8.0" layoutY="85.0" text="&quot;path&quot;" fx:id="pathOwl">
+      <Label fx:id="pathOwl" layoutX="118.0" layoutY="20.0" text="&quot;path&quot;">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="275.0" layoutY="47.0" prefWidth="150.0"  fx:id="rootListBox" />
-      <Label layoutX="271.0" layoutY="14.0" prefHeight="18.0" prefWidth="158.0" text="choose a root for the onlogy" />
-      <CheckBox layoutX="440.0" layoutY="53.0" mnemonicParsing="false" text="inverted" />
-      <CheckBox layoutX="210.0" layoutY="53.0" mnemonicParsing="false" text="auto" />
+      <ChoiceBox fx:id="rootListBox" layoutX="14.0" layoutY="65.0" prefWidth="150.0"  onAction="#eventHideRedLabel"/>
+      <CheckBox fx:id="autoButton" layoutX="184.0" layoutY="69.0" mnemonicParsing="false" onAction="#hideChoiceBoxWhenAutoCheked" text="auto" />
+      <CheckBox fx:id="invertedButton" layoutX="246.0" layoutY="69.0" mnemonicParsing="false" text="Inverted" />
+      <Button layoutX="368.0" layoutY="65.0" mnemonicParsing="false" onAction="#loadButtonPressed" text="load ontology" />
+      <Label fx:id="instructionRedLabel" layoutX="23.0" layoutY="52.0" text="choose a root or select &quot;auto&quot;" visible="false" textFill="RED">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
    </children>
 </AnchorPane>

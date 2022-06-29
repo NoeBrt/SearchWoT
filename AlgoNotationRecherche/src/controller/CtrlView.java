@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 import org.semanticweb.owlapi.model.OWLException;
@@ -49,22 +50,23 @@ public class CtrlView implements Initializable {
 	private TextFlow tdDetail;
 	@FXML
 	TreeView<String> tree = new TreeView<String>();
+	static OntologieDAO ontology;
+
 	static algoNotationRecherche algoSearch;
 	public Label leftStatut;
 	public Label rightStatut;
-	
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			ontology = new OntologieDAO("WotPriv.owl");
 			algoSearch = new algoNotationRecherche("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			algoSearch.getJsonObjectList().forEach(object -> System.out.println(object.get("title")));
 			leftStatut.setText("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
 			rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
 			rightStatut.setTextFill(Color.web("#008080"));
-			resultView.setFixedCellSize(25);
 			resultView.setItems(Resultlist);
+			setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
 			setSelectedResultDisplayDetailTd();
-			setTreeView("PrivacyPolicy", new OntologieDAO("WotPriv.owl"));
 			setClikedCellAction();
 		} catch (OWLException e) {
 			// TODO Auto-generated catch block
@@ -78,16 +80,18 @@ public class CtrlView implements Initializable {
 		}
 	}
 
-	private void setTreeView(String rootName,OntologieDAO onto) throws OWLException {
+	private void setTreeView(String rootName, LinkedHashMap<String, ArrayList<String>> owlClasseMap)
+			throws OWLException {
 		TreeItem<String> root = new TreeItem<String>(rootName);
 		root.setExpanded(true);
-		OntologieDAO ont = onto;
-		HashMap<String, ArrayList<String>> hm = ont.getClassesHashMap();
-		tree.setRoot(TreeSubItemsRec(root, hm));
-		tree.setFixedCellSize(25);
+		if (!rootName.equals(ontology.getName())) {
+			tree.setRoot(TreeSubItemsRec(root, owlClasseMap));
+		} else {
+			tree.setRoot(TreeSubItemsRec2(root, owlClasseMap));
+		}
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
-	
+
 	public void setClikedCellAction() {
 		tree.setCellFactory(tree -> {
 			TreeCell<String> cell = new TreeCell<String>() {
@@ -148,7 +152,7 @@ public class CtrlView implements Initializable {
 
 	}
 
-	public TreeItem<String> TreeSubItemsRec(TreeItem<String> courant, HashMap<String, ArrayList<String>> map) {
+	public TreeItem<String> TreeSubItemsRec(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
 		if (map.containsKey(courant.getValue())) {
 			for (String s : map.get(courant.getValue())) {
 				TreeItem<String> t = new TreeItem<String>(s);
@@ -158,7 +162,24 @@ public class CtrlView implements Initializable {
 		}
 
 		return courant;
+	}
 
+	public TreeItem<String> TreeSubItemsRec2(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
+		for (String s : map.keySet()) {
+			if (!contain(courant, s))
+				courant.getChildren().add(TreeSubItemsRec(new TreeItem<String>(s), map));
+		}
+		return courant;
+
+	}
+
+	public boolean contain(TreeItem<String> courant, String value) {
+		for (TreeItem<String> e : courant.getChildren()) {
+			if (contain(e, value)) {
+				return true;
+			}
+		}
+		return courant.getValue().equals(value);
 	}
 
 	@FXML
@@ -192,17 +213,43 @@ public class CtrlView implements Initializable {
 	}
 
 	public void loadOntologyAction() throws IOException {
-				CtrlLoadOntology.showInterfaceLoad();
-				try {
-					setTreeView(CtrlLoadOntology.valueRootListBox,CtrlLoadOntology.ontology);
-				} catch (OWLException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("OWL Exception");
-					alert.setHeaderText("ERROR");
-					alert.setContentText("CANT'T LOAD OWL FILE");
-					alert.showAndWait();
+		CtrlLoadOntology.showInterfaceLoad();
+		try {
+			if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
+				ontology = CtrlLoadOntology.ontology;
+				if (CtrlLoadOntology.isAutoButtonSelected()) {
+					tree.setShowRoot(false);
+					if (CtrlLoadOntology.isInvertedButtonSelected()) {
+						setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
+					} else {
+						setTreeView(ontology.getName(), ontology.getSubClassesHashMap());
+					}
+				} else {
+					tree.setShowRoot(true);
+					if (CtrlLoadOntology.isInvertedButtonSelected()) {
+						setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSuperClassesHashMap());
+					} else {
+						setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSubClassesHashMap());
+					}
+
 				}
-		
+			}
+		} catch (OWLException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("OWL Exception");
+			alert.setHeaderText("ERROR");
+			alert.setContentText("CANT'T LOAD OWL FILE");
+			alert.showAndWait();
+		}
+
+	}
+
+	public static OntologieDAO getOntology() {
+		return ontology;
+	}
+
+	public static void setOntology(OntologieDAO ontology) {
+		CtrlView.ontology = ontology;
 	}
 
 }

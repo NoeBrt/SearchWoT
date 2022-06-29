@@ -3,8 +3,11 @@ package DAO;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -29,15 +32,20 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import javafx.scene.control.TreeItem;
 import model.Tree;
 import model.Tree.Node;
+import simple.JSONArray;
+import simple.JSONObject;
 
 public class OntologieDAO {
 	private OWLOntology ontology;
-	String path;
+	private String path;
+	private String name;
 
 	public OntologieDAO(String path) throws OWLException {
-		this.path = path;
+		File f = new File(path);
+		this.path=f.getAbsolutePath();
 		final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		this.ontology = manager.loadOntologyFromOntologyDocument(IRI.create((new File(path))));
+		this.ontology = manager.loadOntologyFromOntologyDocument(IRI.create(f));
+		this.name="ontology : "+IRI.create((new File(path))).getShortForm();
 
 	}
 
@@ -50,72 +58,78 @@ public class OntologieDAO {
 		return listofClass;
 	}
 
-	public HashMap<String, ArrayList<String>> getClassesHashMap() {
-		HashMap<String, ArrayList<String>> hm = new HashMap<String, ArrayList<String>>();
+	public ArrayList<OWLClass> getClassesOrderBySuperClasse() {
+		ArrayList<OWLClass> classes = new ArrayList<>(ontology.getClassesInSignature());
+		classes.sort(numberSuperClassComparator);
+		return classes;
+	}
+
+	public ArrayList<OWLClass> getClassesOrderBySubClasse() {
+		ArrayList<OWLClass> classes = new ArrayList<>(ontology.getClassesInSignature());
+		classes.sort(numberSubClassComparator);
+		return classes;
+	}
+
+	private Comparator<OWLClass> numberSuperClassComparator = new Comparator<OWLClass>() {
+		public int compare(OWLClass a, OWLClass b) {
+			OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+			OWLReasoner reasonerFactory3 = reasonerFactory.createReasoner(ontology);
+			NodeSet<OWLClass> subClses = reasonerFactory3.getSuperClasses(a, false);
+			NodeSet<OWLClass> subClses1 = reasonerFactory3.getSuperClasses(b, false);
+			return subClses1.getFlattened().size() - subClses.getFlattened().size();
+			// size() is always nonnegative, so this won't have crazy overflow bugs
+		}
+	};
+	private Comparator<OWLClass> numberSubClassComparator = new Comparator<OWLClass>() {
+		public int compare(OWLClass a, OWLClass b) {
+			OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+			OWLReasoner reasonerFactory3 = reasonerFactory.createReasoner(ontology);
+			NodeSet<OWLClass> subClses = reasonerFactory3.getSubClasses(a, false);
+			NodeSet<OWLClass> subClses1 = reasonerFactory3.getSubClasses(b, false);
+			return subClses1.getFlattened().size() - subClses.getFlattened().size();
+			// size() is always nonnegative, so this won't have crazy overflow bugs
+		}
+	};
+
+	public LinkedHashMap<String, ArrayList<String>> getSuperClassesHashMap() {
+		LinkedHashMap<String, ArrayList<String>> hm = new LinkedHashMap<String, ArrayList<String>>();
 		OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 		OWLReasoner reasonerFactory3 = reasonerFactory.createReasoner(ontology);
-		OWLDataFactory fac3 = ontology.getOWLOntologyManager().getOWLDataFactory();
-		for (String s : getClassesName()) {
-			IRI docIRI = IRI.create(ontology.getOntologyID().getOntologyIRI().get() + "#" + s);
-			OWLClass pizza = fac3.getOWLClass(docIRI);
-			NodeSet<OWLClass> subClses = reasonerFactory3.getSuperClasses(pizza, true);
+		for (OWLClass ontElement : getClassesOrderBySuperClasse()) {
+			NodeSet<OWLClass> subClses = reasonerFactory3.getSuperClasses(ontElement, true);
 			Set<OWLClass> clses = subClses.getFlattened();
-			// instanciate the hashmap
 			for (OWLClass cls1 : clses) {
-				// cls1.getIRI().getShortForm() is the name of an ontology classes in String
-				// all the classe is a key, and their superclasses is the value
 				if (!cls1.getIRI().getShortForm().equals("Thing")) {
-					if (!hm.containsKey(s)) {
-						hm.put(s, new ArrayList<String>());
+					if (!hm.containsKey(ontElement.getIRI().getShortForm())) {
+						hm.put(ontElement.getIRI().getShortForm(), new ArrayList<String>());
 					}
-					hm.get(s).add(cls1.getIRI().getShortForm());
+					hm.get(ontElement.getIRI().getShortForm()).add(cls1.getIRI().getShortForm());
 				}
 				System.out.println();
 			}
 		}
 		// Tree<String> res = new Tree<String>("");
-
 		return hm;
 	}
 
-	public MyType<String> getClassesTreeInverted(String root) {
-		HashMap<String, ArrayList<String>> hm = new HashMap<String, ArrayList<String>>();
-
+	public LinkedHashMap<String, ArrayList<String>> getSubClassesHashMap() {
+		LinkedHashMap<String, ArrayList<String>> hm = new LinkedHashMap<String, ArrayList<String>>();
 		OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-		// OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, config);
-		// reasoner.precomputeInferences();
 		OWLReasoner reasonerFactory3 = reasonerFactory.createReasoner(ontology);
-		OWLDataFactory fac3 = ontology.getOWLOntologyManager().getOWLDataFactory();
-
-		IRI docIRI = IRI.create(ontology.getOntologyID().getOntologyIRI().get() + "#" + root);
-		OWLClass pizza = fac3.getOWLClass(docIRI);
-		NodeSet<OWLClass> RootSub = reasonerFactory3.getSuperClasses(pizza, true);
-
-		for (org.semanticweb.owlapi.reasoner.Node<OWLClass> s : RootSub.getNodes()) {
-			// docIRI = IRI.create(ontology.getOntologyID().getOntologyIRI().get() + "#" +
-			// s);
-			// pizza = fac3.getOWLClass(docIRI);
-			// NodeSet<OWLClass> subClses = reasonerFactory3.getSuperClasses(pizza, true);
-			// Set<OWLClass> clses = subClses.getFlattened();
-			// System.out.println("Subclasses of " + s + " : ");
-
-			// System.out.println(subClses);
-		}
-		// Tree<String> res = new Tree<String>("");
-
-		return new MyType<String>("test");
-	}
-
-	private TreeItem<MyType<String>> buildSubtree(MyType<String> root) {
-		TreeItem<MyType<String>> result = new TreeItem<>(root);
-
-		if (root.getChildren() != null) {
-			for (MyType<String> child : root.getChildren()) {
-				result.getChildren().add(buildSubtree(child));
+		for (OWLClass ontElement : getClassesOrderBySubClasse()) {
+			NodeSet<OWLClass> subClses = reasonerFactory3.getSubClasses(ontElement, true);
+			Set<OWLClass> clses = subClses.getFlattened();
+			for (OWLClass cls1 : clses) {
+				if (!cls1.getIRI().getShortForm().equals("Nothing")) {
+					if (!hm.containsKey(ontElement.getIRI().getShortForm())) {
+						hm.put(ontElement.getIRI().getShortForm(), new ArrayList<String>());
+					}
+					hm.get(ontElement.getIRI().getShortForm()).add(cls1.getIRI().getShortForm());
+				}
+				System.out.println();
 			}
 		}
-
-		return result;
+		return hm;
 	}
 
 	public Node<String> recur() {
@@ -134,6 +148,22 @@ public class OntologieDAO {
 	public void setOntologyByPath(String path) throws OWLOntologyCreationException {
 		final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		this.ontology = manager.loadOntologyFromOntologyDocument(IRI.create((new File(path))));
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
