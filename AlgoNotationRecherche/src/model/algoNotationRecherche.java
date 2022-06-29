@@ -28,10 +28,6 @@ public class algoNotationRecherche {
 	private ArrayList<File> JsonFileList;
 	private ArrayList<JSONObject> JsonObjectList;
 
-	public ArrayList<JSONObject> getJsonObjectList() {
-		return JsonObjectList;
-	}
-
 	public void setJsonObjectList(ArrayList<JSONObject> jsonObjectList) {
 		JsonObjectList = jsonObjectList;
 	}
@@ -97,11 +93,15 @@ public class algoNotationRecherche {
 	}
 
 	public static ArrayList<JSONObject> listJsonObjectRecur(File rep, ArrayList<JSONObject> f, String extentionName)
-			throws IOException, ParseException {
+			throws IOException {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			FileReader reader = new FileReader(rep);
+			try {
 			JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
 			f.add(ThingDescription);
+			}catch(ParseException pe){
+				System.out.println(rep.getName());
+			}
 			return f;
 		} else if (rep.isDirectory() && !rep.isHidden()) {
 			for (File d : rep.listFiles())
@@ -282,6 +282,9 @@ public class algoNotationRecherche {
 	public void setPath(String path) throws IOException, ParseException {
 		this.dir = new File(path);
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
+	}
+	public ArrayList<JSONObject> getJsonObjectList() {
+		return JsonObjectList;
 	}
 
 }

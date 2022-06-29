@@ -49,15 +49,15 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false"
-							text="Open Tds directory" onAction="#menuButtonClikedOpenTd" />
-						<Menu mnemonicParsing="false" text="Open Recent" />
+							text="Open Tds directory" onAction="#clikedOpenTdsDirectoryMenuItem" />
+						<Menu mnemonicParsing="false" text="Open Recent"  fx:id="openRecent" onAction="#clikedOpenRecentMenuItem"  />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Close" />
 						<MenuItem mnemonicParsing="false" text="Save" />
 						<MenuItem mnemonicParsing="false" text="Save As…" />
 						<MenuItem mnemonicParsing="false" text="Revert" />
 						<MenuItem mnemonicParsing="false"
-							text="Load new Ontology" onAction="#loadOntologyAction" />
+							text="Load new Ontology" onAction="#loadOntologyMenuItem" />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Preferences…" />
 						<SeparatorMenuItem mnemonicParsing="false" />
@@ -92,7 +92,7 @@
 				<StackPane>
 					<children>
 						<TreeView fx:id="tree" prefHeight="474.0"
-							prefWidth="286.0" onKeyPressed="#DisplayResultSearch"
+							prefWidth="286.0" onKeyPressed="#displayResultSearch"
 							fixedCellSize="25" showRoot="false" />
 					</children>
 				</StackPane>

@@ -3,14 +3,15 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
-
 import org.semanticweb.owlapi.model.OWLException;
-
 import DAO.OntologieDAO;
+import application.App;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,9 +20,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -31,7 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
-
+import javafx.stage.Stage;
 import model.algoNotationRecherche;
 import parser.ParseException;
 
@@ -39,38 +41,44 @@ import parser.ParseException;
  * @author Noe
  */
 public class CtrlView implements Initializable {
-
+	public static Stage CtrlStage;
+	private static OntologieDAO ontology;
+	private static algoNotationRecherche algoSearch;
 	@FXML
-	private Button searchButton;
+	private TreeView<String> tree = new TreeView<String>();
+
 	private HashMap<String, String> resultMap = new HashMap<String, String>();;
-	ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
+	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
+
 	@FXML
 	private TextFlow tdDetail;
-	@FXML
-	TreeView<String> tree = new TreeView<String>();
-	static OntologieDAO ontology;
 
-	static algoNotationRecherche algoSearch;
-	public Label leftStatut;
-	public Label rightStatut;
+	@FXML
+	private Label leftStatut;
+	@FXML
+	private Label rightStatut;
+
+	private Deque<MenuItem> dequeRecentOpen = new ArrayDeque<MenuItem>();
+	@FXML
+	private Menu openRecent;
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			ontology = new OntologieDAO("WotPriv.owl");
-			algoSearch = new algoNotationRecherche("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
-			algoSearch.getJsonObjectList().forEach(object -> System.out.println(object.get("title")));
-			leftStatut.setText("C:\\Users\\noebr\\Desktop\\IoT-Devices-Benchmark_ANNOTE");
+			ontology = new OntologieDAO("Ontologie/WotPriv.owl");
+			algoSearch = new algoNotationRecherche("IoT-Devices-Benchmark_ANNOTE");
+			dequeRecentOpen.addFirst(new MenuItem(algoSearch.getDir().getPath()));
+			openRecent.getItems().setAll(dequeRecentOpen);
+			leftStatut.setText(algoSearch.getDir().getPath());
 			rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
 			rightStatut.setTextFill(Color.web("#008080"));
 			resultView.setItems(Resultlist);
 			setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
 			setSelectedResultDisplayDetailTd();
-			setClikedCellAction();
+			setClikedTreeCellAction();
 		} catch (OWLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			displayOwlError();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,19 +88,61 @@ public class CtrlView implements Initializable {
 		}
 	}
 
-	private void setTreeView(String rootName, LinkedHashMap<String, ArrayList<String>> owlClasseMap)
+	public void setTreeView(String rootName, LinkedHashMap<String, ArrayList<String>> owlClasseMap)
 			throws OWLException {
 		TreeItem<String> root = new TreeItem<String>(rootName);
 		root.setExpanded(true);
 		if (!rootName.equals(ontology.getName())) {
-			tree.setRoot(TreeSubItemsRec(root, owlClasseMap));
+			tree.setRoot(treeSubItemsRec(root, owlClasseMap));
 		} else {
-			tree.setRoot(TreeSubItemsRec2(root, owlClasseMap));
+			tree.setRoot(treeSubItemsRecAutoRoot(root, owlClasseMap));
 		}
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
-	public void setClikedCellAction() {
+	public void selectAllSubTreeItemsRec(TreeItem<String> courant) {
+		if (courant.getChildren().isEmpty()) {
+			tree.getSelectionModel().select(courant);
+		} else {
+			for (TreeItem<String> e : courant.getChildren()) {
+				selectAllSubTreeItemsRec(e);
+			}
+		}
+
+	}
+
+	private TreeItem<String> treeSubItemsRec(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
+		if (map.containsKey(courant.getValue())) {
+			for (String s : map.get(courant.getValue())) {
+				TreeItem<String> t = new TreeItem<String>(s);
+				courant.getChildren().add(t);
+				treeSubItemsRec(t, map);
+			}
+		}
+
+		return courant;
+	}
+
+	private TreeItem<String> treeSubItemsRecAutoRoot(TreeItem<String> courant,
+			LinkedHashMap<String, ArrayList<String>> map) {
+		for (String s : map.keySet()) {
+			if (!containInTree(courant, s))
+				courant.getChildren().add(treeSubItemsRec(new TreeItem<String>(s), map));
+		}
+		return courant;
+
+	}
+
+	private boolean containInTree(TreeItem<String> courant, String value) {
+		for (TreeItem<String> e : courant.getChildren()) {
+			if (containInTree(e, value)) {
+				return true;
+			}
+		}
+		return courant.getValue().equals(value);
+	}
+
+	public void setClikedTreeCellAction() {
 		tree.setCellFactory(tree -> {
 			TreeCell<String> cell = new TreeCell<String>() {
 				@Override
@@ -109,13 +159,14 @@ public class CtrlView implements Initializable {
 			cell.setOnMouseClicked(event -> {
 				if (cell.isEmpty()) {
 					Platform.runLater(() -> tree.getSelectionModel().clearSelection());
+					rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
 				} else {
 					if (cell.isSelected()) {
 						if (!event.isAltDown()) {
 							tree.getSelectionModel().clearSelection(cell.getIndex());
-							selectAllSubItemsRec(cell.getTreeItem());
+							selectAllSubTreeItemsRec(cell.getTreeItem());
 						}
-						DisplayResultSearch();
+						displayResultSearch();
 					}
 				}
 			});
@@ -125,7 +176,8 @@ public class CtrlView implements Initializable {
 
 	}
 
-	public void DisplayResultSearch() {
+	@FXML
+	public void displayResultSearch() {
 		ArrayList<String> SelectedConcepts = new ArrayList<>();
 		tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
 		resultMap = algoSearch.schearTD(SelectedConcepts);
@@ -141,47 +193,6 @@ public class CtrlView implements Initializable {
 	 * }
 	 */
 
-	private void selectAllSubItemsRec(TreeItem<String> courant) {
-		if (courant.getChildren().isEmpty()) {
-			tree.getSelectionModel().select(courant);
-		} else {
-			for (TreeItem<String> e : courant.getChildren()) {
-				selectAllSubItemsRec(e);
-			}
-		}
-
-	}
-
-	public TreeItem<String> TreeSubItemsRec(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
-		if (map.containsKey(courant.getValue())) {
-			for (String s : map.get(courant.getValue())) {
-				TreeItem<String> t = new TreeItem<String>(s);
-				courant.getChildren().add(t);
-				TreeSubItemsRec(t, map);
-			}
-		}
-
-		return courant;
-	}
-
-	public TreeItem<String> TreeSubItemsRec2(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
-		for (String s : map.keySet()) {
-			if (!contain(courant, s))
-				courant.getChildren().add(TreeSubItemsRec(new TreeItem<String>(s), map));
-		}
-		return courant;
-
-	}
-
-	public boolean contain(TreeItem<String> courant, String value) {
-		for (TreeItem<String> e : courant.getChildren()) {
-			if (contain(e, value)) {
-				return true;
-			}
-		}
-		return courant.getValue().equals(value);
-	}
-
 	@FXML
 	public void setSelectedResultDisplayDetailTd() {
 		resultView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -194,30 +205,23 @@ public class CtrlView implements Initializable {
 
 	}
 
-	public void menuButtonClikedOpenTd() throws IOException, ParseException {
+	@FXML
+	public void clikedOpenTdsDirectoryMenuItem() throws IOException, ParseException {
 		DirectoryChooser dc = new DirectoryChooser();
 		File file = dc.showDialog(null);
-
 		if (file != null) {
-			algoSearch.setDir(file);
-			if (!tree.getSelectionModel().isEmpty()) {
-				DisplayResultSearch();
-			}
-			leftStatut.setText(file.getAbsolutePath());
-			rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
-		}
-
-		else {
-			System.out.println("invalide file");
+			setJsonDirectory(file);
 		}
 	}
 
-	public void loadOntologyAction() throws IOException {
+	@FXML
+	public void loadOntologyMenuItem() throws IOException {
 		try {
 			CtrlLoadOntology.showInterfaceLoad();
-
 			if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
-				ontology = CtrlLoadOntology.ontology;
+				CtrlView.setOntology(CtrlLoadOntology.ontology);
+				System.out.println(ontology.getName());
+				// setOntology(CtrlLoadOntology.ontology);
 				if (CtrlLoadOntology.isAutoButtonSelected()) {
 					tree.setShowRoot(false);
 					if (CtrlLoadOntology.isInvertedButtonSelected()) {
@@ -236,13 +240,75 @@ public class CtrlView implements Initializable {
 				}
 			}
 		} catch (OWLException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("OWL Exception");
-			alert.setHeaderText("ERROR");
-			alert.setContentText("CANT'T LOAD OWL FILE");
-			alert.showAndWait();
-		}catch (NullPointerException e) {}
+			displayOwlError();
+		} catch (NullPointerException e) {
+		}
 
+	}
+
+	public void clikedOpenRecentMenuItem() {
+		for (MenuItem mi : openRecent.getItems())
+			mi.setOnAction(a -> {
+				try {
+					setJsonDirectory(new File(mi.getText()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+
+	}
+
+	private void setJsonDirectory(File file) throws IOException, ParseException {
+		MenuItem miP = getMenuItem(file.getPath());
+		algoSearch.setDir(file);
+		leftStatut.setText(file.getPath());
+		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
+		if (!tree.getSelectionModel().isEmpty()) {
+			displayResultSearch();
+		}
+		setOpenRecentFileMenu(file, miP);
+	}
+
+	private void setOpenRecentFileMenu(File file, MenuItem miP) {
+		if (!containMenuItem(file.getPath())) {
+			dequeRecentOpen.addFirst(new MenuItem(file.getPath()));
+		} else {
+			dequeRecentOpen.addFirst(miP);
+			dequeRecentOpen.removeLastOccurrence(miP);
+		}
+		openRecent.getItems().setAll(dequeRecentOpen);
+	}
+
+	private boolean containMenuItem(String s) {
+		for (MenuItem m : dequeRecentOpen) {
+			if (m.getText().equals(s)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	private MenuItem getMenuItem(String s) {
+		for (MenuItem m : dequeRecentOpen) {
+			if (m.getText().equals(s)) {
+				return m;
+			}
+		}
+		return null;
+
+	}
+
+	private void displayOwlError() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("OWL Exception");
+		alert.setHeaderText("ERROR");
+		alert.setContentText("CANT'T LOAD OWL FILE");
+		alert.showAndWait();
 	}
 
 	public static OntologieDAO getOntology() {
@@ -251,6 +317,7 @@ public class CtrlView implements Initializable {
 
 	public static void setOntology(OntologieDAO ontology) {
 		CtrlView.ontology = ontology;
+		CtrlStage.setTitle(App.getTitle() + " - " + CtrlView.getOntology().getPath());
 	}
 
 }

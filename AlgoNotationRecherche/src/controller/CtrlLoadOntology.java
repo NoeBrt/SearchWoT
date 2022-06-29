@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Checkbox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -9,6 +8,7 @@ import java.util.ResourceBundle;
 import org.semanticweb.owlapi.model.OWLException;
 
 import DAO.OntologieDAO;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,46 +21,45 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class CtrlLoadOntology implements Initializable {
-	static Parent root;
-	 Scene scene;
-
 	public static OntologieDAO ontology;
-	@FXML
-	public Label pathOwl;
-	@FXML
-	ObservableList<String> rootList = FXCollections.observableArrayList();
-	@FXML
-	private ChoiceBox<String> rootListBox = new ChoiceBox<>(rootList);
-	public static String valueRootListBox;
-	@FXML
-	public CheckBox invertedButton;
-	@FXML
-	public CheckBox autoButton;
 	private static boolean isInvertedButtonSelected;
 	private static boolean isAutoButtonSelected;
+	public static String valueRootListBox;
 	@FXML
-	public Label instructionRedLabel;
+	private Label pathOwl;
+	@FXML
+	private ObservableList<String> rootList = FXCollections.observableArrayList();
+	@FXML
+	private ChoiceBox<String> rootListBox = new ChoiceBox<>(rootList);
+	@FXML
+	private CheckBox invertedButton;
+	@FXML
+	private CheckBox autoButton;
+	
+	@FXML
+	private Label instructionRedLabel;
 
 
 	public static void showInterfaceLoad() throws IOException {
 		Stage stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/popUpOntoChoose.fxml"));
-		root = interfaceConnect.load();
+		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(new Image("/application/icon.png"));
 		stage.setTitle("Load OWL Ontology");
 		stage.sizeToScene();
 		stage.setResizable(false);
 		stage.showAndWait();
+		stage.setOnCloseRequest(e -> {
+			Platform.exit();
+			System.exit(0);
+		});
 		
 	}
 
@@ -88,7 +87,7 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
-	private void setOntology(OntologieDAO onto) throws OWLException, IOException {
+	public void setOntology(OntologieDAO onto) throws OWLException, IOException {
 		ontology = onto;
 		pathOwl.setText(ontology.getPath());
 		rootList.setAll(ontology.getClassesName());
@@ -108,6 +107,8 @@ public class CtrlLoadOntology implements Initializable {
 					stage.close();
 				}}
 	}
+	
+	@FXML
 	public void hideChoiceBoxWhenAutoCheked()
 	{
 		if (autoButton.selectedProperty().get()) {
@@ -131,6 +132,7 @@ public class CtrlLoadOntology implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
 	public void eventHideRedLabel() {
 		instructionRedLabel.setVisible(false);
 	}

@@ -11,23 +11,23 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 public class App extends Application {
-	public static Stage primaryStage;
+	private static String title;
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoTImp.fxml"));
 			VBox root = view1.load();
-
 			root.pickOnBoundsProperty();
 			Scene scene = new Scene(root, 800, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
-			primaryStage.setTitle("WoT");
+			title="SearchTD";
+			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("application/icon.png"));
 			// primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
+			CtrlView.CtrlStage=primaryStage;
 			primaryStage.show();
-	        scene.getStylesheets().add("/controller/cssViewWoTImp.css");
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
 				System.exit(0);
@@ -39,5 +39,13 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public static String getTitle() {
+		return title;
+	}
+
+	public static void setTitle(String title) {
+		App.title = title;
 	}
 }
