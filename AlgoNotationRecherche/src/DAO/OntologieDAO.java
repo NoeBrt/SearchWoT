@@ -1,6 +1,7 @@
 package DAO;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -40,9 +41,9 @@ public class OntologieDAO {
 	private String path;
 	private String name;
 
-	public OntologieDAO(String path) throws OWLException {
+	public OntologieDAO(String path) throws OWLException, IOException {
 		File f = new File(path);
-		this.path=f.getAbsolutePath();
+		this.path=f.getPath();
 		final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		this.ontology = manager.loadOntologyFromOntologyDocument(IRI.create(f));
 		this.name="ontology : "+IRI.create((new File(path))).getShortForm();

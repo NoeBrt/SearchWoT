@@ -11,7 +11,7 @@
    <children>
       <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#openOWlFile" text="open (.owl)" />
       <Label layoutX="77.0" layoutY="42.0" />
-      <Label fx:id="pathOwl" layoutX="118.0" layoutY="20.0" text="&quot;path&quot;">
+      <Label fx:id="pathOwl" layoutX="100.0" layoutY="20.0" text="&quot;path&quot;">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>

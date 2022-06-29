@@ -38,7 +38,7 @@ public class algoNotationRecherche {
 
 	public algoNotationRecherche(String path) throws IOException, ParseException {
 		this.dir = new File(path);
-		 JsonFileList = listFileRecur(dir, ".json");
+		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
 
@@ -109,10 +109,11 @@ public class algoNotationRecherche {
 		}
 		return f;
 	}
-	
-	 private static ArrayList<File> listFileRecur(File rep, String extentionName)
-	 { return listFileRecur(rep, new ArrayList<File>(), extentionName); }
-	 
+
+	private static ArrayList<File> listFileRecur(File rep, String extentionName) {
+		return listFileRecur(rep, new ArrayList<File>(), extentionName);
+	}
+
 	/*
 	 * public LinkedList<File> shortList(ArrayList<File> List) throws IOException,
 	 * ParseException { JSONParser jsonParser = new JSONParser(); for (File f :
@@ -123,18 +124,21 @@ public class algoNotationRecherche {
 	 * 
 	 * return null;
 	 * 
-	 * }*/
-	 
-	
-	  private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f,
-	 String extentionName) { if (rep.isFile() && !rep.isHidden() &&
-	 rep.getName().endsWith(extentionName)) { f.add(rep); return f; } else if
-	  (rep.isDirectory() && !rep.isHidden()) { for (File d : rep.listFiles())
-	  listFileRecur(d, f, extentionName); } return f; }
-	 
+	 * }
+	 */
+
+	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
+		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
+			f.add(rep);
+			return f;
+		} else if (rep.isDirectory() && !rep.isHidden()) {
+			for (File d : rep.listFiles())
+				listFileRecur(d, f, extentionName);
+		}
+		return f;
+	}
 
 	public LinkedHashMap<String, String> schearTD(ArrayList<String> concepts) {
-		int nbSameTitleTd = 0;
 		LinkedList<JSONObject> a = new LinkedList<>();
 		LinkedHashMap<String, String> resultTD = new LinkedHashMap<>();
 		getListTdContainConcept(concepts, a);
@@ -144,10 +148,22 @@ public class algoNotationRecherche {
 					|| textJson.equals(resultTD.get(ThingDescription.get("title").toString()))) {
 				resultTD.put(ThingDescription.get("title").toString(), textJson);
 			} else {
-				resultTD.put(ThingDescription.get("title").toString() + " (" + ++nbSameTitleTd + ")", textJson);
+				resultTD.put(ThingDescription.get("title").toString() + " ("
+						+ nbString(resultTD, ThingDescription.get("title").toString()) + ")", textJson);
 			}
 		}
 		return resultTD;
+	}
+
+	private int nbString(LinkedHashMap<String, String> resultTD, String s) {
+		int i = 0;
+		for (String k : resultTD.keySet()) {
+			if (k.contains(s)) {
+				i++;
+			}
+		}
+		return i;
+
 	}
 
 	private void getListTdContainConcept(ArrayList<String> concepts, LinkedList<JSONObject> a) {

@@ -213,8 +213,9 @@ public class CtrlView implements Initializable {
 	}
 
 	public void loadOntologyAction() throws IOException {
-		CtrlLoadOntology.showInterfaceLoad();
 		try {
+			CtrlLoadOntology.showInterfaceLoad();
+
 			if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
 				ontology = CtrlLoadOntology.ontology;
 				if (CtrlLoadOntology.isAutoButtonSelected()) {
@@ -240,7 +241,7 @@ public class CtrlView implements Initializable {
 			alert.setHeaderText("ERROR");
 			alert.setContentText("CANT'T LOAD OWL FILE");
 			alert.showAndWait();
-		}
+		}catch (NullPointerException e) {}
 
 	}
 

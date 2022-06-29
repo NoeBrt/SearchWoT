@@ -49,7 +49,7 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false"
-							text="Open Td repertory" onAction="#menuButtonClikedOpenTd" />
+							text="Open Tds directory" onAction="#menuButtonClikedOpenTd" />
 						<Menu mnemonicParsing="false" text="Open Recent" />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Close" />
