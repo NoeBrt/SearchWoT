@@ -220,7 +220,6 @@ public class CtrlView implements Initializable {
 			CtrlLoadOntology.showInterfaceLoad();
 			if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
 				CtrlView.setOntology(CtrlLoadOntology.ontology);
-				System.out.println(ontology.getName());
 				// setOntology(CtrlLoadOntology.ontology);
 				if (CtrlLoadOntology.isAutoButtonSelected()) {
 					tree.setShowRoot(false);

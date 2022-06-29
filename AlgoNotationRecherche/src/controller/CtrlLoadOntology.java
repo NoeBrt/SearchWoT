@@ -81,10 +81,6 @@ public class CtrlLoadOntology implements Initializable {
 				alert.showAndWait();
 			}
 		}
-
-		else {
-			System.out.println("invalide file");
-		}
 	}
 
 	public void setOntology(OntologieDAO onto) throws OWLException, IOException {

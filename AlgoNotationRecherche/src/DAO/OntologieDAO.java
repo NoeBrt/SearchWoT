@@ -92,7 +92,7 @@ public class OntologieDAO {
 					}
 					hm.get(ontElement.getIRI().getShortForm()).add(cls1.getIRI().getShortForm());
 				}
-				System.out.println();
+		
 			}
 		}
 		// Tree<String> res = new Tree<String>("");
@@ -113,7 +113,7 @@ public class OntologieDAO {
 					}
 					hm.get(ontElement.getIRI().getShortForm()).add(cls1.getIRI().getShortForm());
 				}
-				System.out.println();
+		
 			}
 		}
 		return hm;
