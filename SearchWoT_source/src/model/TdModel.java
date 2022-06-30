@@ -27,13 +27,15 @@ public class TdModel {
 	private File dir;
 	private ArrayList<File> JsonFileList;
 	private ArrayList<JSONObject> JsonObjectList;
+	private String tdPartToAnalyse;
 
 	public void setJsonObjectList(ArrayList<JSONObject> jsonObjectList) {
 		JsonObjectList = jsonObjectList;
 	}
 
-	public TdModel(String path) throws IOException, ParseException {
+	public TdModel(String path,String TDpart) throws IOException, ParseException {
 		this.dir = new File(path);
+		this.setTdPartToAnalyse(TDpart);
 		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
@@ -80,8 +82,8 @@ public class TdModel {
 
 	private Comparator<JSONObject> lengthComparator = new Comparator<JSONObject>() {
 		public int compare(JSONObject a, JSONObject b) {
-			JSONArray PrivacyPolicy1 = ((JSONArray) a.get("privacyPolicy"));
-			JSONArray PrivacyPolicy2 = ((JSONArray) b.get("privacyPolicy"));
+			JSONArray PrivacyPolicy1 = ((JSONArray) a.get(tdPartToAnalyse));
+			JSONArray PrivacyPolicy2 = ((JSONArray) b.get(tdPartToAnalyse));
 			return PrivacyPolicy2.size() - PrivacyPolicy1.size();
 			// size() is always nonnegative, so this won't have crazy overflow bugs
 		}
@@ -180,7 +182,7 @@ public class TdModel {
 	 * @return true if all the concepts is the List is written in the TD, false else
 	 */
 	private boolean containConcepts(JSONObject ThingDescription, ArrayList<String> concepts) {
-		Object PrivacyPolicy = ThingDescription.get("privacyPolicy");
+		Object PrivacyPolicy = ThingDescription.get(tdPartToAnalyse);
 		JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
 		boolean b = true;
 		for (String concept : concepts) {
@@ -285,6 +287,17 @@ public class TdModel {
 	}
 	public ArrayList<JSONObject> getJsonObjectList() {
 		return JsonObjectList;
+	}
+
+	public String getTdPartToAnalyse() {
+		return tdPartToAnalyse;
+	}
+
+	public void setTdPartToAnalyse(String tdPartToAnalyse) throws IOException, ParseException {
+		this.tdPartToAnalyse = tdPartToAnalyse;
+		JsonFileList = listFileRecur(dir, ".json");
+		JsonObjectList = listJsonObjectRecur(dir, ".json");
+		sortByConceptNumber(JsonObjectList);
 	}
 
 }

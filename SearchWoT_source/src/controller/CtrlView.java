@@ -67,7 +67,7 @@ public class CtrlView implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			ontology = new OntologyDAO("Ontology/WotPriv.owl");
-			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE");
+			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE","privacyPolicy");
 			dequeRecentOpen.addFirst(new MenuItem(algoSearch.getDir().getPath()));
 			openRecent.getItems().setAll(dequeRecentOpen);
 			leftStatut.setText(algoSearch.getDir().getPath());
