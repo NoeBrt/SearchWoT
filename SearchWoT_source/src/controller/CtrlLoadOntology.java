@@ -45,7 +45,6 @@ public class CtrlLoadOntology implements Initializable {
 	@FXML
 	private Label instructionRedLabel;
 
-
 	public static void showInterfaceLoad() throws IOException {
 		stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/loadOntologyView.fxml"));
@@ -60,7 +59,7 @@ public class CtrlLoadOntology implements Initializable {
 			Platform.exit();
 			System.exit(0);
 		});
-		
+
 	}
 
 	@FXML
@@ -93,30 +92,31 @@ public class CtrlLoadOntology implements Initializable {
 	@FXML
 	public void loadButtonPressed() {
 		Stage stage = (Stage) rootListBox.getScene().getWindow();
-				if (ontology != null) {
-					if(rootListBox.getValue().equals("choose a root")&&!autoButton.selectedProperty().get()) {
-						instructionRedLabel.setVisible(true);
-					}else {
-					valueRootListBox = rootListBox.getValue();
-					setAutoButtonSelected(autoButton.selectedProperty().get());
-					setInvertedButtonSelected(invertedButton.selectedProperty().get());
-					stage.close();
-				}}
+		if (ontology != null) {
+			if (rootListBox.getValue().equals("choose a root") && !autoButton.selectedProperty().get()) {
+				instructionRedLabel.setVisible(true);
+			} else {
+				valueRootListBox = rootListBox.getValue();
+				setAutoButtonSelected(autoButton.selectedProperty().get());
+				setInvertedButtonSelected(invertedButton.selectedProperty().get());
+				stage.close();
+			}
+		}
 	}
-	
+
 	@FXML
-	public void hideChoiceBoxWhenAutoCheked()
-	{
+	public void hideChoiceBoxWhenAutoCheked() {
 		if (autoButton.selectedProperty().get()) {
 			instructionRedLabel.setVisible(false);
-			rootListBox.setDisable(true); 
+			rootListBox.setDisable(true);
 
-		}else {
-			rootListBox.setDisable(false); 
+		} else {
+			rootListBox.setDisable(false);
 
 		}
-		
+
 	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -128,7 +128,7 @@ public class CtrlLoadOntology implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void eventHideRedLabel() {
 		instructionRedLabel.setVisible(false);
 	}
