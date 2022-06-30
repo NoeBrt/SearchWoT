@@ -42,7 +42,7 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0"
 	xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controller.CtrlView">
+	fx:controller="controller.CtrlMainView">
 	<children>
 		<MenuBar VBox.vgrow="NEVER">
 			<menus>
@@ -55,11 +55,11 @@
 							fx:id="openRecent" onAction="#clikedOpenRecentMenuItem" />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Close" />
-						<MenuItem mnemonicParsing="false" text="Save As…" />
+						<MenuItem mnemonicParsing="false" text="Save As…" onAction="#saveAsAction" />
 						<MenuItem mnemonicParsing="false"
 							text="Load new Ontology" onAction="#loadOntologyMenuItem" />
 						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem mnemonicParsing="false" text="Preferences…" />
+						<MenuItem mnemonicParsing="false" text="Preferences…" onAction="#preferencesAction"/>
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Quit"
 							onAction="#quitMenuItem" />

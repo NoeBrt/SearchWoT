@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import parser.JSONParser;
 import parser.ParseException;
 import simple.JSONArray;
@@ -18,7 +20,7 @@ import simple.JSONObject;
  * @author Noe Breton
  *
  */
-public class algoNotationRecherche {
+public class TdModel {
 
 	/**
 	 * path of the TDs folder
@@ -27,22 +29,25 @@ public class algoNotationRecherche {
 	private File dir;
 	private ArrayList<File> JsonFileList;
 	private ArrayList<JSONObject> JsonObjectList;
+	private String tdPartToAnalyse;
 
 	public void setJsonObjectList(ArrayList<JSONObject> jsonObjectList) {
 		JsonObjectList = jsonObjectList;
 	}
 
-	public algoNotationRecherche(String path) throws IOException, ParseException {
+	public TdModel(String path, String TDpart) throws IOException, ParseException {
 		this.dir = new File(path);
+		this.setTdPartToAnalyse(TDpart);
 		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
 
 	}
 
-	public algoNotationRecherche(File dir) throws IOException, ParseException {
+	public TdModel(File dir, String TDpart) throws IOException, ParseException {
 		this.dir = dir;
-		// JsonFileList = listFileRecur(dir, ".json");
+		this.setTdPartToAnalyse(TDpart);
+		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
 
@@ -80,26 +85,28 @@ public class algoNotationRecherche {
 
 	private Comparator<JSONObject> lengthComparator = new Comparator<JSONObject>() {
 		public int compare(JSONObject a, JSONObject b) {
-			JSONArray PrivacyPolicy1 = ((JSONArray) a.get("privacyPolicy"));
-			JSONArray PrivacyPolicy2 = ((JSONArray) b.get("privacyPolicy"));
+			JSONArray PrivacyPolicy1 = ((JSONArray) a.get(tdPartToAnalyse));
+			JSONArray PrivacyPolicy2 = ((JSONArray) b.get(tdPartToAnalyse));
 			return PrivacyPolicy2.size() - PrivacyPolicy1.size();
 			// size() is always nonnegative, so this won't have crazy overflow bugs
 		}
 	};
 
-	private static ArrayList<JSONObject> listJsonObjectRecur(File rep, String extentionName)
+	private ArrayList<JSONObject> listJsonObjectRecur(File rep, String extentionName)
 			throws IOException, ParseException {
 		return listJsonObjectRecur(rep, new ArrayList<JSONObject>(), extentionName);
 	}
 
-	public static ArrayList<JSONObject> listJsonObjectRecur(File rep, ArrayList<JSONObject> f, String extentionName)
+	public ArrayList<JSONObject> listJsonObjectRecur(File rep, ArrayList<JSONObject> f, String extentionName)
 			throws IOException {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			FileReader reader = new FileReader(rep);
 			try {
-			JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
-			f.add(ThingDescription);
-			}catch(ParseException pe){
+				JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
+				if (ThingDescription.get(tdPartToAnalyse) != null) {
+					f.add(ThingDescription);
+				}
+			} catch (ParseException pe) {
 				System.out.println(rep.getName());
 			}
 			return f;
@@ -110,7 +117,7 @@ public class algoNotationRecherche {
 		return f;
 	}
 
-	private static ArrayList<File> listFileRecur(File rep, String extentionName) {
+	private ArrayList<File> listFileRecur(File rep, String extentionName) {
 		return listFileRecur(rep, new ArrayList<File>(), extentionName);
 	}
 
@@ -127,7 +134,7 @@ public class algoNotationRecherche {
 	 * }
 	 */
 
-	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
+	private ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			f.add(rep);
 			return f;
@@ -180,7 +187,7 @@ public class algoNotationRecherche {
 	 * @return true if all the concepts is the List is written in the TD, false else
 	 */
 	private boolean containConcepts(JSONObject ThingDescription, ArrayList<String> concepts) {
-		Object PrivacyPolicy = ThingDescription.get("privacyPolicy");
+		Object PrivacyPolicy = ThingDescription.get(tdPartToAnalyse);
 		JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
 		boolean b = true;
 		for (String concept : concepts) {
@@ -193,9 +200,13 @@ public class algoNotationRecherche {
 
 	private boolean containConcept(JSONArray PrivacyPolicy2, String concept) {
 		for (Object e : PrivacyPolicy2) {
-			String conceptText = ((JSONObject) e).get("concept").toString();
-			if (conceptText.substring(conceptText.indexOf(":") + 1).equals(concept)) {
-				return true;
+			try {
+				String conceptText = ((JSONObject) e).get("concept").toString();
+				if (conceptText.substring(conceptText.indexOf(":") + 1).equals(concept)) {
+					return true;
+				}
+			} catch (Exception e1) {
+				return false;
 			}
 		}
 		return false;
@@ -283,8 +294,22 @@ public class algoNotationRecherche {
 		this.dir = new File(path);
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 	}
+
 	public ArrayList<JSONObject> getJsonObjectList() {
 		return JsonObjectList;
 	}
 
+	public String getTdPartToAnalyse() {
+		return tdPartToAnalyse;
+	}
+
+	public void setTdPartToAnalyse(String tdPartToAnalyse) throws IOException, ParseException {
+		this.tdPartToAnalyse = tdPartToAnalyse;
+		JsonFileList = listFileRecur(dir, ".json");
+		JsonObjectList = listJsonObjectRecur(dir, ".json");
+		sortByConceptNumber(JsonObjectList);
+	}
+	
+
+	
 }
