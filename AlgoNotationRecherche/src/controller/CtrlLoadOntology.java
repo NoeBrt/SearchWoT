@@ -27,6 +27,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class CtrlLoadOntology implements Initializable {
+	public static Stage stage;
 	public static OntologieDAO ontology;
 	private static boolean isInvertedButtonSelected;
 	private static boolean isAutoButtonSelected;
@@ -46,7 +47,7 @@ public class CtrlLoadOntology implements Initializable {
 
 
 	public static void showInterfaceLoad() throws IOException {
-		Stage stage = new Stage();
+		stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/popUpOntoChoose.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));

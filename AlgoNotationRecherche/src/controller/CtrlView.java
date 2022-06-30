@@ -216,33 +216,36 @@ public class CtrlView implements Initializable {
 
 	@FXML
 	public void loadOntologyMenuItem() throws IOException {
-		try {
-			CtrlLoadOntology.showInterfaceLoad();
-			if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
-				CtrlView.setOntology(CtrlLoadOntology.ontology);
-				// setOntology(CtrlLoadOntology.ontology);
-				if (CtrlLoadOntology.isAutoButtonSelected()) {
-					tree.setShowRoot(false);
-					if (CtrlLoadOntology.isInvertedButtonSelected()) {
-						setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
+		if (CtrlLoadOntology.stage == null) {
+			try {
+				CtrlLoadOntology.showInterfaceLoad();
+				if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
+					CtrlView.setOntology(CtrlLoadOntology.ontology);
+					// setOntology(CtrlLoadOntology.ontology);
+					if (CtrlLoadOntology.isAutoButtonSelected()) {
+						tree.setShowRoot(false);
+						if (CtrlLoadOntology.isInvertedButtonSelected()) {
+							setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
+						} else {
+							setTreeView(ontology.getName(), ontology.getSubClassesHashMap());
+						}
 					} else {
-						setTreeView(ontology.getName(), ontology.getSubClassesHashMap());
-					}
-				} else {
-					tree.setShowRoot(true);
-					if (CtrlLoadOntology.isInvertedButtonSelected()) {
-						setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSuperClassesHashMap());
-					} else {
-						setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSubClassesHashMap());
-					}
+						tree.setShowRoot(true);
+						if (CtrlLoadOntology.isInvertedButtonSelected()) {
+							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSuperClassesHashMap());
+						} else {
+							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSubClassesHashMap());
+						}
 
+					}
 				}
+			} catch (OWLException e) {
+				displayOwlError();
+			} catch (NullPointerException e) {
 			}
-		} catch (OWLException e) {
-			displayOwlError();
-		} catch (NullPointerException e) {
+		} else {
+			CtrlLoadOntology.stage.setAlwaysOnTop(true);
 		}
-
 	}
 
 	public void clikedOpenRecentMenuItem() {
@@ -309,6 +312,7 @@ public class CtrlView implements Initializable {
 		alert.setContentText("CANT'T LOAD OWL FILE");
 		alert.showAndWait();
 	}
+
 	@FXML
 	public void quitMenuItem() {
 		CtrlStage.close();
