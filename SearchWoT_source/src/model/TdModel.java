@@ -33,7 +33,7 @@ public class TdModel {
 		JsonObjectList = jsonObjectList;
 	}
 
-	public TdModel(String path,String TDpart) throws IOException, ParseException {
+	public TdModel(String path, String TDpart) throws IOException, ParseException {
 		this.dir = new File(path);
 		this.setTdPartToAnalyse(TDpart);
 		JsonFileList = listFileRecur(dir, ".json");
@@ -42,9 +42,10 @@ public class TdModel {
 
 	}
 
-	public TdModel(File dir) throws IOException, ParseException {
+	public TdModel(File dir, String TDpart) throws IOException, ParseException {
 		this.dir = dir;
-		// JsonFileList = listFileRecur(dir, ".json");
+		this.setTdPartToAnalyse(TDpart);
+		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 		sortByConceptNumber(JsonObjectList);
 
@@ -89,19 +90,21 @@ public class TdModel {
 		}
 	};
 
-	private static ArrayList<JSONObject> listJsonObjectRecur(File rep, String extentionName)
+	private ArrayList<JSONObject> listJsonObjectRecur(File rep, String extentionName)
 			throws IOException, ParseException {
 		return listJsonObjectRecur(rep, new ArrayList<JSONObject>(), extentionName);
 	}
 
-	public static ArrayList<JSONObject> listJsonObjectRecur(File rep, ArrayList<JSONObject> f, String extentionName)
+	public ArrayList<JSONObject> listJsonObjectRecur(File rep, ArrayList<JSONObject> f, String extentionName)
 			throws IOException {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			FileReader reader = new FileReader(rep);
 			try {
-			JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
-			f.add(ThingDescription);
-			}catch(ParseException pe){
+				JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
+				if (ThingDescription.get(tdPartToAnalyse) != null) {
+					f.add(ThingDescription);
+				}
+			} catch (ParseException pe) {
 				System.out.println(rep.getName());
 			}
 			return f;
@@ -112,7 +115,7 @@ public class TdModel {
 		return f;
 	}
 
-	private static ArrayList<File> listFileRecur(File rep, String extentionName) {
+	private ArrayList<File> listFileRecur(File rep, String extentionName) {
 		return listFileRecur(rep, new ArrayList<File>(), extentionName);
 	}
 
@@ -129,7 +132,7 @@ public class TdModel {
 	 * }
 	 */
 
-	private static ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
+	private ArrayList<File> listFileRecur(File rep, ArrayList<File> f, String extentionName) {
 		if (rep.isFile() && !rep.isHidden() && rep.getName().endsWith(extentionName)) {
 			f.add(rep);
 			return f;
@@ -195,9 +198,13 @@ public class TdModel {
 
 	private boolean containConcept(JSONArray PrivacyPolicy2, String concept) {
 		for (Object e : PrivacyPolicy2) {
-			String conceptText = ((JSONObject) e).get("concept").toString();
-			if (conceptText.substring(conceptText.indexOf(":") + 1).equals(concept)) {
-				return true;
+			try {
+				String conceptText = ((JSONObject) e).get("concept").toString();
+				if (conceptText.substring(conceptText.indexOf(":") + 1).equals(concept)) {
+					return true;
+				}
+			} catch (Exception e1) {
+				return false;
 			}
 		}
 		return false;
@@ -285,6 +292,7 @@ public class TdModel {
 		this.dir = new File(path);
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
 	}
+
 	public ArrayList<JSONObject> getJsonObjectList() {
 		return JsonObjectList;
 	}
