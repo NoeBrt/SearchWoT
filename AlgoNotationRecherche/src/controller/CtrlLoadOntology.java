@@ -41,7 +41,6 @@ public class CtrlLoadOntology implements Initializable {
 	private CheckBox invertedButton;
 	@FXML
 	private CheckBox autoButton;
-	
 	@FXML
 	private Label instructionRedLabel;
 

@@ -309,6 +309,10 @@ public class CtrlView implements Initializable {
 		alert.setContentText("CANT'T LOAD OWL FILE");
 		alert.showAndWait();
 	}
+	@FXML
+	public void quitMenuItem() {
+		CtrlStage.close();
+	}
 
 	public static OntologieDAO getOntology() {
 		return ontology;

@@ -18,7 +18,7 @@ public class test {
 			JSONObject ThingDescription = (JSONObject) (new JSONParser()).parse(reader);
 			//FileWriter file = new FileWriter(o, true);
 			PrintWriter writer = new PrintWriter(o);
-			writer.print(algoNotationRecherche.formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4).replaceAll("PrivacyPolicy", "privacyPolicy"));
+			writer.print(algoNotationRecherche.formatJSONStr(ThingDescription.toJSONString().replace("\\/", "/"), 4).replaceAll("Privacy_Policy", "PrivacyPolicy"));
 			writer.close();
 		//	file.flush();
 			//file.close();

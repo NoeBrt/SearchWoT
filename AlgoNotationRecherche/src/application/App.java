@@ -22,7 +22,7 @@ public class App extends Application {
 			Scene scene = new Scene(root, 800, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
-			title="SearchTD";
+			title="SearchWoT";
 			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("application/icon.png"));
 			// primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
