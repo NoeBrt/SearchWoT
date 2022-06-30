@@ -16,7 +16,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoTImp.fxml"));
+			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/mainView.fxml"));
 			VBox root = view1.load();
 			root.pickOnBoundsProperty();
 			Scene scene = new Scene(root, 800, 600);
