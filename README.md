@@ -1,21 +1,25 @@
 ## Name
-Granulometrie Application
+SearchWot
+
 ## Description
-This application can process and analyze Image thats contains grain
-
+SearchWot find Thing Description (json file who describe a Thing) with an ontology relative to Privacy
 ## Installation
-run the source code with Eclipse, .Jar will come 
+run the source code with Eclipse, .Jar will come sooner
+run as configuration with java 16 with this VM argument : 
 
-run as configuration with java 1.8 and : 
+--module-path  "javafx-sdk-18.0.1\lib" --add-modules javafx.controls,javafx.fxml
+--add-opens java.base/java.lang=ALL-UNNAMED
 
---module-path  "javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml
+## Librairies
+JavaFx 18.0.1
+OWL API 
+JSON SIMPLE
 
-## Authors and acknowledgment
-Thanks to Alex,Hreshvik,Quentin and joey for bring their contribution to our project
+## Author
+Noé Breton 
 
 ## License
 open source
 
 ## Project status
-Push often
-
+Prototype
