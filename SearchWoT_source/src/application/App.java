@@ -24,7 +24,7 @@ public class App extends Application {
 			primaryStage.sizeToScene();
 			title="SearchWoT";
 			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
-			primaryStage.getIcons().add(new Image("application/icon.png"));
+			primaryStage.getIcons().add(new Image("iconApp/icon.png"));
 			// primaryStage.getIcons().add(new Image("/IconApp/icon.jpg"));
 			CtrlView.CtrlStage=primaryStage;
 			primaryStage.show();
