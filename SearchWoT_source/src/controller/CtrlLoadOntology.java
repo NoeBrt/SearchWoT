@@ -54,11 +54,9 @@ public class CtrlLoadOntology implements Initializable {
 		stage.setTitle("Load OWL Ontology");
 		stage.sizeToScene();
 		stage.setResizable(false);
+		stage.setAlwaysOnTop(true);
 		stage.showAndWait();
-		stage.setOnCloseRequest(e -> {
-			Platform.exit();
-			System.exit(0);
-		});
+		
 
 	}
 

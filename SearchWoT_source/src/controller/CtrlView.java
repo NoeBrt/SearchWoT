@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -9,7 +11,9 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+
 import org.semanticweb.owlapi.model.OWLException;
+
 import DAO.OntologyDAO;
 import application.App;
 import javafx.application.Platform;
@@ -33,7 +37,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.TdModel;
 import parser.ParseException;
 
@@ -67,10 +73,10 @@ public class CtrlView implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			ontology = new OntologyDAO("Ontology/WotPriv.owl");
-			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE","privacyPolicy");
+			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE", "privacyPolicy");
 			dequeRecentOpen.addFirst(new MenuItem(algoSearch.getDir().getPath()));
 			openRecent.getItems().setAll(dequeRecentOpen);
-			leftStatut.setText(algoSearch.getDir().getPath());
+			setLeftStatut();
 			rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
 			rightStatut.setTextFill(Color.web("#008080"));
 			resultView.setItems(Resultlist);
@@ -216,7 +222,7 @@ public class CtrlView implements Initializable {
 
 	@FXML
 	public void loadOntologyMenuItem() throws IOException {
-		if (CtrlLoadOntology.stage == null) {
+		if (CtrlLoadOntology.stage == null || !CtrlLoadOntology.stage.isShowing()) {
 			try {
 				CtrlLoadOntology.showInterfaceLoad();
 				if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
@@ -244,7 +250,7 @@ public class CtrlView implements Initializable {
 			} catch (NullPointerException e) {
 			}
 		} else {
-			CtrlLoadOntology.stage.setAlwaysOnTop(true);
+			CtrlLoadOntology.stage.toFront();
 		}
 	}
 
@@ -267,7 +273,7 @@ public class CtrlView implements Initializable {
 	private void setJsonDirectory(File file) throws IOException, ParseException {
 		MenuItem miP = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
-		leftStatut.setText(file.getPath());
+		setLeftStatut();
 		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		if (!tree.getSelectionModel().isEmpty()) {
 			displayResultSearch();
@@ -311,6 +317,38 @@ public class CtrlView implements Initializable {
 		alert.setHeaderText("ERROR");
 		alert.setContentText("CANT'T LOAD OWL FILE");
 		alert.showAndWait();
+	}
+
+	@FXML
+	public void preferencesAction() throws IOException, ParseException {
+		if (CtrlPreferenceView.stage == null || !CtrlPreferenceView.stage.isShowing()) {
+			CtrlPreferenceView.showPreferenceView();
+			if (CtrlPreferenceView.valuePartTdNameLabel != null) {
+				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.valuePartTdNameLabel);
+				setLeftStatut();
+				displayResultSearch();
+			}
+		} else {
+			CtrlPreferenceView.stage.toFront();
+		}
+	}
+
+	@FXML
+	public void saveAsAction() throws FileNotFoundException {
+		if (!resultView.getSelectionModel().isEmpty()) {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setInitialFileName(resultView.getSelectionModel().getSelectedItem() + ".json");
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("JSON", "json"));
+			File f = fileChooser.showSaveDialog(null);
+			PrintWriter writer = new PrintWriter(f);
+			writer.write(resultMap.get(resultView.getSelectionModel().getSelectedItem()));
+			writer.close();
+		}
+
+	}
+
+	private void setLeftStatut() {
+		leftStatut.setText(algoSearch.getDir().getPath() + " | (" + algoSearch.getTdPartToAnalyse() + ")");
 	}
 
 	@FXML
