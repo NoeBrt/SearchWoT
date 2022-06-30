@@ -19,7 +19,7 @@ public class App extends Application {
 			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/mainView.fxml"));
 			VBox root = view1.load();
 			root.pickOnBoundsProperty();
-			Scene scene = new Scene(root, 800, 600);
+			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
 			title="SearchWoT";
