@@ -1,0 +1,111 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        }
+    ],
+    "@type": [
+        "Gardening",
+        "GardeningSystem",
+        "dbpedia:Gardening"
+    ],
+    "description": "A smart gardening system",
+    "title": "My Gardening System",
+    "@context": [
+        "https://webthings.io/schemas/",
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        {
+            "rel": "properties",
+            "href": "/0/properties"
+        },
+        {
+            "rel": "actions",
+            "href": "/0/actions"
+        },
+        {
+            "rel": "events",
+            "href": "/0/events"
+        },
+        {
+            "rel": "alternate",
+            "href": "ws://localhost:8888/0"
+        }
+    ],
+    "id": "urn:dev:ops:my-gardening-1234",
+    "href": "/0",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "irrigation": {
+            "input": {
+                "duration": {
+                    "unit": "minutes",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            },
+            "@type": "dbpedia:Irrigation",
+            "description": "Start Irrigation process",
+            "links": [
+                {
+                    "rel": "action",
+                    "href": "/0/actions/irrigation"
+                }
+            ],
+            "title": "Irrigation"
+        }
+    },
+    "properties": {
+        "temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of light from 0-100",
+            "maximum": 100,
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/brightness"
+                }
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "weather": {
+            "@type": "dbpedia:Meteorological_instrumentation",
+            "description": "The current weather conditions measured by the system",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/on"
+                }
+            ],
+            "title": "Weather",
+            "type": "Object"
+        }
+    },
+    "events": {
+        
+    },
+    "base": "http://localhost:8888/0"
+}

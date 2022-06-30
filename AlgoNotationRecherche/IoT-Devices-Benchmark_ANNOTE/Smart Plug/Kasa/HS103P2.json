@@ -1,0 +1,76 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "SmartPlug",
+        "dbpedia:AC_power_plugs_and_sockets"
+    ],
+    "description": "Kasa electric plug",
+    "title": "Kasa Smart HS103P2",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.amazon.com/TP-LINK-HS103P2-Required-Google-Assistant/dp/B07B8W2KHZ",
+        "https://www.kasasmart.com/us/products/smart-plugs/kasa-smart-wifi-plug-lite-hs103p2?option=4"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the plug off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the plug on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        }
+    },
+    "properties": {
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the plug is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

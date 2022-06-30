@@ -1,0 +1,101 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "DoorLock",
+        "dbpedia:Remote_keyless_system"
+    ],
+    "description": "August keyloss smart lock",
+    "title": "August Wi-Fi Smart Lock",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/",
+            "privp": "http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "Apple Homekit"
+    ],
+    "links": [
+        "https://august.com/products/august-wifi-smart-lock",
+        "https://www.amazon.com/August-Wi-Fi-Smart-Generation-Silver/dp/B082VXK9CK"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Unlock": {
+            "input": {
+                
+            },
+            "@type": "dbpedia:Unlock",
+            "description": "Unlock the door",
+            "links": [
+                
+            ],
+            "title": "ULock"
+        },
+        "Lock": {
+            "input": {
+                "optional": [
+                    "duration"
+                ],
+                "type": "object",
+                "properties": {
+                    "duration": {
+                        "unit": "milliseconds",
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                }
+            },
+            "@type": "dbpedia:Lock",
+            "description": "Lock the door",
+            "links": [
+                
+            ],
+            "title": "Lock"
+        }
+    },
+    "properties": {
+        "Locked": {
+            "@type": "LockedProperty",
+            "description": "Whether the door is locked or not",
+            "links": [
+                
+            ],
+            "title": "Locked/unlocked",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        "lowPower": {
+            "unit": "percent",
+            "@type": "dbpedia:Electric_power",
+            "description": "The lock battery has reached or exceeded its low operating limit",
+            "links": [
+                
+            ],
+            "type": "number"
+        }
+    },
+    "base": ""
+}

@@ -1,0 +1,124 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentiality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "AirConditioner",
+        "dbpedia:Air_conditioning"
+    ],
+    "description": "Midea Smart Air Conditioner",
+    "title": "Midea U Inverter",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/Midea-Inverter-Conditioner-Flexibility-Installation/dp/B08677DCKN/ref=lp_21217041011_1_4?s=specialty-aps"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnoff": {
+            "input": {
+                
+            },
+            "@type": "turnoffaction",
+            "description": "set off",
+            "links": [
+                
+            ],
+            "title": "turnoff"
+        },
+        "turnon": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "temparture"
+                ],
+                "properties": {
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnonaction",
+            "description": "set on ",
+            "links": [
+                
+            ],
+            "title": "turnon"
+        },
+        "settemp": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": [
+                "dbpedia:Heat",
+                "dbpedia:Cooling"
+            ],
+            "description": "set the target temparture",
+            "links": [
+                
+            ],
+            "title": "settemp"
+        }
+    },
+    "properties": {
+        "temp": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "temperature level",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "temp",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "onproperty",
+            "description": "turned on or off",
+            "links": [
+                
+            ],
+            "title": "on",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

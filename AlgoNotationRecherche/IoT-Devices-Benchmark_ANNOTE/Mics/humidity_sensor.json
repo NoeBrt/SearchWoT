@@ -1,0 +1,82 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        }
+    ],
+    "@type": [
+        "MultiLevelSensor",
+        "dbpedia:Sensor"
+    ],
+    "description": "A web connected humidity sensor",
+    "title": "My Humidity Sensor",
+    "@context": [
+        "https://webthings.io/schemas/",
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        {
+            "rel": "properties",
+            "href": "/1/properties"
+        },
+        {
+            "rel": "actions",
+            "href": "/1/actions"
+        },
+        {
+            "rel": "events",
+            "href": "/1/events"
+        },
+        {
+            "rel": "alternate",
+            "href": "ws://localhost:8888/1"
+        }
+    ],
+    "id": "urn:dev:ops:my-humidity-sensor-1234",
+    "href": "/1",
+    "actions": {
+        
+    },
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "properties": {
+        "level": {
+            "unit": "percent",
+            "@type": "dbpedia:Humidity",
+            "description": "The current humidity in %",
+            "maximum": 100,
+            "readOnly": true,
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/1/properties/level"
+                }
+            ],
+            "title": "Humidity",
+            "type": "number",
+            "minimum": 0
+        }
+    },
+    "events": {
+        
+    },
+    "base": "http://localhost:8888/1"
+}

@@ -1,0 +1,147 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        }
+    ],
+    "@type": [
+        "TowerFan",
+        "dbpedia:Fan_(machine)"
+    ],
+    "description": "TaoTronics Tower Fan",
+    "title": "TaoTronics Tower Fan, 65°Oscillating",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        "https://www.amazon.com/TaoTronics-Tower-Fan-Oscillating-Bladeless/dp/B087ZT7CZP/ref=sr_1_7?dchild=1&keywords=wifi+tower+fan&qid=1620410814&sr=8-7",
+        "https://www.taotronics.com/products/tt-tf001-oscillating-fan-powerful-standing-fan"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turn-Off": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "To turn the fan off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "set-Oscillation": {
+            "input": {
+                "type": "boolean"
+            },
+            "@type": "set-Oscillation-Action",
+            "description": "To set the oscillate feature on or off",
+            "links": [
+                
+            ],
+            "title": "set-Oscillation"
+        },
+        "set-Speed": {
+            "input": {
+                "maximum": 10,
+                "type": "integer",
+                "minimum": 1
+            },
+            "@type": "set-Speede-Action",
+            "description": "To set the speed ",
+            "links": [
+                
+            ],
+            "title": "set-Speed"
+        },
+        "turn-On": {
+            "input": {
+                "optional": [
+                    "oscillate",
+                    "speed"
+                ],
+                "type": "object",
+                "required": [
+                    
+                ],
+                "properties": {
+                    "oscillate": {
+                        "type": "boolean"
+                    },
+                    "speed": {
+                        "maximum": 10,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "To turn the fan on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        }
+    },
+    "properties": {
+        "speed": {
+            "@type": "dbpedia:Speed",
+            "maximum": 10,
+            "description": "The value of the speed set",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Speed",
+            "minimum": 1
+        },
+        "on": {
+            "@type": "On-Property",
+            "description": "To check if the fan is turned on",
+            "links": [
+                
+            ],
+            "title": "on",
+            "type": "boolean"
+        },
+        "oscillationOn": {
+            "@type": "dbpedia:Oscillation",
+            "description": "To check if the oscillation feature is turned on",
+            "links": [
+                
+            ],
+            "type": "boolean",
+            "title": "Oscillation"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

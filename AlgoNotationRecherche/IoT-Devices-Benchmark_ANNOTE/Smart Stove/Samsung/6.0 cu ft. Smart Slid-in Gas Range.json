@@ -1,0 +1,146 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentiality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Notice",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PersonnalInformationHandling"
+        }
+    ],
+    "@type": [
+        "SmartStove",
+        "Stove",
+        "dbpedia:Stove"
+    ],
+    "description": "Samsung smart stove",
+    "title": "Samsung 6.0 cu ft. Smart Slide-in Gas Range with Smart Dial & Air Fry in Stainless Steel",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "Samsung Bixby"
+    ],
+    "links": [
+        "https://www.samsung.com/us/home-appliances/ranges/gas/6-0-cu-ft-front-control-slide-in-gas-range-with-smart-dial-air-fry-wi-fi-in-stainless-steel-nx60t8711ss-aa/"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Switch-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "temparture"
+                ],
+                "properties": {
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "Switch-On-Action",
+            "description": "Turn the stove on",
+            "links": [
+                
+            ],
+            "title": "Switch-On"
+        },
+        "setTemperature": {
+            "input": {
+                "unit": "degree celsius",
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "dbpedia:Heat",
+            "description": "set the target temparture for the stove",
+            "links": [
+                
+            ],
+            "title": "SetTemperature"
+        },
+        "Switch-Off": {
+            "input": {
+                
+            },
+            "@type": "Switch-Off-Action",
+            "description": "Turn the stove off",
+            "links": [
+                
+            ],
+            "title": "Switch-Off"
+        },
+        "Set-Timer": {
+            "input": {
+                "type": "number"
+            },
+            "@type": "Set-Timer-Action",
+            "description": "Set the timer for the stove",
+            "links": [
+                
+            ],
+            "title": "Set-Timer"
+        }
+    },
+    "properties": {
+        "Temp": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the stove",
+            "links": [
+                
+            ],
+            "title": "Temp",
+            "type": "integer",
+            "minimum": 0
+        },
+        "Timer": {
+            "@type": "dbpedia:Timer",
+            "description": "The timer value set",
+            "links": [
+                
+            ],
+            "type": "number",
+            "title": "Timer"
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "If the stove is turned on or not",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

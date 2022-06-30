@@ -1,0 +1,142 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "TowerFan",
+        "dbpedia:Fan_(machine)"
+    ],
+    "description": "Honeywell HYF290B Tower Fan",
+    "title": "Honeywell QuietSet Whole Room Tower Fan-Black, HYF290B",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/",
+            "privp": "http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        "https://www.amazon.com/Honeywell-HYF290B-Quietset-Whole-Room-Oscillating/dp/B01N0LQJN6/ref=sr_1_9?dchild=1&keywords=wifi+tower+fan&qid=1620410963&sr=8-9"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the fan off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "setSpeed": {
+            "input": {
+                "maximum": 10,
+                "type": "integer",
+                "minimum": 1
+            },
+            "@type": "setSpeedeAction",
+            "description": "Set the speed of the fan",
+            "links": [
+                
+            ],
+            "title": "SetSpeed"
+        },
+        "turnOn": {
+            "input": {
+                "optional": [
+                    "oscillate",
+                    "speed"
+                ],
+                "type": "object",
+                "required": [
+                    
+                ],
+                "properties": {
+                    "oscillate": {
+                        "type": "boolean"
+                    },
+                    "speed": {
+                        "maximum": 10,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the fan on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        },
+        "setOscillate": {
+            "input": {
+                "type": "boolean"
+            },
+            "@type": "setOscillateAction",
+            "description": "Turn the oscillate feature of the fan on or off",
+            "links": [
+                
+            ],
+            "title": "SetOscillate"
+        }
+    },
+    "properties": {
+        "oscillation": {
+            "@type": "dbpedia:Oscillation",
+            "description": "Whether oscillate feature of the fan is on or off",
+            "links": [
+                
+            ],
+            "type": "boolean",
+            "title": "Oscillation"
+        },
+        "speed": {
+            "@type": "dbpedia:Speed",
+            "maximum": 10,
+            "description": "The speed of the fan between 1-10",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Speed",
+            "minimum": 1
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the light is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

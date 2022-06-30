@@ -1,0 +1,178 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentiality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        }
+    ],
+    "@type": [
+        "ColorChangingLightBulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "A LIFX color-changing light bulb",
+    "title": "LIFX Nightvision BR30",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samasung SmartThings",
+        "Microsoft Cortana",
+        "Apple Homekit"
+    ],
+    "links": [
+        "https://www.lifx.com/collections/lamps-and-pendants/products/lifx-nightvision-br30",
+        "https://www.amazon.com/LIFX-Infrared-Adjustable-Multicolor-Assistant/dp/B01KY02MVA"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "set_Brightness": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Set_BrightnessAction",
+            "description": "Sets the brightness level of the bulb in perecent",
+            "links": [
+                
+            ],
+            "title": "Set_Brightness"
+        },
+        "set_ColorTemperature": {
+            "input": {
+                "unit": "kelvin",
+                "maximum": 6500,
+                "type": "integer",
+                "minimum": 2000
+            },
+            "@type": "setColorTemperatureAction",
+            "description": "Sets the color temperature of the bulb",
+            "links": [
+                
+            ],
+            "title": "SetColorTemperature"
+        },
+        "Off": {
+            "input": {
+                
+            },
+            "@type": "OffAction",
+            "description": "Turn the light bulb off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "set_Color": {
+            "input": {
+                "unit": "degree",
+                "type": "double"
+            },
+            "@type": "Set_ColorAction",
+            "description": "Sets the color of the light bulb",
+            "links": [
+                
+            ],
+            "title": "Set_Color"
+        },
+        "On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "colorTemperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "integer",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "OnAction",
+            "description": "Turn the light bulb on",
+            "links": [
+                
+            ],
+            "title": "On"
+        }
+    },
+    "properties": {
+        "Color_degree": {
+            "unit": "degree",
+            "@type": "dbpedia:Color",
+            "description": "The color degree of the light bulb",
+            "links": [
+                
+            ],
+            "type": "double",
+            "title": "Color_degree"
+        },
+        "Color_Temperature": {
+            "unit": "kelvin",
+            "@type": "dbpedia:Color_temperature",
+            "maximum": 6500,
+            "description": "The color temeperature value of the light bulb",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Color_Temperature",
+            "minimum": 2000
+        },
+        "Brightness_Value": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The level of light from 0-100",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness_Value",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "On_OffProperty",
+            "description": "Whether the light bulb is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

@@ -1,0 +1,120 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "AirConditioner",
+        "dbpedia:Air_conditioning"
+    ],
+    "description": "LG Smart Air Conditioner",
+    "title": "LG LW1019IVSM Energy Star",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/LG-LW1019IVSM-Inverter-Conditioner-Control/dp/B07V48X7HG/ref=sr_1_15?dchild=1&qid=1619522527&sr=8-15",
+        "https://www.lg.com/us/air-conditioners/lg-LW1019IVSM"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the device off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "temparture"
+                ],
+                "properties": {
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "set the device on or off",
+            "links": [
+                
+            ],
+            "title": "Turn Heater On/Off"
+        },
+        "setTemperature": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": [
+                "dbpedia:Heat",
+                "dbpedia:Cooling"
+            ],
+            "description": "set the target temparture",
+            "links": [
+                
+            ],
+            "title": "SetTemperature"
+        }
+    },
+    "properties": {
+        "temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the device",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnProperty",
+            "description": "device is turned on or turned off",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

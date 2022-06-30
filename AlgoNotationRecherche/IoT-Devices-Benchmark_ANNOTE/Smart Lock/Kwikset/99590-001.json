@@ -1,0 +1,97 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "Smart_DoorLock",
+        "dbpedia:Remote_keyless_system"
+    ],
+    "description": "Kwikset smart lock",
+    "title": "Kwikset Halo Touch 99590-001",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/dp/B08DZ89KJQ/ref=s9_acsd_al_bw_c2_x_1_t?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-4&pf_rd_r=94YC0PMJSJ0JS6ZFQ65S&pf_rd_t=101&pf_rd_p=0db94890-e8d9-4c45-ae0b-d1b924b2cad9&pf_rd_i=21216824011"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "unlock": {
+            "input": {
+                
+            },
+            "@type": "dbpedia:Unlock",
+            "description": "ULock the door or open it",
+            "links": [
+                
+            ],
+            "title": "ULock"
+        },
+        "lock": {
+            "input": {
+                "optional": [
+                    "duration"
+                ],
+                "type": "object",
+                "properties": {
+                    "duration": {
+                        "unit": "milliseconds",
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                }
+            },
+            "@type": "dbpedia:Lock",
+            "description": "Lock the door or open it",
+            "links": [
+                
+            ],
+            "title": "Lock"
+        }
+    },
+    "properties": {
+        "locked": {
+            "@type": "LockedProperty",
+            "description": "Whether the door is locked or not",
+            "links": [
+                
+            ],
+            "title": "Locked/unlocked",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        "lowPower": {
+            "unit": "percent",
+            "@type": "dbpedia:Electric_power",
+            "description": "The lock battery has reached or exceeded its low operating limit",
+            "links": [
+                
+            ],
+            "type": "number"
+        }
+    },
+    "base": ""
+}

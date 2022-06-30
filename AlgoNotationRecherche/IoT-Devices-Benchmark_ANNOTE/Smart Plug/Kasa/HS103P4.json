@@ -1,0 +1,81 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "SmartPlug",
+        "dbpedia:AC_power_plugs_and_sockets"
+    ],
+    "description": "Kasa electric plug",
+    "title": "Kasa Smart HS103P4",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.amazon.com/TP-Link-Kasa-Smart-Wifi-Plug/dp/B07RCNB2L3/ref=pd_sbs_1?pd_rd_w=K8db8&pf_rd_p=98101395-b70f-4a52-af63-8fac2c513e02&pf_rd_r=67MJCVYANG9174SQPY62&pd_rd_r=b07f3850-c5a8-401b-a631-2689f5f6d650&pd_rd_wg=CzuPb&pd_rd_i=B07RCNB2L3&psc=1",
+        "https://www.kasasmart.com/us/products/smart-plugs/kasa-smart-wifi-plug-lite-hs103p2?option=4"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the plug off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the plug on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        }
+    },
+    "properties": {
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the plug is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

@@ -1,0 +1,119 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "Switch",
+        "dbpedia:Light_switch"
+    ],
+    "description": "A smart dimmer switch",
+    "title": "Leviton Decora Smart Plug-in Dimmer",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.leviton.com/en/products/dzpd3-2bw",
+        "https://www.amazon.com/Leviton-DW3HL-1BW-Decora-Required-Assistant/dp/B01N106YN7"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "TurnOn": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "TurnOnAction",
+            "description": "Set the light on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        },
+        "AdjustBrightnessLevel": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "AdjustBrightnessLevelAction",
+            "description": "Set the brightness level for the light switch",
+            "links": [
+                
+            ],
+            "title": "BrightnessLevel"
+        },
+        "TurnOff": {
+            "input": {
+                
+            },
+            "@type": "TurnOffAction",
+            "description": "Set the light off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        }
+    },
+    "properties": {
+        "BrightnessLevel": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The brightness level",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness",
+            "type": "integer",
+            "minimum": 0
+        },
+        "IsOn": {
+            "@type": "IsOnProperty",
+            "description": "If the light is turned on",
+            "links": [
+                
+            ],
+            "title": "IsOn",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

@@ -1,0 +1,128 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:Administration",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PurposeOf"
+        }
+    ],
+    "@type": [
+        "SmartHeater",
+        "dbpedia:Heating,_ventilation,_and_air_conditioning"
+    ],
+    "description": "Xiaomi Smart Heater",
+    "title": "Xiaomi Mi Smart Space Heater S",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.fr/Xiaomi-Chauffage-%C3%A9lectrique-application-assistance/dp/B08MTD722R",
+        "https://www.xiaomiproducts.nl/fr/xiaomi-mi-smart-space-heater-s.html"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "setOn": {
+            "@type": "dbpedia:Switch",
+            "description": "set the heater on or off",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/on"
+                }
+            ],
+            "title": "Turn Heater On/Off",
+            "type": "boolean"
+        },
+        "setTemperature": {
+            "input": {
+                "optional": "duration",
+                "type": "object",
+                "required": "temparture",
+                "properties": {
+                    "duration": {
+                        "unit": "milliseconds",
+                        "type": "integer",
+                        "minimum": 1
+                    },
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "dbpedia:Heat",
+            "description": "set the temparture of the heater",
+            "links": [
+                {
+                    "rel": "action",
+                    "href": "/0/actions/fade"
+                }
+            ],
+            "title": "Set Temperature"
+        }
+    },
+    "properties": {
+        "temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of light from 0-100",
+            "maximum": 100,
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/brightness"
+                }
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "heaterOn": {
+            "@type": "OnOffProperty",
+            "description": "Whether the heater is turned on or off",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/on"
+                }
+            ],
+            "title": "Heater On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        "overheated": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Overheating_(electricity)",
+            "description": "The heater has exceeded its safe operating temperature",
+            "links": [
+                {
+                    "rel": "event",
+                    "href": "/0/events/overheated"
+                }
+            ],
+            "type": "number"
+        }
+    },
+    "base": ""
+}

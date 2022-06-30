@@ -1,0 +1,125 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:IndirectCollection",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Unlikability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Washer",
+        "dbpedia:Washing_machine"
+    ],
+    "description": "Samsung Smart Washer",
+    "title": "Samsung 4.5 cu. ft. Smart Front Load Washer with Super Speed in Champagne",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "Samsung Bixby",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.samsung.com/us/home-appliances/washers/front-load/wf6300-4-5-cu--ft--smart-front-load-washer-with-super-speed-wf45r6300ac-us/"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Switch-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "cycle"
+                ],
+                "properties": {
+                    "cycle": {
+                        "type": "string"
+                    }
+                }
+            },
+            "@type": "Switch-On-Action",
+            "description": "Switch the wahser on",
+            "links": [
+                
+            ],
+            "title": "Switch-On"
+        },
+        "Set-Cycle": {
+            "input": {
+                "type": "string"
+            },
+            "@type": "Set-Cycle-Action",
+            "description": "Set the cycle for the washer",
+            "links": [
+                
+            ],
+            "title": "Set-Cycle"
+        },
+        "Switch-Off": {
+            "input": {
+                
+            },
+            "@type": "Switch-Off-Action",
+            "description": "Turn the washer off",
+            "links": [
+                
+            ],
+            "title": "Switch-Off"
+        }
+    },
+    "properties": {
+        "Cycle": {
+            "@type": "CycleProperty",
+            "description": "The cycle set",
+            "links": [
+                
+            ],
+            "type": "string",
+            "title": "Cycle"
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "If the washer is turned on or not",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

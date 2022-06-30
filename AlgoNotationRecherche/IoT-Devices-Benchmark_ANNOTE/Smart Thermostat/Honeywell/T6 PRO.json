@@ -1,0 +1,104 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Thermostat",
+        "dbpedia:Thermostat"
+    ],
+    "description": "Honeywell Smart Thermostat",
+    "title": "Honeywell T6 PRO",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "Microsoft Cortana",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.resideo.com/us/en/products/air/thermostats/wifi-thermostats/t6-pro-smart-thermostat-multi-stage-2-heat-2-cool-th6220wf2006-u/",
+        "https://www.amazon.com/honeywell-t6-pro/s?k=honeywell+t6+pro"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Turn-On": {
+            "input": {
+                
+            },
+            "@type": "Turn-On-Action",
+            "description": "set the thermostat on or off",
+            "links": [
+                
+            ],
+            "title": "Turn-On"
+        },
+        "Set-Temperature": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Set-Temperature-Action",
+            "description": "Set the temperature level of the room",
+            "links": [
+                
+            ],
+            "title": "Set-Temperature"
+        },
+        "Set-Timer": {
+            "input": {
+                "type": "integer"
+            },
+            "@type": "Set-Timer-Action",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "Set-Timer"
+        }
+    },
+    "properties": {
+        "Temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the room",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "Whether the thermostat is turned on",
+            "links": [
+                
+            ],
+            "title": "On",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

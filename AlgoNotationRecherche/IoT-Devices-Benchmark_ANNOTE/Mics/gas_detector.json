@@ -1,0 +1,115 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "gas sensor",
+        "gas detector",
+        "dbpedia:Gas_detector",
+        "dbpedia:Explosive_gas_leak_detector"
+    ],
+    "description": "A smart gas detector",
+    "title": "My Gas Detector",
+    "@context": [
+        "https://webthings.io/schemas/",
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        {
+            "rel": "properties",
+            "href": "/0/properties"
+        },
+        {
+            "rel": "actions",
+            "href": "/0/actions"
+        },
+        {
+            "rel": "events",
+            "href": "/0/events"
+        },
+        {
+            "rel": "alternate",
+            "href": "ws://localhost:8888/0"
+        }
+    ],
+    "id": "urn:dev:ops:my-gas-detector-1234",
+    "href": "/0",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "setOn": {
+            "@type": "dbpedia:Switch",
+            "description": "set the gas sensor on or off",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/on"
+                }
+            ],
+            "title": "Turn the sensor On/Off",
+            "type": "boolean"
+        }
+    },
+    "properties": {
+        "gasLevel": {
+            "unit": "percent",
+            "@type": "gaslevelProperty",
+            "description": "The current level of gas",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/brightness"
+                }
+            ],
+            "title": "Brightness",
+            "type": "integer"
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the sensor is turned on",
+            "links": [
+                {
+                    "rel": "property",
+                    "href": "/0/properties/on"
+                }
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        "highGasLevels": {
+            "unit": "percent",
+            "@type": "highGasLevelEvent",
+            "description": "The lamp has exceeded its safe operating temperature",
+            "links": [
+                {
+                    "rel": "event",
+                    "href": "/0/events/overheated"
+                }
+            ],
+            "type": "integer"
+        }
+    },
+    "base": "http://localhost:8888/0"
+}

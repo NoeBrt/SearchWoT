@@ -1,0 +1,151 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "pp:PrivacyPolicy",								
+            "levelPrivacy": "hight",					
+            "subconcept": "pp:Nothing"
+        },
+        {
+            "concept": "privp:Access",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PersonalInformationHandlin"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        },
+        {
+            "concept": "privp:PersonalInformationHandlin",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Dryer",
+        "dbpedia:Clothes_dryer"
+    ],
+    "description": "Samsung Smart Dryer",
+    "title": "Samsung 7.5 cu. ft. Smart Electric Dryer with Steam Sanitize+",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/",
+            "privp": "http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samasung SmartThings",
+        "Samsung Bixby"
+    ],
+    "links": [
+        "https://www.samsung.com/us/home-appliances/dryers/electric/dv6300-7-5-cu--ft--smart-electric-dryer-with-steam-sanitize--dve45r6300c-a3/",
+        "https://www.amazon.com/Samsung-DVE45R6300C-Champagne-Electric-Sanitize/dp/B07WJB7W49"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Switch-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "cycle"
+                ],
+                "properties": {
+                    "cycle": {
+                        "type": "string"
+                    }
+                }
+            },
+            "@type": "Switch-On-Action",
+            "description": "Switch the dryer on",
+            "links": [
+                
+            ],
+            "title": "Switch-On"
+        },
+        "Set-Cycle": {
+            "input": {
+                "type": "string"
+            },
+            "@type": "Set-Cycle-Action",
+            "description": "Set the cycle for the dryer",
+            "links": [
+                
+            ],
+            "title": "Set-Cycle"
+        },
+        "Switch-Off": {
+            "input": {
+                
+            },
+            "@type": "Switch-Off-Action",
+            "description": "Turn the dryer off",
+            "links": [
+                
+            ],
+            "title": "Switch-Off"
+        },
+        "Set-Timer": {
+            "input": {
+                "type": "number"
+            },
+            "@type": "Set-Timer-Action",
+            "description": "Set the timer for the dryer",
+            "links": [
+                
+            ],
+            "title": "Set-Timer"
+        }
+    },
+    "properties": {
+        "Timer": {
+            "@type": "dbpedia:Timer",
+            "description": "The timer value set",
+            "links": [
+                
+            ],
+            "type": "number",
+            "title": "Timer"
+        },
+        "Cycle": {
+            "@type": "CycleProperty",
+            "description": "The cycle set",
+            "links": [
+                
+            ],
+            "type": "string",
+            "title": "Cycle"
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "Whether the dryer is turned on or off",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

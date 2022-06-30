@@ -1,0 +1,174 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:IndirectCollection",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "ColorChangingLightBulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "LUMIMAN Color-changing light bulb",
+    "title": "LUMIMAN A19",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/Changing-Compatible-Assistant-Multicolor-LUMIMAN/dp/B07DLSNNDS/ref=lp_21217030011_1_2?s=specialty-aps&th=1",
+        "https://www.lumiman.com/products/lumiman-color-changing-smart-light-bulbs-single-pack"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "setColorTemperature": {
+            "input": {
+                "unit": "kelvin",
+                "maximum": 6500,
+                "type": "number",
+                "minimum": 2000
+            },
+            "@type": "setColorTemperature_Action",
+            "description": "Setting the color temperature of the device",
+            "links": [
+                
+            ],
+            "title": "SetColorTemperature"
+        },
+        "setColor": {
+            "input": {
+                "unit": "degree",
+                "type": "number"
+            },
+            "@type": "setColor_Action",
+            "description": "Setting the color of the device",
+            "links": [
+                
+            ],
+            "title": "SetColor"
+        },
+        "SwitchOff": {
+            "input": {
+                
+            },
+            "@type": "SwitchOff_Action",
+            "description": "Switching the device off",
+            "links": [
+                
+            ],
+            "title": "SwitchOff"
+        },
+        "Ù?SwitchOn": {
+            "input": {
+                "obligatory": [
+                    "brightness"
+                ],
+                "optional": [
+                    "color",
+                    "color_Temperature"
+                ],
+                "type": "object",
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "color_Temperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "number",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "SwitchOn_Action",
+            "description": "Switching the device on",
+            "links": [
+                
+            ],
+            "title": "Ù?SwitchOn"
+        },
+        "SetBrightness": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "number",
+                "minimum": 0
+            },
+            "@type": "setBrightnessAction",
+            "description": "Set the brightness level of the device",
+            "links": [
+                
+            ],
+            "title": "SetBrightness"
+        }
+    },
+    "properties": {
+        "brightness": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The light level value of the device",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness",
+            "type": "number",
+            "minimum": 0
+        },
+        "color": {
+            "unit": "degree",
+            "@type": "dbpedia:Color",
+            "description": "The color degree value of the device",
+            "links": [
+                
+            ],
+            "type": "number",
+            "title": "Color"
+        },
+        "color_Temperature": {
+            "unit": "kelvin",
+            "@type": "dbpedia:Color_temperature",
+            "maximum": 6500,
+            "description": "The color temeperature value of the device",
+            "links": [
+                
+            ],
+            "type": "number",
+            "title": "Color_Temperature",
+            "minimum": 2000
+        },
+        "on": {
+            "@type": "OnOff_Property",
+            "description": "To check if the device is turned on or not",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}
