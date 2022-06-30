@@ -47,7 +47,7 @@ public class CtrlLoadOntology implements Initializable {
 
 	public static void showInterfaceLoad() throws IOException {
 		stage = new Stage();
-		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/loadOntologyView.fxml"));
+		FXMLLoader interfaceConnect = new FXMLLoader(CtrlMainView.class.getResource("/controller/loadOntologyView.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(new Image("file:iconApp/icon.png"));
@@ -120,7 +120,7 @@ public class CtrlLoadOntology implements Initializable {
 		// TODO Auto-generated method stub
 		rootListBox.setValue("choose a root");
 		try {
-			setOntology(CtrlView.getOntology());
+			setOntology(CtrlMainView.getOntology());
 		} catch (OWLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

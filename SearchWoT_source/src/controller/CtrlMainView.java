@@ -46,7 +46,7 @@ import parser.ParseException;
 /**
  * @author Noe
  */
-public class CtrlView implements Initializable {
+public class CtrlMainView implements Initializable {
 	public static Stage CtrlStage;
 	private static OntologyDAO ontology;
 	private static TdModel algoSearch;
@@ -226,7 +226,7 @@ public class CtrlView implements Initializable {
 			try {
 				CtrlLoadOntology.showInterfaceLoad();
 				if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
-					CtrlView.setOntology(CtrlLoadOntology.ontology);
+					CtrlMainView.setOntology(CtrlLoadOntology.ontology);
 					// setOntology(CtrlLoadOntology.ontology);
 					if (CtrlLoadOntology.isAutoButtonSelected()) {
 						tree.setShowRoot(false);
@@ -361,8 +361,8 @@ public class CtrlView implements Initializable {
 	}
 
 	public static void setOntology(OntologyDAO ontology) {
-		CtrlView.ontology = ontology;
-		CtrlStage.setTitle(App.getTitle() + " - " + CtrlView.getOntology().getPath());
+		CtrlMainView.ontology = ontology;
+		CtrlStage.setTitle(App.getTitle() + " - " + CtrlMainView.getOntology().getPath());
 	}
 
 }

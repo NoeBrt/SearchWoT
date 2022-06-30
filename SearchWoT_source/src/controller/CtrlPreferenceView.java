@@ -27,7 +27,7 @@ public class CtrlPreferenceView {
 
 	public static void showPreferenceView() throws IOException {
 		stage = new Stage();
-		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/preferenceView.fxml"));
+		FXMLLoader interfaceConnect = new FXMLLoader(CtrlMainView.class.getResource("/controller/preferenceView.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(new Image("file:iconApp/icon.png"));

@@ -1,7 +1,7 @@
 
 package application;
 
-import controller.CtrlView;
+import controller.CtrlMainView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,20 +16,20 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/mainView.fxml"));
+			FXMLLoader view1 = new FXMLLoader(CtrlMainView.class.getResource("/controller/mainView.fxml"));
 			VBox root = view1.load();
 			root.pickOnBoundsProperty();
 			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
 			title="SearchWoT";
-			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
+			primaryStage.setTitle(title+" - "+CtrlMainView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("file:iconApp/icon.png"));
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
 				System.exit(0);
 			});
-			CtrlView.CtrlStage=primaryStage;
+			CtrlMainView.CtrlStage=primaryStage;
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
