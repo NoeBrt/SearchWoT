@@ -49,8 +49,10 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false"
-							text="Open Tds directory" onAction="#clikedOpenTdsDirectoryMenuItem" />
-						<Menu mnemonicParsing="false" text="Open Recent"  fx:id="openRecent" onAction="#clikedOpenRecentMenuItem"  />
+							text="Open Tds directory"
+							onAction="#clikedOpenTdsDirectoryMenuItem" />
+						<Menu mnemonicParsing="false" text="Open Recent"
+							fx:id="openRecent" onAction="#clikedOpenRecentMenuItem" />
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Close" />
 						<MenuItem mnemonicParsing="false" text="Save As…" />
@@ -59,7 +61,8 @@
 						<SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" text="Preferences…" />
 						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem mnemonicParsing="false" text="Quit" onAction="#quitMenuItem" />
+						<MenuItem mnemonicParsing="false" text="Quit"
+							onAction="#quitMenuItem" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit">
@@ -97,7 +100,7 @@
 						<ScrollPane prefHeight="-1.0" prefWidth="-1.0">
 							<content>
 								<TextFlow fx:id="tdDetail" prefHeight="554.0"
-									prefWidth="430.0"  />
+									prefWidth="430.0" />
 							</content>
 						</ScrollPane>
 					</children>

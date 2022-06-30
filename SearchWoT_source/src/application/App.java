@@ -16,21 +16,21 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/viewWoTImp.fxml"));
+			FXMLLoader view1 = new FXMLLoader(CtrlView.class.getResource("/controller/mainView.fxml"));
 			VBox root = view1.load();
 			root.pickOnBoundsProperty();
-			Scene scene = new Scene(root, 800, 600);
+			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
 			title="SearchWoT";
 			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("file:iconApp/icon.png"));
-			CtrlView.CtrlStage=primaryStage;
-			primaryStage.show();
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
 				System.exit(0);
 			});
+			CtrlView.CtrlStage=primaryStage;
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
