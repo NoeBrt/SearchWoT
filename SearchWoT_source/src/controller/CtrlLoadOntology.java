@@ -48,7 +48,7 @@ public class CtrlLoadOntology implements Initializable {
 
 	public static void showInterfaceLoad() throws IOException {
 		stage = new Stage();
-		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/popUpOntoChoose.fxml"));
+		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/loadOntologyView.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(new Image("file:iconApp/icon.png"));
