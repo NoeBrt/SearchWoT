@@ -1,0 +1,132 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Unlikability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Stove",
+        "dbpedia:Stove"
+    ],
+    "description": "Dacor smart stove",
+    "title": "Dacor 48 inch Dual-Fuel Steam Range with Griddle - Contemporary",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Samsung SmartThings"
+    ],
+    "links": [
+        "https://www.dacor.com/us/products/styles/contemporary/ranges/48-inch-dual-fuel-steam-range-with-griddle-contemp"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the stove off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "temparture"
+                ],
+                "properties": {
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "set the stove on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        },
+        "setTemperature": {
+            "input": {
+                "unit": "degree celsius",
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "dbpedia:Heat",
+            "description": "set the target temparture for the stove",
+            "links": [
+                
+            ],
+            "title": "SetTemperature"
+        },
+        "setTimer": {
+            "input": {
+                "type": "number"
+            },
+            "@type": "setTimerAction",
+            "description": "Set the timer for the stove",
+            "links": [
+                
+            ],
+            "title": "SetTimer"
+        }
+    },
+    "properties": {
+        "timer": {
+            "@type": "dbpedia:Timer",
+            "description": "The timer value set",
+            "links": [
+                
+            ],
+            "type": "number",
+            "title": "Timer"
+        },
+        "temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the stove",
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the stove is turned on or off",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

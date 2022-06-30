@@ -1,0 +1,173 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:record",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        }
+    ],
+    "@type": [
+        "SmartTV",
+        "dbpedia:Smart_TV"
+    ],
+    "description": "Samsung Smart TV",
+    "title": "Samsung Q80T Series",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Samsung SmartThings"
+    ],
+    "links": [
+        "https://www.amazon.com/dp/B0845ZSMWS?ref=emc_p_m_5_i",
+        "https://www.samsung.com/be_fr/tvs/qled-tv/q80t-55-inch-qled-4k-smart-tv-qe55q80talxxn/"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Set-Channel": {
+            "input": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "setChannelAction",
+            "description": "Set the channel to a certan number",
+            "links": [
+                
+            ],
+            "title": "Set-Channel"
+        },
+        "Set-Input": {
+            "input": {
+                "type": "string"
+            },
+            "@type": "Set-Input-Action",
+            "description": "Set the input source of the TV",
+            "links": [
+                
+            ],
+            "title": "Set-Input"
+        },
+        "Set-Volume": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Set-Volume-Action",
+            "description": "Set the volume level",
+            "links": [
+                
+            ],
+            "title": "Set-Volume"
+        },
+        "Switch-On": {
+            "input": {
+                "optional": [
+                    "volume",
+                    "channel",
+                    "input"
+                ],
+                "type": "object",
+                "properties": {
+                    "volume": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "input": {
+                        "type": "string"
+                    },
+                    "channel": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "Switch-On-Action",
+            "description": "Switch the TV on",
+            "links": [
+                
+            ],
+            "title": "Switch-On"
+        },
+        "Switch-Off": {
+            "input": {
+                
+            },
+            "@type": "Switch-Off-Action",
+            "description": "Switch the TV off",
+            "links": [
+                
+            ],
+            "title": "Switch-Off"
+        }
+    },
+    "properties": {
+        "Input": {
+            "@type": "InputProperty",
+            "description": "Set the input source of the TV ",
+            "links": [
+                
+            ],
+            "type": "string",
+            "title": "Input"
+        },
+        "Volume": {
+            "unit": "percent",
+            "@type": "dbpedia:Volume",
+            "maximum": 100,
+            "description": "The volume level",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Volume",
+            "minimum": 0
+        },
+        "Channel": {
+            "@type": "ChannelProperty",
+            "description": "The channel number on the TV",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Channel",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "If the TV is turned on or not",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

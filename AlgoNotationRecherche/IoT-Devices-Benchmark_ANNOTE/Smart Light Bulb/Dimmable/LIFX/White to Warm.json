@@ -1,0 +1,144 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:IndirectCollection",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "DimmableLightBulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "A LIFX dimmable light bulb",
+    "title": "LIFX White to Warm",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samasung SmartThings",
+        "Microsoft Cortana",
+        "Apple Homekit"
+    ],
+    "links": [
+        
+    ],
+    "id": "",
+    "href": "https://www.lifx.com/collections/lamps-and-pendants/products/lifx-white-to-warm",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "set_Brightness": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Set_BrightnessAction",
+            "description": "Sets the brightness level of the bulb in perecent",
+            "links": [
+                
+            ],
+            "title": "Set_Brightness"
+        },
+        "Off": {
+            "input": {
+                
+            },
+            "@type": "OffAction",
+            "description": "Turn the light bulb off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "colorTemperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "integer",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "OnAction",
+            "description": "Turn the light bulb on",
+            "links": [
+                
+            ],
+            "title": "On"
+        }
+    },
+    "properties": {
+        "Brightness_Value": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The level of light from 0-100",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness_Value",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "On_OffProperty",
+            "description": "Whether the light bulb is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

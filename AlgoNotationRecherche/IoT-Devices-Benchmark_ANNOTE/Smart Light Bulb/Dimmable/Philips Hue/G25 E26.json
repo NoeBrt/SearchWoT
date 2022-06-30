@@ -1,0 +1,129 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:DirectCollection",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PurposeOf"
+        }
+    ],
+    "@type": [
+        "Dimmable_Light_Bulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "Philips Hue Dimmable LightBulb",
+    "title": "Philips Hue G25 E26",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samasung SmartThings",
+        "Apple Homekit"
+    ],
+    "links": [
+        "https://www.philips-hue.com/en-us/p/hue-white-filament-1-pack-g25-e26-filament-globe/046677551797",
+        "https://www.amazon.com/Philips-Hue-Bluetooth-compatible-activated/dp/B07VRFLBVW"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turn-Off": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turnning the device off",
+            "links": [
+                
+            ],
+            "title": "Turn-Off"
+        },
+        "turn-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "colorTemperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "integer",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turnning the device on",
+            "links": [
+                
+            ],
+            "title": "Turn-On"
+        },
+        "Adjust-Brightness-Level": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Adjust-Brightness-Level-Action",
+            "description": "Adjusting the brightness level of the device",
+            "links": [
+                
+            ],
+            "title": "Adjust-Brightness-Level"
+        }
+    },
+    "properties": {
+        "Brightness-level": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The brightness level of the device",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness-level",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "True if the device is turned on",
+            "links": [
+                
+            ],
+            "title": "Onf",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

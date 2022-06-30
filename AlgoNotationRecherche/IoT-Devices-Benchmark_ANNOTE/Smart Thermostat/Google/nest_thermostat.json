@@ -1,0 +1,122 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "Thermostat",
+        "dbpedia:Thermostat"
+    ],
+    "description": "Google Smart Thermostat",
+    "title": "Google Nest Thermostat",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings"
+    ],
+    "links": [
+        "https://www.amazon.com/Google-Nest-Thermostat-Smart-Programmable/dp/B08HRPDYTP/ref=bmx_13?pd_rd_w=tOrBB&pf_rd_p=b56a886c-2bb4-4e74-b4cf-23d7a76693c8&pf_rd_r=KY4DFX089ZN7CBS3RCE4&pd_rd_r=dd3d3fa5-2940-41d8-af69-4f686cfdbe29&pd_rd_wg=oMhiv&pd_rd_i=B08HRPDYTP&psc=1",
+        "https://store.google.com/product/nest_learning_thermostat_3rd_gen?hl=fr"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "set_Temp": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "set_Temp_Action",
+            "description": "Set the temperature level of the room",
+            "links": [
+                
+            ],
+            "title": "set_Temp"
+        },
+        "set_Timer": {
+            "input": {
+                "type": "integer"
+            },
+            "@type": "set_Timer_Action",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "set_Timer"
+        },
+        "set_On": {
+            "input": {
+                
+            },
+            "@type": "set_On_Action",
+            "description": "set the thermostat on or off",
+            "links": [
+                
+            ],
+            "title": "set_On"
+        }
+    },
+    "properties": {
+        "temp": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the room",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "temp",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the thermostat is turned on",
+            "links": [
+                
+            ],
+            "title": "On_Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

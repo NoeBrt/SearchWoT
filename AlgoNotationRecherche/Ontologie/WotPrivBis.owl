@@ -9,6 +9,7 @@
     <Prefix name="" IRI="http://www.semanticweb.org/noebr/ontologies/2022/5/WoT"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="wot" IRI="http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
@@ -64,7 +65,7 @@
         <Class IRI="#PersonnalInformationHandling"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Provider"/>
@@ -96,7 +97,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Accountability"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Administration"/>
@@ -104,7 +105,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Anonimity"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Collection"/>
@@ -116,7 +117,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Confidentality"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Copy"/>
@@ -156,7 +157,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#PersonnalInformationHandling"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Provider"/>
@@ -180,15 +181,15 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Transparency"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Unlinkability"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Unobservability"/>
-        <Class IRI="#Private_Policy"/>
+        <Class IRI="#PrivacyPolicy"/>
     </SubClassOf>
 </Ontology>
 

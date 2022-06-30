@@ -1,0 +1,57 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Blinds",
+        "WindowBlinds",
+        "dbpedia:Window_blind"
+    ],
+    "description": "A web connected blind",
+    "title": "BLinds",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/",
+            "privp": "http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"
+        }
+    ],
+    "security": "nosec_sc",
+    "privacy_policy": {
+        
+    },
+    "links": [
+        
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "lower": {
+            
+        },
+        "raise": {
+            
+        },
+        "close": {
+            
+        },
+        "open": {
+            
+        }
+    },
+    "properties": {
+        
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

@@ -1,0 +1,112 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:record",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        }
+    ],
+    "@type": [
+        "Thermostat",
+        "dbpedia:Thermostat"
+    ],
+    "description": "Honeywell Smart Thermostat",
+    "title": "Honeywell RCHT8610WF2006",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Apple Homekit"
+    ],
+    "links": [
+        "https://www.amazon.com/dp/B01LTHM8LG/ref=emc_b_5_t",
+        "https://www.honeywellstore.com/store/products/honeywell-lyric-5-thermostat-rcht8610wf2006w.htm"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Turn-On": {
+            "input": {
+                
+            },
+            "@type": "Turn-On-Action",
+            "description": "set the thermostat on or off",
+            "links": [
+                
+            ],
+            "title": "Turn-On"
+        },
+        "Set-Temperature": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Set-Temperature-Action",
+            "description": "Set the temperature level of the room",
+            "links": [
+                
+            ],
+            "title": "Set-Temperature"
+        },
+        "Set-Timer": {
+            "input": {
+                "type": "integer"
+            },
+            "@type": "Set-Timer-Action",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "Set-Timer"
+        }
+    },
+    "properties": {
+        "Temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the room",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "Whether the thermostat is turned on",
+            "links": [
+                
+            ],
+            "title": "On",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

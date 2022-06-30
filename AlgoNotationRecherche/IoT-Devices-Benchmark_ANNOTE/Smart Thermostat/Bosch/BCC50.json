@@ -1,0 +1,125 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:IndirectCollection",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Unlikability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Confidentiality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:copy",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        }
+    ],
+    "@type": [
+        "Thermostat",
+        "dbpedia:Thermostat"
+    ],
+    "description": "Bosch Smart Thermostat",
+    "title": "Bosch BCC50",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/Bosch-Thermotechnology-Connected-BCC50-Thermostat-Compatible/dp/B07W6XVSGY/ref=pd_di_sccai_12?pd_rd_w=qemh8&pf_rd_p=c9443270-b914-4430-a90b-72e3e7e784e0&pf_rd_r=SPCS28Y6GKB7PK6Q76CW&pd_rd_r=78a5139c-cffb-4c8f-99f7-a67a723423c9&pd_rd_wg=RNFrq&pd_rd_i=B07W6XVSGY&psc=1"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "set_The_Temperature": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "number",
+                "minimum": 0
+            },
+            "@type": "set_The_Temperature",
+            "description": "Set the temperature level",
+            "links": [
+                
+            ],
+            "title": "set_The_Temperature"
+        },
+        "set_device_On": {
+            "input": {
+                
+            },
+            "@type": "set_device_On",
+            "description": "Set the thermostat on or set it off",
+            "links": [
+                
+            ],
+            "title": "set_device_On"
+        },
+        "set_The_Timer": {
+            "input": {
+                "type": "number"
+            },
+            "@type": "set_The_Timer",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "set_The_Timer"
+        }
+    },
+    "properties": {
+        "temperature_set": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature value set",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "temperature_set",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "device on or not",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

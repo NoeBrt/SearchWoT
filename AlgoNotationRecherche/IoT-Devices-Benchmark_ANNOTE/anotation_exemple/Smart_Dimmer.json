@@ -1,0 +1,116 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentality",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "dimmerSwitch",
+        "dbpedia:Light_switch"
+    ],
+    "description": "A web connected dimmer switch",
+    "title": "Caséta by Lutron Smart Dimmer Kit",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/",
+            "privp": "http://www.semanticweb.org/noebr/ontologies/2022/5/WoT#"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Apple Homekit",
+        "Samsung SmartThings",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.casetawireless.com/products/smart-kits",
+        "https://www.amazon.fr/Lutron-homekit-enabled-Electronics-Company-Inc/dp/B00XPW6824"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "SwitchOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the switch off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "SetBrightness": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "setBrightnessAction",
+            "description": "Set the brightness in perecent between 0-100",
+            "links": [
+                
+            ],
+            "title": "SetBrightness"
+        },
+        "SwitchOn": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the switch on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        }
+    },
+    "properties": {
+        "Brightness": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The level of light from 0-100",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On/Off": {
+            "@type": "On/OffProperty",
+            "description": "Whether the switch is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

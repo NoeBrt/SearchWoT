@@ -1,0 +1,181 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Color_Changing_Light_Bulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "Philips Hue Color Changing LightBulb",
+    "title": "Philips Hue A19",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Apple HomeKit",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/dp/B01KJYSOHM/ref=emc_b_5_t",
+        "https://www.philips-hue.com/fr-ca/p/blanche-hue-paquet-de-1-ampoule-a19-e26-a-filament-standard/046677551810"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turn-Off": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turnning the device off",
+            "links": [
+                
+            ],
+            "title": "Turn-Off"
+        },
+        "turn-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "colorTemperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "integer",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turnning the device on",
+            "links": [
+                
+            ],
+            "title": "Turn-On"
+        },
+        "Adjust-Color": {
+            "input": {
+                "unit": "degree",
+                "type": "double"
+            },
+            "@type": "Adjust-Color-Action",
+            "description": "Adjusting the color of the device",
+            "links": [
+                
+            ],
+            "title": "Adjust-Color"
+        },
+        "Adjust-Color-Temperature": {
+            "input": {
+                "unit": "kelvin",
+                "maximum": 6500,
+                "type": "integer",
+                "minimum": 2000
+            },
+            "@type": "Adjust-Color-Temperature-Action",
+            "description": "Adjusting the color temperature of the device",
+            "links": [
+                
+            ],
+            "title": "Adjust-Color-Temperature"
+        },
+        "Adjust-Brightness-Level": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Adjust-Brightness-Level-Action",
+            "description": "Adjusting the brightness level of the device",
+            "links": [
+                
+            ],
+            "title": "Adjust-Brightness-Level"
+        }
+    },
+    "properties": {
+        "Brightness-level": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The brightness level of the device",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness-level",
+            "type": "integer",
+            "minimum": 0
+        },
+        "Color-temperature": {
+            "unit": "kelvin",
+            "@type": "dbpedia:Color_temperature",
+            "maximum": 6500,
+            "description": "The color temeperature of the device",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Color-temperature",
+            "minimum": 2000
+        },
+        "Color-hue": {
+            "unit": "degree",
+            "@type": "dbpedia:Color",
+            "description": "The hue of the device",
+            "links": [
+                
+            ],
+            "type": "double",
+            "title": "Color-hue"
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "True if the device is turned on",
+            "links": [
+                
+            ],
+            "title": "Onf",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

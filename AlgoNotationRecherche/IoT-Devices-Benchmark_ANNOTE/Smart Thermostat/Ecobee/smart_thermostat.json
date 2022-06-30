@@ -1,0 +1,68 @@
+{
+    "security": [
+        "basic_sc"
+    ],
+    "privacyPolicy": [
+        {
+            "concept": "privp:Anonimity",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Unobservability",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Accountability",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Transparency",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Confifentiality",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "id": "urn:dev:ops:32473-WoTLamp-1234",
+    "title": "MyLampThing",
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "securityDefinitions": {
+        "basic_sc": {
+            "scheme": "basic",
+            "in": "header"
+        }
+    },
+    "actions": {
+        "toggle": {
+            "forms": [
+                {
+                    "href": "https://mylamp.example.com/toggle"
+                }
+            ]
+        }
+    },
+    "properties": {
+        "status": {
+            "type": "string",
+            "forms": [
+                {
+                    "href": "https://mylamp.example.com/status"
+                }
+            ]
+        }
+    },
+    "events": {
+        "overheating": {
+            "data": {
+                "type": "string"
+            },
+            "forms": [
+                {
+                    "subprotocol": "longpoll",
+                    "href": "https://mylamp.example.com/oh"
+                }
+            ]
+        }
+    }
+}

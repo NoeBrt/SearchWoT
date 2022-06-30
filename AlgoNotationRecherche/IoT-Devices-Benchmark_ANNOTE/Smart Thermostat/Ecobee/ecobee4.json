@@ -1,0 +1,113 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Confidentiality",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "low",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Thermostat",
+        "dbpedia:Thermostat"
+    ],
+    "description": "Ecobee4 Smart Thermostat",
+    "title": "Ecobee4 Smart Thermostat",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "Apple Homekit",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.amazon.com/ecobee4-Thermostat-Built-Sensor-Included/dp/B08BZTPMW1/ref=sr_1_2?dchild=1&keywords=Ecobee4&qid=1620401060&sr=8-2"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "setOn": {
+            "input": {
+                
+            },
+            "@type": "setOnAction",
+            "description": "set the thermostat on or off",
+            "links": [
+                
+            ],
+            "title": "SetOn"
+        },
+        "setTemp": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "setTemperatureAction",
+            "description": "Set the temperature level of the room",
+            "links": [
+                
+            ],
+            "title": "SetTemp"
+        },
+        "setTimer": {
+            "input": {
+                "type": "integer"
+            },
+            "@type": "setTimerAction",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "SetTimer"
+        }
+    },
+    "properties": {
+        "temp": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the room",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the thermostat is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

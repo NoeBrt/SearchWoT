@@ -1,0 +1,107 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        }
+    ],
+    "@type": [
+        "Plug",
+        "SmartPlug",
+        "dbpedia:AC_power_plugs_and_sockets"
+    ],
+    "description": "BN-LINK Smart Plug",
+    "title": "BN-LINK Heavy Duty Smart Plug Outlet",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/BN-LINK-Monitoring-Function-Compatible-Assistant/dp/B07CVPKD8Z/ref=pd_sbs_5?pd_rd_w=K8db8&pf_rd_p=98101395-b70f-4a52-af63-8fac2c513e02&pf_rd_r=67MJCVYANG9174SQPY62&pd_rd_r=b07f3850-c5a8-401b-a631-2689f5f6d650&pd_rd_wg=CzuPb&pd_rd_i=B07CVPKD8Z&psc=1"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turn_plug_On": {
+            "input": {
+                
+            },
+            "@type": "turn_plug_On",
+            "description": "Turn the plug on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        },
+        "turn_monitoring_mode": {
+            "input": {
+                "type": "boolean"
+            },
+            "@type": "turn_monitoring_mode",
+            "description": "Turn on energy monitoring mode",
+            "links": [
+                
+            ],
+            "title": "TurnMonitoring"
+        },
+        "set_plug_timer": {
+            "input": {
+                "type": "number"
+            },
+            "@type": "set_plug_timer",
+            "description": "Set a timer",
+            "links": [
+                
+            ],
+            "title": "SetTimer"
+        },
+        "turn-plug_Off": {
+            "input": {
+                
+            },
+            "@type": "turn-plug_Off",
+            "description": "Turn the plug off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        }
+    },
+    "properties": {
+        "plug_on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the plug is turned on",
+            "links": [
+                
+            ],
+            "title": "plug_on",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

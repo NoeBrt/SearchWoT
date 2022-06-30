@@ -1,0 +1,132 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:Administration",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PurposeOf"
+        }
+    ],
+    "@type": [
+        "WaterHeater",
+        "dbpedia:Water_heating"
+    ],
+    "description": "A web connected water heater",
+    "title": "Water Heater",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "links": [
+        
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the heater off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "temparture"
+                ],
+                "properties": {
+                    "temparture": {
+                        "unit": "degree celsius",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "set the heater on or off",
+            "links": [
+                
+            ],
+            "title": "Turn Heater On/Off"
+        },
+        "setEcoMode": {
+            "input": {
+                "type": "boolean"
+            },
+            "@type": "setEcoModeAction",
+            "description": "Turn the energy save mode on or off",
+            "links": [
+                
+            ],
+            "title": "SetEcoMode"
+        },
+        "setTemperature": {
+            "input": {
+                "unit": "degree celsius",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "dbpedia:Heat",
+            "description": "set the target temparture for the water",
+            "links": [
+                
+            ],
+            "title": "SetTemperature"
+        }
+    },
+    "properties": {
+        "ecoMode": {
+            "@type": "dbpedia:Energy_conservation",
+            "description": "Whether the energy save mode is on or off",
+            "links": [
+                
+            ],
+            "type": "boolean",
+            "title": "EcoMode"
+        },
+        "temperature": {
+            "unit": "degree celsius",
+            "@type": "dbpedia:Temperature",
+            "description": "The temperature level of the water from 0-100",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Temperature",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the heater is turned on or off",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

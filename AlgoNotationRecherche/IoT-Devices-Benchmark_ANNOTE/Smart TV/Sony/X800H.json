@@ -1,0 +1,176 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:IndirectCollection",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Administration",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:PurposeOf"
+        }
+    ],
+    "@type": [
+        "SmartTV",
+        "TV",
+        "dbpedia:Smart_TV"
+    ],
+    "description": "A web connected smart TV",
+    "title": "Sony X800H Series",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Apple Homekit",
+        "Apple AirPlay2"
+    ],
+    "links": [
+        "https://www.amazon.com/dp/B083R2QTL6?ref=emc_p_m_5_i",
+        "https://www.sony.fr/electronics/televiseurs/xh80-series"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turnOff": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the TV off",
+            "links": [
+                
+            ],
+            "title": "TurnOff"
+        },
+        "turnOn": {
+            "input": {
+                "optional": [
+                    "volume",
+                    "channel",
+                    "input"
+                ],
+                "type": "object",
+                "properties": {
+                    "volume": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "input": {
+                        "type": "string"
+                    },
+                    "channel": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the TV on",
+            "links": [
+                
+            ],
+            "title": "TurnOn"
+        },
+        "setVolume": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "setVolumeAction",
+            "description": "Set the volume level in perecent between 0-100",
+            "links": [
+                
+            ],
+            "title": "SetVolume"
+        },
+        "setChannel": {
+            "input": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "setChannelAction",
+            "description": "Set the channel to a certan number on the TV ",
+            "links": [
+                
+            ],
+            "title": "SetChannel"
+        },
+        "setInput": {
+            "input": {
+                "type": "string"
+            },
+            "@type": "setInputAction",
+            "description": "Set the input source of the TV ",
+            "links": [
+                
+            ],
+            "title": "SetInput"
+        }
+    },
+    "properties": {
+        "volume": {
+            "unit": "percent",
+            "@type": "dbpedia:Volume",
+            "maximum": 100,
+            "description": "The volume level in perecent between 0-100",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Volume",
+            "minimum": 0
+        },
+        "input": {
+            "@type": "inputProperty",
+            "description": "Set the input source of the TV ",
+            "links": [
+                
+            ],
+            "type": "string",
+            "title": "Input"
+        },
+        "channel": {
+            "@type": "channelProperty",
+            "description": "The channel number on the TV ",
+            "links": [
+                
+            ],
+            "type": "integer",
+            "title": "Channel",
+            "minimum": 0
+        },
+        "on": {
+            "@type": "OnOffProperty",
+            "description": "Whether the TV is turned on",
+            "links": [
+                
+            ],
+            "title": "On/Off",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

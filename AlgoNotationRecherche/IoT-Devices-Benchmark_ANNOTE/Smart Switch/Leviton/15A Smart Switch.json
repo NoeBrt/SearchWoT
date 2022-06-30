@@ -1,0 +1,87 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Unobservability",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Disclose",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:Collection"
+        },
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        }
+    ],
+    "@type": [
+        "Switch",
+        "dbpedia:AC_power_plugs_and_sockets"
+    ],
+    "description": "Leviton Decora Smart Switch",
+    "title": "Leviton Decora 15A Smart Switch",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Google Home Assistant",
+        "Samsung SmartThings",
+        "IFTTT"
+    ],
+    "links": [
+        "https://www.leviton.com/en/products/dz15s-1bz",
+        "https://www.amazon.com/Leviton-DW15S-1BZ-Universal-Incandescent-Required/dp/B01MU9SH77"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "Off": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turn the switch off",
+            "links": [
+                
+            ],
+            "title": "Off"
+        },
+        "On": {
+            "input": {
+                
+            },
+            "@type": "turnOnAction",
+            "description": "Turn the switch on",
+            "links": [
+                
+            ],
+            "title": "On"
+        }
+    },
+    "properties": {
+        "IsOn": {
+            "@type": "OnOffProperty",
+            "description": "",
+            "links": [
+                
+            ],
+            "title": "IsOn",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}

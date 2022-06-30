@@ -1,0 +1,147 @@
+{
+    "privacyPolicy": [
+        {
+            "concept": "privp:Legal",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PurposeOf"
+        },
+        {
+            "concept": "privp:NeedToKnow",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Confidentiality"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Transparency",
+            "levelPrivacy": "mid",
+            "subconcept": "privp:PrivacyPolicy"
+        },
+        {
+            "concept": "privp:Modification",
+            "levelPrivacy": "hight",
+            "subconcept": "privp:Access"
+        },
+        {
+            "concept": "privp:ServiceCompletion",
+            "levelPrivacy": "low",
+            "subconcept": "privp:PersonalInformationHandlin"
+        }
+    ],
+    "@type": [
+        "Dimmable_Light_Bulb",
+        "dbpedia:Electric_light"
+    ],
+    "description": "Philips Hue Dimmable LightBulb",
+    "title": "Philips Hue 466706",
+    "@context": [
+        {
+            "dbpedia": "http://dbpedia.org/resource/"
+        }
+    ],
+    "security": "nosec_sc",
+    "compatible": [
+        "Amazon Alexa",
+        "Apple HomeKit",
+        "Google Home Assistant"
+    ],
+    "links": [
+        "https://www.amazon.com/Philips-Hue-Dimmable-Installation-Assistant/dp/B01N4OMRJ9/ref=psdc_2314207011_t4_B01F6T4R0S"
+    ],
+    "id": "",
+    "href": "",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "actions": {
+        "turn-Off": {
+            "input": {
+                
+            },
+            "@type": "turnOffAction",
+            "description": "Turnning the device off",
+            "links": [
+                
+            ],
+            "title": "Turn-Off"
+        },
+        "turn-On": {
+            "input": {
+                "type": "object",
+                "required": [
+                    "brightness"
+                ],
+                "properties": {
+                    "brightness": {
+                        "unit": "percent",
+                        "maximum": 100,
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "color": {
+                        "unit": "degree",
+                        "type": "double"
+                    },
+                    "colorTemperature": {
+                        "unit": "kelvin",
+                        "maximum": 6500,
+                        "type": "integer",
+                        "minimum": 2000
+                    }
+                }
+            },
+            "@type": "turnOnAction",
+            "description": "Turnning the device on",
+            "links": [
+                
+            ],
+            "title": "Turn-On"
+        },
+        "Adjust-Brightness-Level": {
+            "input": {
+                "unit": "percent",
+                "maximum": 100,
+                "type": "integer",
+                "minimum": 0
+            },
+            "@type": "Adjust-Brightness-Level-Action",
+            "description": "Adjusting the brightness level of the device",
+            "links": [
+                
+            ],
+            "title": "Adjust-Brightness-Level"
+        }
+    },
+    "properties": {
+        "Brightness-level": {
+            "unit": "percent",
+            "@type": "dbpedia:Brightness",
+            "description": "The brightness level of the device",
+            "maximum": 100,
+            "links": [
+                
+            ],
+            "title": "Brightness-level",
+            "type": "integer",
+            "minimum": 0
+        },
+        "On": {
+            "@type": "OnOffProperty",
+            "description": "True if the device is turned on",
+            "links": [
+                
+            ],
+            "title": "Onf",
+            "type": "boolean"
+        }
+    },
+    "events": {
+        
+    },
+    "base": ""
+}
