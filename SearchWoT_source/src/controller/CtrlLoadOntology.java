@@ -51,7 +51,7 @@ public class CtrlLoadOntology implements Initializable {
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlView.class.getResource("/controller/popUpOntoChoose.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
-		stage.getIcons().add(new Image("/application/icon.png"));
+		stage.getIcons().add(new Image("file:iconApp/icon.png"));
 		stage.setTitle("Load OWL Ontology");
 		stage.sizeToScene();
 		stage.setResizable(false);

@@ -25,12 +25,12 @@ public class App extends Application {
 			title="SearchWoT";
 			primaryStage.setTitle(title+" - "+CtrlView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("file:iconApp/icon.png"));
-			CtrlView.CtrlStage=primaryStage;
-			primaryStage.show();
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
 				System.exit(0);
 			});
+			CtrlView.CtrlStage=primaryStage;
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
