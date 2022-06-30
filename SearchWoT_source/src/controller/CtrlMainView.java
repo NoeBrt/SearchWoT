@@ -43,18 +43,14 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.TdModel;
 import parser.ParseException;
 
-/**
- * @author Noe
- */
 public class CtrlMainView implements Initializable {
 	public static Stage CtrlStage;
 	private static OntologyDAO ontology;
 	private static TdModel algoSearch;
-	@FXML
-	private TreeView<String> tree = new TreeView<String>();
-
 	private HashMap<String, String> resultMap = new HashMap<String, String>();;
 	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
+	@FXML
+	private TreeView<String> tree = new TreeView<String>();
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
 
