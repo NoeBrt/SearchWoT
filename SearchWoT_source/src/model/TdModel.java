@@ -18,7 +18,7 @@ import simple.JSONObject;
  * @author Noe Breton
  *
  */
-public class algoNotationRecherche {
+public class TdModel {
 
 	/**
 	 * path of the TDs folder
@@ -32,7 +32,7 @@ public class algoNotationRecherche {
 		JsonObjectList = jsonObjectList;
 	}
 
-	public algoNotationRecherche(String path) throws IOException, ParseException {
+	public TdModel(String path) throws IOException, ParseException {
 		this.dir = new File(path);
 		JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");
@@ -40,7 +40,7 @@ public class algoNotationRecherche {
 
 	}
 
-	public algoNotationRecherche(File dir) throws IOException, ParseException {
+	public TdModel(File dir) throws IOException, ParseException {
 		this.dir = dir;
 		// JsonFileList = listFileRecur(dir, ".json");
 		JsonObjectList = listJsonObjectRecur(dir, ".json");

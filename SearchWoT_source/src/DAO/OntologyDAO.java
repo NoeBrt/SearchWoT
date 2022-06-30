@@ -22,12 +22,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
-public class OntologieDAO {
+public class OntologyDAO {
 	private OWLOntology ontology;
 	private String path;
 	private String name;
 
-	public OntologieDAO(String path) throws OWLException, IOException {
+	public OntologyDAO(String path) throws OWLException, IOException {
 		File f = new File(path);
 		this.path=f.getPath();
 		final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

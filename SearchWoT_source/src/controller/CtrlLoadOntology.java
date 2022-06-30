@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import org.semanticweb.owlapi.model.OWLException;
 
-import DAO.OntologieDAO;
+import DAO.OntologyDAO;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 public class CtrlLoadOntology implements Initializable {
 	public static Stage stage;
-	public static OntologieDAO ontology;
+	public static OntologyDAO ontology;
 	private static boolean isInvertedButtonSelected;
 	private static boolean isAutoButtonSelected;
 	public static String valueRootListBox;
@@ -69,7 +69,7 @@ public class CtrlLoadOntology implements Initializable {
 		File file = fc.showOpenDialog(null);
 		if (file != null) {
 			try {
-				setOntology(new OntologieDAO(file.getCanonicalPath()));
+				setOntology(new OntologyDAO(file.getCanonicalPath()));
 				// ontology.getClassesName();
 			} catch (OWLException e) {
 				// TODO Auto-generated catch block
@@ -82,7 +82,7 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
-	public void setOntology(OntologieDAO onto) throws OWLException, IOException {
+	public void setOntology(OntologyDAO onto) throws OWLException, IOException {
 		ontology = onto;
 		pathOwl.setText(ontology.getPath());
 		rootList.setAll(ontology.getClassesName());

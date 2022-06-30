@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 import org.semanticweb.owlapi.model.OWLException;
-import DAO.OntologieDAO;
+import DAO.OntologyDAO;
 import application.App;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -34,7 +34,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import model.algoNotationRecherche;
+import model.TdModel;
 import parser.ParseException;
 
 /**
@@ -42,8 +42,8 @@ import parser.ParseException;
  */
 public class CtrlView implements Initializable {
 	public static Stage CtrlStage;
-	private static OntologieDAO ontology;
-	private static algoNotationRecherche algoSearch;
+	private static OntologyDAO ontology;
+	private static TdModel algoSearch;
 	@FXML
 	private TreeView<String> tree = new TreeView<String>();
 
@@ -66,8 +66,8 @@ public class CtrlView implements Initializable {
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			ontology = new OntologieDAO("Ontology/WotPriv.owl");
-			algoSearch = new algoNotationRecherche("IoT-Devices-Benchmark_ANNOTE");
+			ontology = new OntologyDAO("Ontology/WotPriv.owl");
+			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE");
 			dequeRecentOpen.addFirst(new MenuItem(algoSearch.getDir().getPath()));
 			openRecent.getItems().setAll(dequeRecentOpen);
 			leftStatut.setText(algoSearch.getDir().getPath());
@@ -318,11 +318,11 @@ public class CtrlView implements Initializable {
 		CtrlStage.close();
 	}
 
-	public static OntologieDAO getOntology() {
+	public static OntologyDAO getOntology() {
 		return ontology;
 	}
 
-	public static void setOntology(OntologieDAO ontology) {
+	public static void setOntology(OntologyDAO ontology) {
 		CtrlView.ontology = ontology;
 		CtrlStage.setTitle(App.getTitle() + " - " + CtrlView.getOntology().getPath());
 	}
