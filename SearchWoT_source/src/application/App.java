@@ -29,7 +29,7 @@ public class App extends Application {
 				Platform.exit();
 				System.exit(0);
 			});
-			CtrlMainView.CtrlStage=primaryStage;
+			CtrlMainView.setCtrlStage(primaryStage);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,7 +44,4 @@ public class App extends Application {
 		return title;
 	}
 
-	public static void setTitle(String title) {
-		App.title = title;
-	}
 }

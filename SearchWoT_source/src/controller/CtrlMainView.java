@@ -44,7 +44,7 @@ import model.TdModel;
 import parser.ParseException;
 
 public class CtrlMainView implements Initializable {
-	public static Stage CtrlStage;
+	private static Stage CtrlStage;
 	private static OntologyDAO ontology;
 	private static TdModel algoSearch;
 	private HashMap<String, String> resultMap = new HashMap<String, String>();;
@@ -359,6 +359,22 @@ public class CtrlMainView implements Initializable {
 	public static void setOntology(OntologyDAO ontology) {
 		CtrlMainView.ontology = ontology;
 		CtrlStage.setTitle(App.getTitle() + " - " + CtrlMainView.getOntology().getPath());
+	}
+
+	public static Stage getCtrlStage() {
+		return CtrlStage;
+	}
+
+	public static void setCtrlStage(Stage ctrlStage) {
+		CtrlStage = ctrlStage;
+	}
+
+	public static TdModel getAlgoSearch() {
+		return algoSearch;
+	}
+
+	public static void setAlgoSearch(TdModel algoSearch) {
+		CtrlMainView.algoSearch = algoSearch;
 	}
 
 }
