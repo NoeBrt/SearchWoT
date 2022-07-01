@@ -67,8 +67,8 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Select All" />
-						<MenuItem mnemonicParsing="false" text="Unselect All" />
+						<MenuItem mnemonicParsing="false" text="Select All" onAction="#selectAllAction" />
+						<MenuItem mnemonicParsing="false" text="Unselect All"  onAction="#unSelectAllAction" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">

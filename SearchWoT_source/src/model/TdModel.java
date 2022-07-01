@@ -185,7 +185,9 @@ public class TdModel {
 	 */
 	private boolean containConcepts(JSONObject ThingDescription, ArrayList<String> concepts) {
 		Object PrivacyPolicy = ThingDescription.get(tdPartToAnalyse);
-		JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
+		try {JSONArray PrivacyPolicy2 = ((JSONArray) PrivacyPolicy);
+		
+		
 		boolean b = true;
 		for (String concept : concepts) {
 			if (!containConcept(PrivacyPolicy2, concept)) {
@@ -193,6 +195,9 @@ public class TdModel {
 			}
 		}
 		return b;
+		}catch(Exception e1) {
+			return false;
+		}
 	}
 
 	private boolean containConcept(JSONArray PrivacyPolicy2, String concept) {

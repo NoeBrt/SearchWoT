@@ -161,6 +161,7 @@ public class CtrlMainView implements Initializable {
 			cell.setOnMouseClicked(event -> {
 				if (cell.isEmpty()) {
 					Platform.runLater(() -> tree.getSelectionModel().clearSelection());
+					Resultlist.clear();
 					rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
 				} else {
 					if (cell.isSelected()) {
@@ -180,11 +181,13 @@ public class CtrlMainView implements Initializable {
 
 	@FXML
 	public void displayResultSearch() {
-		ArrayList<String> SelectedConcepts = new ArrayList<>();
-		tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
-		resultMap = algoSearch.schearTD(SelectedConcepts);
-		Resultlist.setAll(resultMap.keySet());
-		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
+		if (!tree.getSelectionModel().isEmpty()) {
+			ArrayList<String> SelectedConcepts = new ArrayList<>();
+			tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
+			resultMap = algoSearch.schearTD(SelectedConcepts);
+			Resultlist.setAll(resultMap.keySet());
+			rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
+		}
 
 	}
 	/*
@@ -221,7 +224,8 @@ public class CtrlMainView implements Initializable {
 		if (CtrlLoadOntology.getStage() == null || !CtrlLoadOntology.getStage().isShowing()) {
 			try {
 				CtrlLoadOntology.showInterfaceLoad();
-				if (CtrlLoadOntology.getOntology() != null && !CtrlLoadOntology.getValueRootListBox().equals("choose root")) {
+				if (CtrlLoadOntology.getOntology() != null
+						&& !CtrlLoadOntology.getValueRootListBox().equals("choose root")) {
 					CtrlMainView.setOntology(CtrlLoadOntology.getOntology());
 					// setOntology(CtrlLoadOntology.ontology);
 					if (CtrlLoadOntology.isAutoButtonSelected()) {
@@ -240,6 +244,7 @@ public class CtrlMainView implements Initializable {
 						}
 
 					}
+					Resultlist.clear();
 				}
 			} catch (OWLException e) {
 				displayOwlError();
@@ -350,6 +355,17 @@ public class CtrlMainView implements Initializable {
 	@FXML
 	public void quitMenuItem() {
 		CtrlStage.close();
+	}
+
+	@FXML
+	public void selectAllAction() {
+		tree.getSelectionModel().selectAll();
+	}
+
+	@FXML
+	public void unSelectAllAction() {
+		tree.getSelectionModel().clearSelection();
+
 	}
 
 	public static OntologyDAO getOntology() {
