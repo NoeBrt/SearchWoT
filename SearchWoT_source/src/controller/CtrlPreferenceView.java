@@ -23,25 +23,25 @@ public class CtrlPreferenceView {
 		stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlMainView.class.getResource("/controller/preferenceView.fxml"));
 		Parent root = interfaceConnect.load();
-		getStage().setScene(new Scene(root));
-		getStage().getIcons().add(new Image("file:iconApp/icon.png"));
-		getStage().setTitle("Preference");
-		getStage().sizeToScene();
-		getStage().setResizable(false);
-		getStage().setAlwaysOnTop(true);
-		getStage().showAndWait();
+		stage.setScene(new Scene(root));
+		stage.getIcons().add(new Image("file:iconApp/icon.png"));
+		stage.setTitle("Preference");
+		stage.sizeToScene();
+		stage.setResizable(false);
+		stage.setAlwaysOnTop(true);
+		stage.showAndWait();
 	}
 
 	@FXML
 	public void cancelAction() {
-		getStage().close();
+		stage.close();
 	}
 
 	@FXML
 	public void applyAction() {
 		if(!partTdNameLabel.getText().isBlank()) {
 			valuePartTdNameLabel=partTdNameLabel.getText();
-			getStage().close();
+			stage.close();
 		}else {
 			redLabel.setVisible(true);
 		}
