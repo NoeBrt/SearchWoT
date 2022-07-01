@@ -317,15 +317,15 @@ public class CtrlMainView implements Initializable {
 
 	@FXML
 	public void preferencesAction() throws IOException, ParseException {
-		if (CtrlPreferenceView.stage == null || !CtrlPreferenceView.stage.isShowing()) {
+		if (CtrlPreferenceView.getStage() == null || !CtrlPreferenceView.getStage().isShowing()) {
 			CtrlPreferenceView.showPreferenceView();
-			if (CtrlPreferenceView.valuePartTdNameLabel != null) {
-				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.valuePartTdNameLabel);
+			if (CtrlPreferenceView.getValuePartTdNameLabel() != null) {
+				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.getValuePartTdNameLabel());
 				setLeftStatut();
 				displayResultSearch();
 			}
 		} else {
-			CtrlPreferenceView.stage.toFront();
+			CtrlPreferenceView.getStage().toFront();
 		}
 	}
 

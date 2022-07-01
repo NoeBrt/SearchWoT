@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 public class CtrlPreferenceView {
 
-	public static Stage stage;
-	public static String valuePartTdNameLabel;
+	private static Stage stage;
+	private static String valuePartTdNameLabel;
 	@FXML
 	private TextField partTdNameLabel;
 	@FXML
@@ -23,25 +23,25 @@ public class CtrlPreferenceView {
 		stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(CtrlMainView.class.getResource("/controller/preferenceView.fxml"));
 		Parent root = interfaceConnect.load();
-		stage.setScene(new Scene(root));
-		stage.getIcons().add(new Image("file:iconApp/icon.png"));
-		stage.setTitle("Preference");
-		stage.sizeToScene();
-		stage.setResizable(false);
-		stage.setAlwaysOnTop(true);
-		stage.showAndWait();
+		getStage().setScene(new Scene(root));
+		getStage().getIcons().add(new Image("file:iconApp/icon.png"));
+		getStage().setTitle("Preference");
+		getStage().sizeToScene();
+		getStage().setResizable(false);
+		getStage().setAlwaysOnTop(true);
+		getStage().showAndWait();
 	}
 
 	@FXML
 	public void cancelAction() {
-		stage.close();
+		getStage().close();
 	}
 
 	@FXML
 	public void applyAction() {
 		if(!partTdNameLabel.getText().isBlank()) {
 			valuePartTdNameLabel=partTdNameLabel.getText();
-			stage.close();
+			getStage().close();
 		}else {
 			redLabel.setVisible(true);
 		}
@@ -49,6 +49,14 @@ public class CtrlPreferenceView {
 	}
 	public void hideRedLabel() {
 		redLabel.setVisible(false);
+	}
+
+	public static String getValuePartTdNameLabel() {
+		return valuePartTdNameLabel;
+	}
+
+	public static Stage getStage() {
+		return stage;
 	}
 
 }
