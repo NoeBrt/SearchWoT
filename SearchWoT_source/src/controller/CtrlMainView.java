@@ -218,11 +218,11 @@ public class CtrlMainView implements Initializable {
 
 	@FXML
 	public void loadOntologyMenuItem() throws IOException {
-		if (CtrlLoadOntology.stage == null || !CtrlLoadOntology.stage.isShowing()) {
+		if (CtrlLoadOntology.getStage() == null || !CtrlLoadOntology.getStage().isShowing()) {
 			try {
 				CtrlLoadOntology.showInterfaceLoad();
-				if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
-					CtrlMainView.setOntology(CtrlLoadOntology.ontology);
+				if (CtrlLoadOntology.getOntology() != null && !CtrlLoadOntology.getValueRootListBox().equals("choose root")) {
+					CtrlMainView.setOntology(CtrlLoadOntology.getOntology());
 					// setOntology(CtrlLoadOntology.ontology);
 					if (CtrlLoadOntology.isAutoButtonSelected()) {
 						tree.setShowRoot(false);
@@ -234,9 +234,9 @@ public class CtrlMainView implements Initializable {
 					} else {
 						tree.setShowRoot(true);
 						if (CtrlLoadOntology.isInvertedButtonSelected()) {
-							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSuperClassesHashMap());
+							setTreeView(CtrlLoadOntology.getValueRootListBox(), ontology.getSuperClassesHashMap());
 						} else {
-							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSubClassesHashMap());
+							setTreeView(CtrlLoadOntology.getValueRootListBox(), ontology.getSubClassesHashMap());
 						}
 
 					}
@@ -246,7 +246,7 @@ public class CtrlMainView implements Initializable {
 			} catch (NullPointerException e) {
 			}
 		} else {
-			CtrlLoadOntology.stage.toFront();
+			CtrlLoadOntology.getStage().toFront();
 		}
 	}
 
