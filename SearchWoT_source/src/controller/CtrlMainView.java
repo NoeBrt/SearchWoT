@@ -47,7 +47,7 @@ public class CtrlMainView implements Initializable {
 	private static Stage CtrlStage;
 	private static OntologyDAO ontology;
 	private static TdModel algoSearch;
-	private HashMap<String, String> resultMap = new HashMap<String, String>();;
+	private HashMap<String, String> resultMap = new HashMap<String, String>();
 	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
 	@FXML
 	private TreeView<String> tree = new TreeView<String>();
@@ -267,29 +267,29 @@ public class CtrlMainView implements Initializable {
 	}
 
 	private void setJsonDirectory(File file) throws IOException, ParseException {
-		MenuItem miP = getMenuItem(file.getPath());
+		MenuItem newMenuItem = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
 		setLeftStatut();
 		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		if (!tree.getSelectionModel().isEmpty()) {
 			displayResultSearch();
 		}
-		setOpenRecentFileMenu(file, miP);
+		setOpenRecentFileMenu(file, newMenuItem);
 	}
 
-	private void setOpenRecentFileMenu(File file, MenuItem miP) {
+	private void setOpenRecentFileMenu(File file, MenuItem newMenuItem) {
 		if (!containMenuItem(file.getPath())) {
 			dequeRecentOpen.addFirst(new MenuItem(file.getPath()));
 		} else {
-			dequeRecentOpen.addFirst(miP);
-			dequeRecentOpen.removeLastOccurrence(miP);
+			dequeRecentOpen.addFirst(newMenuItem);
+			dequeRecentOpen.removeLastOccurrence(newMenuItem);
 		}
 		openRecent.getItems().setAll(dequeRecentOpen);
 	}
 
-	private boolean containMenuItem(String s) {
+	private boolean containMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
-			if (m.getText().equals(s)) {
+			if (m.getText().equals(nameMenuItem)) {
 				return true;
 			}
 		}
@@ -297,9 +297,9 @@ public class CtrlMainView implements Initializable {
 
 	}
 
-	private MenuItem getMenuItem(String s) {
+	private MenuItem getMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
-			if (m.getText().equals(s)) {
+			if (m.getText().equals(nameMenuItem)) {
 				return m;
 			}
 		}
