@@ -43,18 +43,14 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.TdModel;
 import parser.ParseException;
 
-/**
- * @author Noe
- */
 public class CtrlMainView implements Initializable {
-	public static Stage CtrlStage;
+	private static Stage CtrlStage;
 	private static OntologyDAO ontology;
 	private static TdModel algoSearch;
+	private HashMap<String, String> resultMap = new HashMap<String, String>();
+	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
 	@FXML
 	private TreeView<String> tree = new TreeView<String>();
-
-	private HashMap<String, String> resultMap = new HashMap<String, String>();;
-	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
 
@@ -222,11 +218,11 @@ public class CtrlMainView implements Initializable {
 
 	@FXML
 	public void loadOntologyMenuItem() throws IOException {
-		if (CtrlLoadOntology.stage == null || !CtrlLoadOntology.stage.isShowing()) {
+		if (CtrlLoadOntology.getStage() == null || !CtrlLoadOntology.getStage().isShowing()) {
 			try {
 				CtrlLoadOntology.showInterfaceLoad();
-				if (CtrlLoadOntology.ontology != null && !CtrlLoadOntology.valueRootListBox.equals("choose root")) {
-					CtrlMainView.setOntology(CtrlLoadOntology.ontology);
+				if (CtrlLoadOntology.getOntology() != null && !CtrlLoadOntology.getValueRootListBox().equals("choose root")) {
+					CtrlMainView.setOntology(CtrlLoadOntology.getOntology());
 					// setOntology(CtrlLoadOntology.ontology);
 					if (CtrlLoadOntology.isAutoButtonSelected()) {
 						tree.setShowRoot(false);
@@ -238,9 +234,9 @@ public class CtrlMainView implements Initializable {
 					} else {
 						tree.setShowRoot(true);
 						if (CtrlLoadOntology.isInvertedButtonSelected()) {
-							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSuperClassesHashMap());
+							setTreeView(CtrlLoadOntology.getValueRootListBox(), ontology.getSuperClassesHashMap());
 						} else {
-							setTreeView(CtrlLoadOntology.valueRootListBox, ontology.getSubClassesHashMap());
+							setTreeView(CtrlLoadOntology.getValueRootListBox(), ontology.getSubClassesHashMap());
 						}
 
 					}
@@ -250,7 +246,7 @@ public class CtrlMainView implements Initializable {
 			} catch (NullPointerException e) {
 			}
 		} else {
-			CtrlLoadOntology.stage.toFront();
+			CtrlLoadOntology.getStage().toFront();
 		}
 	}
 
@@ -271,29 +267,29 @@ public class CtrlMainView implements Initializable {
 	}
 
 	private void setJsonDirectory(File file) throws IOException, ParseException {
-		MenuItem miP = getMenuItem(file.getPath());
+		MenuItem newMenuItem = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
 		setLeftStatut();
 		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		if (!tree.getSelectionModel().isEmpty()) {
 			displayResultSearch();
 		}
-		setOpenRecentFileMenu(file, miP);
+		setOpenRecentFileMenu(file, newMenuItem);
 	}
 
-	private void setOpenRecentFileMenu(File file, MenuItem miP) {
+	private void setOpenRecentFileMenu(File file, MenuItem newMenuItem) {
 		if (!containMenuItem(file.getPath())) {
 			dequeRecentOpen.addFirst(new MenuItem(file.getPath()));
 		} else {
-			dequeRecentOpen.addFirst(miP);
-			dequeRecentOpen.removeLastOccurrence(miP);
+			dequeRecentOpen.addFirst(newMenuItem);
+			dequeRecentOpen.removeLastOccurrence(newMenuItem);
 		}
 		openRecent.getItems().setAll(dequeRecentOpen);
 	}
 
-	private boolean containMenuItem(String s) {
+	private boolean containMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
-			if (m.getText().equals(s)) {
+			if (m.getText().equals(nameMenuItem)) {
 				return true;
 			}
 		}
@@ -301,9 +297,9 @@ public class CtrlMainView implements Initializable {
 
 	}
 
-	private MenuItem getMenuItem(String s) {
+	private MenuItem getMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
-			if (m.getText().equals(s)) {
+			if (m.getText().equals(nameMenuItem)) {
 				return m;
 			}
 		}
@@ -321,15 +317,15 @@ public class CtrlMainView implements Initializable {
 
 	@FXML
 	public void preferencesAction() throws IOException, ParseException {
-		if (CtrlPreferenceView.stage == null || !CtrlPreferenceView.stage.isShowing()) {
+		if (CtrlPreferenceView.getStage() == null || !CtrlPreferenceView.getStage().isShowing()) {
 			CtrlPreferenceView.showPreferenceView();
-			if (CtrlPreferenceView.valuePartTdNameLabel != null) {
-				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.valuePartTdNameLabel);
+			if (CtrlPreferenceView.getValuePartTdNameLabel() != null) {
+				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.getValuePartTdNameLabel());
 				setLeftStatut();
 				displayResultSearch();
 			}
 		} else {
-			CtrlPreferenceView.stage.toFront();
+			CtrlPreferenceView.getStage().toFront();
 		}
 	}
 
@@ -363,6 +359,22 @@ public class CtrlMainView implements Initializable {
 	public static void setOntology(OntologyDAO ontology) {
 		CtrlMainView.ontology = ontology;
 		CtrlStage.setTitle(App.getTitle() + " - " + CtrlMainView.getOntology().getPath());
+	}
+
+	public static Stage getCtrlStage() {
+		return CtrlStage;
+	}
+
+	public static void setCtrlStage(Stage ctrlStage) {
+		CtrlStage = ctrlStage;
+	}
+
+	public static TdModel getAlgoSearch() {
+		return algoSearch;
+	}
+
+	public static void setAlgoSearch(TdModel algoSearch) {
+		CtrlMainView.algoSearch = algoSearch;
 	}
 
 }

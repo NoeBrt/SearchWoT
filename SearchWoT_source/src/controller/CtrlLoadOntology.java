@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import org.semanticweb.owlapi.model.OWLException;
 
 import DAO.OntologyDAO;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,11 +26,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class CtrlLoadOntology implements Initializable {
-	public static Stage stage;
-	public static OntologyDAO ontology;
+	private static Stage stage;
+	private static OntologyDAO ontology;
 	private static boolean isInvertedButtonSelected;
 	private static boolean isAutoButtonSelected;
-	public static String valueRootListBox;
+	private static String valueRootListBox;
 	@FXML
 	private Label pathOwl;
 	@FXML
@@ -47,7 +46,8 @@ public class CtrlLoadOntology implements Initializable {
 
 	public static void showInterfaceLoad() throws IOException {
 		stage = new Stage();
-		FXMLLoader interfaceConnect = new FXMLLoader(CtrlMainView.class.getResource("/controller/loadOntologyView.fxml"));
+		FXMLLoader interfaceConnect = new FXMLLoader(
+				CtrlMainView.class.getResource("/controller/loadOntologyView.fxml"));
 		Parent root = interfaceConnect.load();
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(new Image("file:iconApp/icon.png"));
@@ -56,7 +56,6 @@ public class CtrlLoadOntology implements Initializable {
 		stage.setResizable(false);
 		stage.setAlwaysOnTop(true);
 		stage.showAndWait();
-		
 
 	}
 
@@ -64,7 +63,9 @@ public class CtrlLoadOntology implements Initializable {
 	public void openOWlFile() throws IOException {
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("OWL Files", "*.owl"));
+		stage.setAlwaysOnTop(false);
 		File file = fc.showOpenDialog(null);
+		stage.setAlwaysOnTop(true);
 		if (file != null) {
 			try {
 				setOntology(new OntologyDAO(file.getCanonicalPath()));
@@ -95,8 +96,8 @@ public class CtrlLoadOntology implements Initializable {
 				instructionRedLabel.setVisible(true);
 			} else {
 				valueRootListBox = rootListBox.getValue();
-				setAutoButtonSelected(autoButton.selectedProperty().get());
-				setInvertedButtonSelected(invertedButton.selectedProperty().get());
+				isAutoButtonSelected = autoButton.selectedProperty().get();
+				isInvertedButtonSelected = invertedButton.selectedProperty().get();
 				stage.close();
 			}
 		}
@@ -127,6 +128,7 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
+	@FXML
 	public void eventHideRedLabel() {
 		instructionRedLabel.setVisible(false);
 	}
@@ -135,16 +137,20 @@ public class CtrlLoadOntology implements Initializable {
 		return isInvertedButtonSelected;
 	}
 
-	public static void setInvertedButtonSelected(boolean isInvertedButtonSelected) {
-		CtrlLoadOntology.isInvertedButtonSelected = isInvertedButtonSelected;
-	}
-
 	public static boolean isAutoButtonSelected() {
 		return isAutoButtonSelected;
 	}
 
-	public static void setAutoButtonSelected(boolean isAutoButtonSelected) {
-		CtrlLoadOntology.isAutoButtonSelected = isAutoButtonSelected;
+	public static Stage getStage() {
+		return stage;
+	}
+
+	public static String getValueRootListBox() {
+		return valueRootListBox;
+	}
+
+	public static OntologyDAO getOntology() {
+		return ontology;
 	}
 
 }
