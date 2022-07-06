@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 public class App extends Application {
 	private static String title;
 
+	/**
+	 *
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -36,10 +39,16 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getTitle() {
 		return title;
 	}

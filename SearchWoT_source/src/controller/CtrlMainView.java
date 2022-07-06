@@ -66,6 +66,9 @@ public class CtrlMainView implements Initializable {
 	@FXML
 	private Menu openRecent;
 
+	/**
+	 *
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			ontology = new OntologyDAO("Ontology/WotPriv.owl");
@@ -90,6 +93,11 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
+	/**
+	 * @param rootName
+	 * @param owlClasseMap
+	 * @throws OWLException
+	 */
 	public void setTreeView(String rootName, LinkedHashMap<String, ArrayList<String>> owlClasseMap)
 			throws OWLException {
 		TreeItem<String> root = new TreeItem<String>(rootName);
@@ -102,6 +110,9 @@ public class CtrlMainView implements Initializable {
 		tree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
+	/**
+	 * @param courant
+	 */
 	public void selectAllSubTreeItemsRec(TreeItem<String> courant) {
 		if (courant.getChildren().isEmpty()) {
 			tree.getSelectionModel().select(courant);
@@ -113,6 +124,11 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * @param courant
+	 * @param map
+	 * @return
+	 */
 	private TreeItem<String> treeSubItemsRec(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
 		if (map.containsKey(courant.getValue())) {
 			for (String s : map.get(courant.getValue())) {
@@ -125,6 +141,11 @@ public class CtrlMainView implements Initializable {
 		return courant;
 	}
 
+	/**
+	 * @param courant
+	 * @param map
+	 * @return
+	 */
 	private TreeItem<String> treeSubItemsRecAutoRoot(TreeItem<String> courant,
 			LinkedHashMap<String, ArrayList<String>> map) {
 		for (String s : map.keySet()) {
@@ -135,6 +156,11 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * @param courant
+	 * @param value
+	 * @return
+	 */
 	private boolean containInTree(TreeItem<String> courant, String value) {
 		for (TreeItem<String> e : courant.getChildren()) {
 			if (containInTree(e, value)) {
@@ -144,6 +170,9 @@ public class CtrlMainView implements Initializable {
 		return courant.getValue().equals(value);
 	}
 
+	/**
+	 * 
+	 */
 	public void setClikedTreeCellAction() {
 		tree.setCellFactory(tree -> {
 			TreeCell<String> cell = new TreeCell<String>() {
@@ -179,6 +208,9 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void displayResultSearch() {
 		if (!tree.getSelectionModel().isEmpty()) {
@@ -198,6 +230,9 @@ public class CtrlMainView implements Initializable {
 	 * }
 	 */
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void setSelectedResultDisplayDetailTd() {
 		resultView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -210,6 +245,10 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	@FXML
 	public void clikedOpenTdsDirectoryMenuItem() throws IOException, ParseException {
 		DirectoryChooser dc = new DirectoryChooser();
@@ -219,6 +258,9 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
+	/**
+	 * @throws IOException
+	 */
 	@FXML
 	public void loadOntologyMenuItem() throws IOException {
 		if (CtrlLoadOntology.getStage() == null || !CtrlLoadOntology.getStage().isShowing()) {
@@ -255,6 +297,9 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void clikedOpenRecentMenuItem() {
 		for (MenuItem mi : openRecent.getItems())
 			mi.setOnAction(a -> {
@@ -271,6 +316,11 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * @param file
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	private void setJsonDirectory(File file) throws IOException, ParseException {
 		MenuItem newMenuItem = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
@@ -282,6 +332,10 @@ public class CtrlMainView implements Initializable {
 		setOpenRecentFileMenu(file, newMenuItem);
 	}
 
+	/**
+	 * @param file
+	 * @param newMenuItem
+	 */
 	private void setOpenRecentFileMenu(File file, MenuItem newMenuItem) {
 		if (!containMenuItem(file.getPath())) {
 			dequeRecentOpen.addFirst(new MenuItem(file.getPath()));
@@ -292,6 +346,10 @@ public class CtrlMainView implements Initializable {
 		openRecent.getItems().setAll(dequeRecentOpen);
 	}
 
+	/**
+	 * @param nameMenuItem
+	 * @return
+	 */
 	private boolean containMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
 			if (m.getText().equals(nameMenuItem)) {
@@ -302,6 +360,10 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * @param nameMenuItem
+	 * @return
+	 */
 	private MenuItem getMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
 			if (m.getText().equals(nameMenuItem)) {
@@ -312,6 +374,9 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * 
+	 */
 	private void displayOwlError() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("OWL Exception");
@@ -320,6 +385,10 @@ public class CtrlMainView implements Initializable {
 		alert.showAndWait();
 	}
 
+	/**
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	@FXML
 	public void preferencesAction() throws IOException, ParseException {
 		if (CtrlPreferenceView.getStage() == null || !CtrlPreferenceView.getStage().isShowing()) {
@@ -334,6 +403,9 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
+	/**
+	 * @throws FileNotFoundException
+	 */
 	@FXML
 	public void saveAsAction() throws FileNotFoundException {
 		if (!resultView.getSelectionModel().isEmpty()) {
@@ -348,47 +420,79 @@ public class CtrlMainView implements Initializable {
 
 	}
 
+	/**
+	 * 
+	 */
 	private void setLeftStatut() {
 		leftStatut.setText(algoSearch.getDir().getPath() + " | (" + algoSearch.getTdPartToAnalyse() + ")");
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void quitMenuItem() {
 		CtrlStage.close();
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void selectAllAction() {
 		tree.getSelectionModel().selectAll();
+		displayResultSearch();
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void unSelectAllAction() {
 		tree.getSelectionModel().clearSelection();
+		displayResultSearch();
 
 	}
 
+	/**
+	 * @return
+	 */
 	public static OntologyDAO getOntology() {
 		return ontology;
 	}
 
+	/**
+	 * @param ontology
+	 */
 	public static void setOntology(OntologyDAO ontology) {
 		CtrlMainView.ontology = ontology;
 		CtrlStage.setTitle(App.getTitle() + " - " + CtrlMainView.getOntology().getPath());
 	}
 
+	/**
+	 * @return
+	 */
 	public static Stage getCtrlStage() {
 		return CtrlStage;
 	}
 
+	/**
+	 * @param ctrlStage
+	 */
 	public static void setCtrlStage(Stage ctrlStage) {
 		CtrlStage = ctrlStage;
 	}
 
+	/**
+	 * @return
+	 */
 	public static TdModel getAlgoSearch() {
 		return algoSearch;
 	}
 
+	/**
+	 * @param algoSearch
+	 */
 	public static void setAlgoSearch(TdModel algoSearch) {
 		CtrlMainView.algoSearch = algoSearch;
 	}

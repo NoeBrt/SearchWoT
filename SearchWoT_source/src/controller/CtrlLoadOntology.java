@@ -44,6 +44,9 @@ public class CtrlLoadOntology implements Initializable {
 	@FXML
 	private Label instructionRedLabel;
 
+	/**
+	 * @throws IOException
+	 */
 	public static void showInterfaceLoad() throws IOException {
 		stage = new Stage();
 		FXMLLoader interfaceConnect = new FXMLLoader(
@@ -59,6 +62,9 @@ public class CtrlLoadOntology implements Initializable {
 
 	}
 
+	/**
+	 * @throws IOException
+	 */
 	@FXML
 	public void openOWlFile() throws IOException {
 		FileChooser fc = new FileChooser();
@@ -81,6 +87,11 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
+	/**
+	 * @param onto
+	 * @throws OWLException
+	 * @throws IOException
+	 */
 	public void setOntology(OntologyDAO onto) throws OWLException, IOException {
 		ontology = onto;
 		pathOwl.setText(ontology.getPath());
@@ -88,6 +99,9 @@ public class CtrlLoadOntology implements Initializable {
 		rootListBox.getItems().setAll(rootList);
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void loadButtonPressed() {
 		Stage stage = (Stage) rootListBox.getScene().getWindow();
@@ -103,6 +117,9 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void hideChoiceBoxWhenAutoCheked() {
 		if (autoButton.selectedProperty().get()) {
@@ -116,6 +133,9 @@ public class CtrlLoadOntology implements Initializable {
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -128,27 +148,45 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@FXML
 	public void eventHideRedLabel() {
 		instructionRedLabel.setVisible(false);
 	}
 
+	/**
+	 * @return
+	 */
 	public static boolean isInvertedButtonSelected() {
 		return isInvertedButtonSelected;
 	}
 
+	/**
+	 * @return
+	 */
 	public static boolean isAutoButtonSelected() {
 		return isAutoButtonSelected;
 	}
 
+	/**
+	 * @return
+	 */
 	public static Stage getStage() {
 		return stage;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getValueRootListBox() {
 		return valueRootListBox;
 	}
 
+	/**
+	 * @return
+	 */
 	public static OntologyDAO getOntology() {
 		return ontology;
 	}

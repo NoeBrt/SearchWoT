@@ -27,6 +27,11 @@ public class OntologyDAO {
 	private String path;
 	private String name;
 
+	/**
+	 * @param path
+	 * @throws OWLException
+	 * @throws IOException
+	 */
 	public OntologyDAO(String path) throws OWLException, IOException {
 		File f = new File(path);
 		this.path=f.getPath();
@@ -36,6 +41,9 @@ public class OntologyDAO {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<String> getClassesName() {
 		Collection<OWLClass> classes = ontology.getClassesInSignature();
 		ArrayList<String> listofClass = new ArrayList<String>();
@@ -45,12 +53,18 @@ public class OntologyDAO {
 		return listofClass;
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<OWLClass> getClassesOrderBySuperClasse() {
 		ArrayList<OWLClass> classes = new ArrayList<>(ontology.getClassesInSignature());
 		classes.sort(numberSuperClassComparator);
 		return classes;
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<OWLClass> getClassesOrderBySubClasse() {
 		ArrayList<OWLClass> classes = new ArrayList<>(ontology.getClassesInSignature());
 		classes.sort(numberSubClassComparator);
@@ -78,6 +92,9 @@ public class OntologyDAO {
 		}
 	};
 
+	/**
+	 * @return
+	 */
 	public LinkedHashMap<String, ArrayList<String>> getSuperClassesHashMap() {
 		LinkedHashMap<String, ArrayList<String>> hm = new LinkedHashMap<String, ArrayList<String>>();
 		OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
@@ -99,6 +116,9 @@ public class OntologyDAO {
 		return hm;
 	}
 
+	/**
+	 * @return
+	 */
 	public LinkedHashMap<String, ArrayList<String>> getSubClassesHashMap() {
 		LinkedHashMap<String, ArrayList<String>> hm = new LinkedHashMap<String, ArrayList<String>>();
 		OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
@@ -119,31 +139,53 @@ public class OntologyDAO {
 		return hm;
 	}
 
+	/**
+	 * @return
+	 */
 	public OWLOntology getOntology() {
 		return ontology;
 	}
 
+	/**
+	 * @param ontology
+	 */
 	public void setOntology(OWLOntology ontology) {
 		this.ontology = ontology;
 	}
 
+	/**
+	 * @param path
+	 * @throws OWLOntologyCreationException
+	 */
 	public void setOntologyByPath(String path) throws OWLOntologyCreationException {
 		final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		this.ontology = manager.loadOntologyFromOntologyDocument(IRI.create((new File(path))));
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * @param path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
