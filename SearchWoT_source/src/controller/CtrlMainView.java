@@ -44,30 +44,67 @@ import model.TdModel;
 import parser.ParseException;
 
 public class CtrlMainView implements Initializable {
+	/**
+	 * stage of the view
+	 */
 	private static Stage CtrlStage;
+	/**
+	 * OntologyDAO for managing the ontology
+	 */
 	private static OntologyDAO ontology;
+	/**
+	 * for managing all the search request
+	 */
 	private static TdModel algoSearch;
+	/**
+	 * HasmMap of all result of the request, a list of Td name as key and content of
+	 * the TD as value
+	 */
 	private HashMap<String, String> resultMap = new HashMap<String, String>();
+	/**
+	 * ObservableList of the Td's name, which actualiste value who appear in
+	 * ListView (list of name td)
+	 */
 	private ObservableList<String> Resultlist = FXCollections.observableArrayList(resultMap.keySet());
-	@FXML
-	private TreeView<String> tree = new TreeView<String>();
+	/**
+	 * 
+	 */
 	@FXML
 	private ListView<String> resultView = new ListView<>(Resultlist);
-
+	/**
+	 * treeview who represent the ontology
+	 */
+	@FXML
+	private TreeView<String> tree = new TreeView<String>();
+	/**
+	 * right part of the application, who display content of the td selected in result section (middle part)
+	 */
 	@FXML
 	private TextFlow tdDetail;
-
+	/**
+	 * Bottom left label who display the Td directory path and the part of the td which are analyzed
+	 */
 	@FXML
-	private Label leftStatut;
+	private Label leftStatus;
+	/**
+	 * Bottom right label who display the total td reviewed and the number of td selected after a request
+	 */
 	@FXML
-	private Label rightStatut;
-
+	private Label rightStatus;
+	/**
+	 *  Deque who store recent td path open
+	 */
 	private Deque<MenuItem> dequeRecentOpen = new ArrayDeque<MenuItem>();
+	/**
+	 * menu for open recent td directory
+	 */
 	@FXML
 	private Menu openRecent;
 
 	/**
-	 *
+	 * instanciate the starter ontology (Ontology/WotPriv.owl) and the TdModel (IoT-Devices-Benchmark_ANNOTE) with the part "privacyPolicy" to analyze
+	 * Initialize rightStatus, tree and resultView.
+	 * set the ActionListener of treeview and resultview when a user click on a cell
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -75,9 +112,9 @@ public class CtrlMainView implements Initializable {
 			algoSearch = new TdModel("IoT-Devices-Benchmark_ANNOTE", "privacyPolicy");
 			dequeRecentOpen.addFirst(new MenuItem(algoSearch.getDir().getPath()));
 			openRecent.getItems().setAll(dequeRecentOpen);
-			setLeftStatut();
-			rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
-			rightStatut.setTextFill(Color.web("#008080"));
+			setLeftStatus();
+			rightStatus.setText(algoSearch.getJsonObjectList().size() + " total");
+			rightStatus.setTextFill(Color.web("#008080"));
 			resultView.setItems(Resultlist);
 			setTreeView(ontology.getName(), ontology.getSuperClassesHashMap());
 			setSelectedResultDisplayDetailTd();
@@ -94,7 +131,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param rootName
+	 * @param rootName 
 	 * @param owlClasseMap
 	 * @throws OWLException
 	 */
@@ -191,7 +228,7 @@ public class CtrlMainView implements Initializable {
 				if (cell.isEmpty()) {
 					Platform.runLater(() -> tree.getSelectionModel().clearSelection());
 					Resultlist.clear();
-					rightStatut.setText(algoSearch.getJsonObjectList().size() + " total");
+					rightStatus.setText(algoSearch.getJsonObjectList().size() + " total");
 				} else {
 					if (cell.isSelected()) {
 						if (!event.isAltDown()) {
@@ -218,17 +255,10 @@ public class CtrlMainView implements Initializable {
 			tree.getSelectionModel().getSelectedItems().forEach(item -> SelectedConcepts.add(item.getValue()));
 			resultMap = algoSearch.schearTD(SelectedConcepts);
 			Resultlist.setAll(resultMap.keySet());
-			rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
+			rightStatus.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		}
 
 	}
-	/*
-	 * private void selectAllSubItemAndParent(TreeItem<String> courant) {
-	 * tree.getSelectionModel().select(courant); for (TreeItem<String> e :
-	 * courant.getChildren()) { selectAllSubItemAndParent(e); }
-	 * 
-	 * }
-	 */
 
 	/**
 	 * 
@@ -269,7 +299,6 @@ public class CtrlMainView implements Initializable {
 				if (CtrlLoadOntology.getOntology() != null
 						&& !CtrlLoadOntology.getValueRootListBox().equals("choose root")) {
 					CtrlMainView.setOntology(CtrlLoadOntology.getOntology());
-					// setOntology(CtrlLoadOntology.ontology);
 					if (CtrlLoadOntology.isAutoButtonSelected()) {
 						tree.setShowRoot(false);
 						if (CtrlLoadOntology.isInvertedButtonSelected()) {
@@ -324,8 +353,8 @@ public class CtrlMainView implements Initializable {
 	private void setJsonDirectory(File file) throws IOException, ParseException {
 		MenuItem newMenuItem = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
-		setLeftStatut();
-		rightStatut.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
+		setLeftStatus();
+		rightStatus.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		if (!tree.getSelectionModel().isEmpty()) {
 			displayResultSearch();
 		}
@@ -395,7 +424,7 @@ public class CtrlMainView implements Initializable {
 			CtrlPreferenceView.showPreferenceView();
 			if (CtrlPreferenceView.getValuePartTdNameLabel() != null) {
 				algoSearch.setTdPartToAnalyse(CtrlPreferenceView.getValuePartTdNameLabel());
-				setLeftStatut();
+				setLeftStatus();
 				displayResultSearch();
 			}
 		} else {
@@ -423,8 +452,8 @@ public class CtrlMainView implements Initializable {
 	/**
 	 * 
 	 */
-	private void setLeftStatut() {
-		leftStatut.setText(algoSearch.getDir().getPath() + " | (" + algoSearch.getTdPartToAnalyse() + ")");
+	private void setLeftStatus() {
+		leftStatus.setText(algoSearch.getDir().getPath() + " | (" + algoSearch.getTdPartToAnalyse() + ")");
 	}
 
 	/**

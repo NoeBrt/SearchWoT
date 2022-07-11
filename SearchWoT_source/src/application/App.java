@@ -14,7 +14,7 @@ public class App extends Application {
 	private static String title;
 
 	/**
-	 *
+	 * 
 	 */
 	@Override
 	public void start(Stage primaryStage) {
