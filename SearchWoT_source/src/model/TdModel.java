@@ -13,6 +13,9 @@ import simple.JSONArray;
 import simple.JSONObject;
 
 /**
+ * Class used for manage research on Thing Description JSON file in directory
+ * with JSON SIMPLE API
+ * 
  * @author Noe Breton
  *
  */

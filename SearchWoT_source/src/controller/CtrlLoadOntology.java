@@ -25,6 +25,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+/**
+ * Controller of loadOntologyView.fxml
+ * 
+ * @author noebr
+ *
+ */
 public class CtrlLoadOntology implements Initializable {
 	/**
 	 * current stage

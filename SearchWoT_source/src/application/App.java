@@ -10,6 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+/**
+ * Classe used for launched the application
+ * 
+ * @author noebr
+ *
+ */
 public class App extends Application {
 	/**
 	 * app title

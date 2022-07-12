@@ -43,6 +43,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.TdModel;
 import parser.ParseException;
 
+/**Controller of mainView.fxml
+ * @author noebr
+ *
+ */
 public class CtrlMainView implements Initializable {
 	/**
 	 * stage of the view

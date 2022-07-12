@@ -22,6 +22,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
+/**
+ * Class used for manage Owl file of an ontology with OWL API
+ * 
+ * @author noebr
+ *
+ */
 public class OntologyDAO {
 	/**
 	 * Object which stores the ontology
