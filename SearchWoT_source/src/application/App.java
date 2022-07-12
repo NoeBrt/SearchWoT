@@ -10,9 +10,21 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+/**
+ * Classe used for launched the application
+ * 
+ * @author noebr
+ *
+ */
 public class App extends Application {
+	/**
+	 * app title
+	 */
 	private static String title;
 
+	/**
+	 * load mainView.fxml controlled by CtrlMainView
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -22,8 +34,8 @@ public class App extends Application {
 			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
-			title="SearchWoT";
-			primaryStage.setTitle(title+" - "+CtrlMainView.getOntology().getPath());
+			title = "SearchWoT";
+			primaryStage.setTitle(title + " - " + CtrlMainView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("file:iconApp/icon.png"));
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();
@@ -40,6 +52,9 @@ public class App extends Application {
 		launch(args);
 	}
 
+	/**
+	 * @return title of the app
+	 */
 	public static String getTitle() {
 		return title;
 	}
