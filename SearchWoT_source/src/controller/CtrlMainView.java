@@ -421,7 +421,10 @@ public class CtrlMainView implements Initializable {
 		openRecent.getItems().setAll(dequeRecentOpen);
 	}
 
-	/** check if a string if it contained in the dequeRecentOpen (as a value of one menu item store in this deck)
+	/**
+	 * check if a string if it contained in the dequeRecentOpen (as a value of one
+	 * menu item store in this deck)
+	 * 
 	 * @param nameMenuItem string we check
 	 * @return true if nameMenuItem is contained false else
 	 */
@@ -436,8 +439,9 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param nameMenuItem string 
-	 * @return the menu item stored in dequeRecentOpen  which have the value of the string in parameter, return null value else
+	 * @param nameMenuItem string
+	 * @return the menu item stored in dequeRecentOpen which have the value of the
+	 *         string in parameter, return null value else
 	 */
 	private MenuItem getMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
@@ -460,9 +464,13 @@ public class CtrlMainView implements Initializable {
 		alert.showAndWait();
 	}
 
-	/** when preference menu is selected, this method is launched.
-	 * 	CtrlPreferenceView.showPreferenceView() will display preferenceView.fxml controlled by CtrlPreferenceView, this frame is used for change the td Part to analyse.
-	 * when a td name part is wrote and the frame closed, algoSearch.setTdPartToAnalyse is used with the value wrote as parameter.
+	/**
+	 * when preference menu is selected, this method is launched.
+	 * CtrlPreferenceView.showPreferenceView() will display preferenceView.fxml
+	 * controlled by CtrlPreferenceView, this frame is used for change the td Part
+	 * to analyse. when a td name part is wrote and the frame closed,
+	 * algoSearch.setTdPartToAnalyse is used with the value wrote as parameter.
+	 * 
 	 * @throws IOException
 	 * @throws ParseException
 	 */
@@ -480,7 +488,10 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
-	/** when a Td in ResultView is selected and save As menu is clicked, the user can download the json file. 
+	/**
+	 * when a Td in ResultView is selected and save As menu is clicked, the user can
+	 * download the json file.
+	 * 
 	 * @throws FileNotFoundException
 	 */
 	@FXML
@@ -505,7 +516,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 *  close the application when menu item close is clicked
+	 * close the application when menu item close is clicked
 	 */
 	@FXML
 	public void quitMenuItem() {
@@ -538,7 +549,9 @@ public class CtrlMainView implements Initializable {
 		return ontology;
 	}
 
-	/** set the ontology to load and change the App title with the ontology Path
+	/**
+	 * set the ontology to load and change the App title with the ontology Path
+	 * 
 	 * @param ontology to set
 	 */
 	public static void setOntology(OntologyDAO ontology) {
@@ -547,7 +560,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @return current Stage 
+	 * @return current Stage
 	 */
 	public static Stage getCtrlStage() {
 		return CtrlStage;

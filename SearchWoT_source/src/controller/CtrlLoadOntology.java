@@ -35,15 +35,18 @@ public class CtrlLoadOntology implements Initializable {
 	 */
 	private static OntologyDAO ontology;
 	/**
-	 * static value destined to be used in CtrlMainView, store boolean value if invertedButton is selected
+	 * static value destined to be used in CtrlMainView, store boolean value if
+	 * invertedButton is selected
 	 */
 	private static boolean isInvertedButtonSelected;
 	/**
-	 * static value destined to be used in CtrlMainView, store boolean value if autoButton is selected
+	 * static value destined to be used in CtrlMainView, store boolean value if
+	 * autoButton is selected
 	 */
 	private static boolean isAutoButtonSelected;
 	/**
-	 * static value destined to be used in CtrlMainView, store value selected in choicebox rootListBox.
+	 * static value destined to be used in CtrlMainView, store value selected in
+	 * choicebox rootListBox.
 	 */
 	private static String valueRootListBox;
 	/**
@@ -67,15 +70,16 @@ public class CtrlLoadOntology implements Initializable {
 	@FXML
 	private CheckBox invertedButton;
 	/**
-	 *  determine if the ontology will be loaded whitout user root selection 
+	 * determine if the ontology will be loaded whitout user root selection
 	 */
 	@FXML
 	private CheckBox autoButton;
 	/**
-	 *  display if the load button is clicked without ontology choose
+	 * display if the load button is clicked without ontology choose
 	 */
 	@FXML
 	private Label instructionRedLabel;
+
 	/**
 	 * set the ontologyDAO value by the static getter from CtrlMainView
 	 */
@@ -91,7 +95,9 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
-	/*Initialize the view 
+	/*
+	 * Initialize the view
+	 * 
 	 * @throws IOException
 	 */
 	public static void showInterfaceLoad() throws IOException {
@@ -108,9 +114,12 @@ public class CtrlLoadOntology implements Initializable {
 		stage.showAndWait();
 
 	}
-	
-	/** when open(.owl) button is cliked, user can selected an owl file and set the ontolgyDAO with this file.
-	 * the label pathOwl will be set with the owl file path
+
+	/**
+	 * when open(.owl) button is cliked, user can selected an owl file and set the
+	 * ontolgyDAO with this file. the label pathOwl will be set with the owl file
+	 * path
+	 * 
 	 * @throws IOException and a alert frame display
 	 */
 	@FXML
@@ -135,7 +144,10 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
-	/** set the ontology and pathOwl label with his path, set the rootlist with all classes of the loaded ontology
+	/**
+	 * set the ontology and pathOwl label with his path, set the rootlist with all
+	 * classes of the loaded ontology
+	 * 
 	 * @param ontologyDAO to load
 	 * @throws OWLException
 	 * @throws IOException
@@ -148,8 +160,9 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * when the load button is pressed.
-	 *  if a owl file was selected, value of rootListBox, auto and inverted check box are store in static variable before closing the stage, else a red label appear
+	 * when the load button is pressed. if a owl file was selected, value of
+	 * rootListBox, auto and inverted check box are store in static variable before
+	 * closing the stage, else a red label appear
 	 */
 	@FXML
 	public void loadButtonPressed() {
@@ -191,14 +204,16 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * @return static value isInvertedButtonSelected, true if InvertedButton is selected, false else
+	 * @return static value isInvertedButtonSelected, true if InvertedButton is
+	 *         selected, false else
 	 */
 	public static boolean isInvertedButtonSelected() {
 		return isInvertedButtonSelected;
 	}
 
 	/**
-	 * @return static value isAutoButtonSelected, true if AutoButtonSelected is selected, false else
+	 * @return static value isAutoButtonSelected, true if AutoButtonSelected is
+	 *         selected, false else
 	 */
 	public static boolean isAutoButtonSelected() {
 		return isAutoButtonSelected;
@@ -212,7 +227,7 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * @return value of RootListBox 
+	 * @return value of RootListBox
 	 */
 	public static String getValueRootListBox() {
 		return valueRootListBox;

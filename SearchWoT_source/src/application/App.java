@@ -17,7 +17,7 @@ public class App extends Application {
 	private static String title;
 
 	/**
-	 * load mainView.fxml controlled by CtrlMainView 
+	 * load mainView.fxml controlled by CtrlMainView
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -28,8 +28,8 @@ public class App extends Application {
 			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
-			title="SearchWoT";
-			primaryStage.setTitle(title+" - "+CtrlMainView.getOntology().getPath());
+			title = "SearchWoT";
+			primaryStage.setTitle(title + " - " + CtrlMainView.getOntology().getPath());
 			primaryStage.getIcons().add(new Image("file:iconApp/icon.png"));
 			primaryStage.setOnCloseRequest(e -> {
 				Platform.exit();

@@ -17,7 +17,8 @@ public class CtrlPreferenceView {
 	 */
 	private static Stage stage;
 	/**
-	 * static String value destined to be used in CtrlMainView, store part TD name wrote in TextField partTdNameLabel
+	 * static String value destined to be used in CtrlMainView, store part TD name
+	 * wrote in TextField partTdNameLabel
 	 */
 	private static String valuePartTdNameLabel;
 	/**
@@ -31,7 +32,9 @@ public class CtrlPreferenceView {
 	@FXML
 	private Label redLabel;
 
-	/**Initialize the view 
+	/**
+	 * Initialize the view
+	 * 
 	 * @throws IOException
 	 */
 	public static void showPreferenceView() throws IOException {
@@ -48,7 +51,7 @@ public class CtrlPreferenceView {
 	}
 
 	/**
-	 * close stage if cancel button is pressed 
+	 * close stage if cancel button is pressed
 	 */
 	@FXML
 	public void cancelAction() {
@@ -56,18 +59,20 @@ public class CtrlPreferenceView {
 	}
 
 	/**
-	 * static valuePartTdNameLabel initialize by content of the text field if it is not empty, else the red label appears
+	 * static valuePartTdNameLabel initialize by content of the text field if it is
+	 * not empty, else the red label appears
 	 */
 	@FXML
 	public void applyAction() {
-		if(!partTdNameLabel.getText().isBlank()) {
-			valuePartTdNameLabel=partTdNameLabel.getText();
+		if (!partTdNameLabel.getText().isBlank()) {
+			valuePartTdNameLabel = partTdNameLabel.getText();
 			stage.close();
-		}else {
+		} else {
 			redLabel.setVisible(true);
 		}
 
 	}
+
 	/**
 	 * hide redLabel
 	 */
