@@ -12,14 +12,26 @@ import javafx.stage.Stage;
 
 public class CtrlPreferenceView {
 
+	/**
+	 * current stage
+	 */
 	private static Stage stage;
+	/**
+	 * static String value destined to be used in CtrlMainView, store part TD name wrote in TextField partTdNameLabel
+	 */
 	private static String valuePartTdNameLabel;
+	/**
+	 * TextField the user will wrote in the td part name that will be analyze
+	 */
 	@FXML
 	private TextField partTdNameLabel;
+	/**
+	 * label displayed if the textfield is empty
+	 */
 	@FXML
 	private Label redLabel;
 
-	/**
+	/**Initialize the view 
 	 * @throws IOException
 	 */
 	public static void showPreferenceView() throws IOException {
@@ -36,7 +48,7 @@ public class CtrlPreferenceView {
 	}
 
 	/**
-	 * 
+	 * close stage if cancel button is pressed 
 	 */
 	@FXML
 	public void cancelAction() {
@@ -44,7 +56,7 @@ public class CtrlPreferenceView {
 	}
 
 	/**
-	 * 
+	 * static valuePartTdNameLabel initialize by content of the text field if it is not empty, else the red label appears
 	 */
 	@FXML
 	public void applyAction() {
@@ -57,21 +69,21 @@ public class CtrlPreferenceView {
 
 	}
 	/**
-	 * 
+	 * hide redLabel
 	 */
 	public void hideRedLabel() {
 		redLabel.setVisible(false);
 	}
 
 	/**
-	 * @return
+	 * @return valuePartTdNameLabel
 	 */
 	public static String getValuePartTdNameLabel() {
 		return valuePartTdNameLabel;
 	}
 
 	/**
-	 * @return
+	 * @return stage
 	 */
 	public static Stage getStage() {
 		return stage;

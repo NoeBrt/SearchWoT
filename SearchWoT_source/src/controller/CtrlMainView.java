@@ -77,22 +77,25 @@ public class CtrlMainView implements Initializable {
 	@FXML
 	private TreeView<String> tree = new TreeView<String>();
 	/**
-	 * right part of the application, who display content of the td selected in result section (middle part)
+	 * right part of the application, who display content of the td selected in
+	 * result section (middle part)
 	 */
 	@FXML
 	private TextFlow tdDetail;
 	/**
-	 * Bottom left label who display the Td directory path and the part of the td which are analyzed
+	 * Bottom left label who display the Td directory path and the part of the td
+	 * which are analyzed
 	 */
 	@FXML
 	private Label leftStatus;
 	/**
-	 * Bottom right label who display the total td reviewed and the number of td selected after a request
+	 * Bottom right label who display the total td reviewed and the number of td
+	 * selected after a request
 	 */
 	@FXML
 	private Label rightStatus;
 	/**
-	 *  Deque who store recent td path open
+	 * Deque who store recent td path open
 	 */
 	private Deque<MenuItem> dequeRecentOpen = new ArrayDeque<MenuItem>();
 	/**
@@ -102,9 +105,10 @@ public class CtrlMainView implements Initializable {
 	private Menu openRecent;
 
 	/**
-	 * instanciate the starter ontology (Ontology/WotPriv.owl) and the TdModel (IoT-Devices-Benchmark_ANNOTE) with the part "privacyPolicy" to analyze
-	 * Initialize rightStatus, tree and resultView.
-	 * set the ActionListener of treeview and resultview when a user click on a cell
+	 * Instantiate the starter ontology (Ontology/WotPriv.owl) and the TdModel
+	 * (IoT-Devices-Benchmark_ANNOTE) with the part "privacyPolicy" to analyze
+	 * Initialize rightStatus, tree and resultView. set the ActionListener of
+	 * treeview and resultview when a user click on a cell
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -131,8 +135,14 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param rootName 
-	 * @param owlClasseMap
+	 * if the root name is not equal to the name of the ontology, the method
+	 * treeSubItem will load the ontology or a part with a classes name at a root ,
+	 * else the method treeSubItemsRecAutoRoot will load automatically all the
+	 * ontology
+	 * 
+	 * @param root    Name of the ontology we want to put in the treeview,
+	 * @param Hashmap of the ontology (classes name as key and super or sub classes
+	 *                as value
 	 * @throws OWLException
 	 */
 	public void setTreeView(String rootName, LinkedHashMap<String, ArrayList<String>> owlClasseMap)
@@ -148,7 +158,9 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param courant
+	 * Recursive method who select all the childrens of a treeitem
+	 * 
+	 * @param treeitem courant
 	 */
 	public void selectAllSubTreeItemsRec(TreeItem<String> courant) {
 		if (courant.getChildren().isEmpty()) {
@@ -162,9 +174,13 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param courant
-	 * @param map
-	 * @return
+	 * Instantiate the TreeItem courant with the ontology's hashmap recursively if
+	 * the hashmap contain as key the value of the courant, all the childrens store
+	 * in the hashmap will be put in the treeview
+	 * 
+	 * @param tree    item courant to instantiate
+	 * @param hashmap map of the ontology
+	 * @return tree item loaded
 	 */
 	private TreeItem<String> treeSubItemsRec(TreeItem<String> courant, LinkedHashMap<String, ArrayList<String>> map) {
 		if (map.containsKey(courant.getValue())) {
@@ -179,9 +195,12 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param courant
-	 * @param map
-	 * @return
+	 * use the method treeSubItemsRec for instantiate automatically hashmap of the
+	 * ontology in a treeitem
+	 * 
+	 * @param tree    item courant to instantiate
+	 * @param hashmap map of the ontology
+	 * @return tree item loaded
 	 */
 	private TreeItem<String> treeSubItemsRecAutoRoot(TreeItem<String> courant,
 			LinkedHashMap<String, ArrayList<String>> map) {
@@ -194,9 +213,11 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
+	 * Check recursively if a value is in a treeItem and their children
+	 * 
 	 * @param courant
-	 * @param value
-	 * @return
+	 * @param value   t
+	 * @return true if the value is in the treeIteam false else
 	 */
 	private boolean containInTree(TreeItem<String> courant, String value) {
 		for (TreeItem<String> e : courant.getChildren()) {
@@ -208,7 +229,10 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * set mouse clicked in Tree cells, when a cell is clicked, all their children
+	 * is selected, if a cell don't have children, it will be selected. All the td
+	 * which contain the concepts of the cell cliked/selected (cell String value)
+	 * display in the middle frame with displayResultSearch()
 	 */
 	public void setClikedTreeCellAction() {
 		tree.setCellFactory(tree -> {
@@ -246,7 +270,8 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * set the Resultlist with the TDs which contain the concept selected by the
+	 * user on the treeview rightStatus will be set with the number of TDs displayed
 	 */
 	@FXML
 	public void displayResultSearch() {
@@ -261,7 +286,8 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * set a listener in resultView, if a cell is selected the content of the td
+	 * will be displayed in the right frame
 	 */
 	@FXML
 	public void setSelectedResultDisplayDetailTd() {
@@ -276,6 +302,9 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
+	 * method who permit to choose a TDs directory the Open Td directory menu item
+	 * is clicked
+	 * 
 	 * @throws IOException
 	 * @throws ParseException
 	 */
@@ -289,6 +318,18 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
+	 * when the button "load new ontology" is clicked, loadOntologyView.fxml will be
+	 * charged and managed by CtrlLoadOntology, with this frame, the user select the
+	 * owl file of the ontology, if the ontology will be auto loaded or if the user
+	 * select a particular root when the frame will be closed the method will get
+	 * the value with static getter. if the ontology selected is not nul, and the
+	 * value of a root is not "choose root" and if the auto button is checked,
+	 * ontology will be loaded with the name of ontology as first root with
+	 * setTreeView, so with treeSubItemsRecAutoRoot. else with the name of a root,
+	 * setTreeView will be exxecuted with the root selected in parameter. if the
+	 * button inverted is clicked, there will be ontology.getSuperClassesHashMap()
+	 * as second parameter of setTreeView, else ontology.getSubCassesHashMap()
+	 * 
 	 * @throws IOException
 	 */
 	@FXML
@@ -346,26 +387,31 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param file
+	 * method who define the things description directory and actualize bottom right
+	 * label. Actualize the open recent menu.
+	 * 
+	 * @param file which represent the td directory
 	 * @throws IOException
 	 * @throws ParseException
 	 */
 	private void setJsonDirectory(File file) throws IOException, ParseException {
-		MenuItem newMenuItem = getMenuItem(file.getPath());
 		algoSearch.setDir(file);
 		setLeftStatus();
 		rightStatus.setText(resultMap.size() + " | " + algoSearch.getJsonObjectList().size() + " total");
 		if (!tree.getSelectionModel().isEmpty()) {
 			displayResultSearch();
 		}
-		setOpenRecentFileMenu(file, newMenuItem);
+		setOpenRecentFileMenu(file);
 	}
 
 	/**
-	 * @param file
-	 * @param newMenuItem
+	 * add a file path in the dequeRecentOpen like a File, if a path is cliked, it
+	 * will be add in top of the file.
+	 * 
+	 * @param file to add in the open recent Menu
 	 */
-	private void setOpenRecentFileMenu(File file, MenuItem newMenuItem) {
+	private void setOpenRecentFileMenu(File file) {
+		MenuItem newMenuItem = getMenuItem(file.getPath());
 		if (!containMenuItem(file.getPath())) {
 			dequeRecentOpen.addFirst(new MenuItem(file.getPath()));
 		} else {
@@ -375,9 +421,9 @@ public class CtrlMainView implements Initializable {
 		openRecent.getItems().setAll(dequeRecentOpen);
 	}
 
-	/**
-	 * @param nameMenuItem
-	 * @return
+	/** check if a string if it contained in the dequeRecentOpen (as a value of one menu item store in this deck)
+	 * @param nameMenuItem string we check
+	 * @return true if nameMenuItem is contained false else
 	 */
 	private boolean containMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
@@ -390,8 +436,8 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @param nameMenuItem
-	 * @return
+	 * @param nameMenuItem string 
+	 * @return the menu item stored in dequeRecentOpen  which have the value of the string in parameter, return null value else
 	 */
 	private MenuItem getMenuItem(String nameMenuItem) {
 		for (MenuItem m : dequeRecentOpen) {
@@ -404,7 +450,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * an alert frame which are displayed if a OWL Exception is catch
 	 */
 	private void displayOwlError() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -414,7 +460,9 @@ public class CtrlMainView implements Initializable {
 		alert.showAndWait();
 	}
 
-	/**
+	/** when preference menu is selected, this method is launched.
+	 * 	CtrlPreferenceView.showPreferenceView() will display preferenceView.fxml controlled by CtrlPreferenceView, this frame is used for change the td Part to analyse.
+	 * when a td name part is wrote and the frame closed, algoSearch.setTdPartToAnalyse is used with the value wrote as parameter.
 	 * @throws IOException
 	 * @throws ParseException
 	 */
@@ -432,7 +480,7 @@ public class CtrlMainView implements Initializable {
 		}
 	}
 
-	/**
+	/** when a Td in ResultView is selected and save As menu is clicked, the user can download the json file. 
 	 * @throws FileNotFoundException
 	 */
 	@FXML
@@ -450,14 +498,14 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * actualise the LeftLabel
 	 */
 	private void setLeftStatus() {
 		leftStatus.setText(algoSearch.getDir().getPath() + " | (" + algoSearch.getTdPartToAnalyse() + ")");
 	}
 
 	/**
-	 * 
+	 *  close the application when menu item close is clicked
 	 */
 	@FXML
 	public void quitMenuItem() {
@@ -465,7 +513,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * select all ontology tree
 	 */
 	@FXML
 	public void selectAllAction() {
@@ -474,7 +522,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * 
+	 * unselect all ontology tree
 	 */
 	@FXML
 	public void unSelectAllAction() {
@@ -484,14 +532,14 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @return
+	 * @return OntologyDao loaded
 	 */
 	public static OntologyDAO getOntology() {
 		return ontology;
 	}
 
-	/**
-	 * @param ontology
+	/** set the ontology to load and change the App title with the ontology Path
+	 * @param ontology to set
 	 */
 	public static void setOntology(OntologyDAO ontology) {
 		CtrlMainView.ontology = ontology;
@@ -499,7 +547,7 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @return
+	 * @return current Stage 
 	 */
 	public static Stage getCtrlStage() {
 		return CtrlStage;
@@ -513,17 +561,10 @@ public class CtrlMainView implements Initializable {
 	}
 
 	/**
-	 * @return
+	 * @return current TdModel used
 	 */
 	public static TdModel getAlgoSearch() {
 		return algoSearch;
-	}
-
-	/**
-	 * @param algoSearch
-	 */
-	public static void setAlgoSearch(TdModel algoSearch) {
-		CtrlMainView.algoSearch = algoSearch;
 	}
 
 }

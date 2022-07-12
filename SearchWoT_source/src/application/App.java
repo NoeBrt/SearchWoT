@@ -11,10 +11,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 public class App extends Application {
+	/**
+	 * app title
+	 */
 	private static String title;
 
 	/**
-	 * 
+	 * load mainView.fxml controlled by CtrlMainView 
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -39,15 +42,12 @@ public class App extends Application {
 		}
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	/**
-	 * @return
+	 * @return title of the app
 	 */
 	public static String getTitle() {
 		return title;

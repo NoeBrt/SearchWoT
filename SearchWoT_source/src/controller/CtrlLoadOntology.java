@@ -26,25 +26,72 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class CtrlLoadOntology implements Initializable {
+	/**
+	 * current stage
+	 */
 	private static Stage stage;
+	/**
+	 * ontologyDAO loaded
+	 */
 	private static OntologyDAO ontology;
+	/**
+	 * static value destined to be used in CtrlMainView, store boolean value if invertedButton is selected
+	 */
 	private static boolean isInvertedButtonSelected;
+	/**
+	 * static value destined to be used in CtrlMainView, store boolean value if autoButton is selected
+	 */
 	private static boolean isAutoButtonSelected;
+	/**
+	 * static value destined to be used in CtrlMainView, store value selected in choicebox rootListBox.
+	 */
 	private static String valueRootListBox;
+	/**
+	 * label destined to display path of the ontoloy
+	 */
 	@FXML
 	private Label pathOwl;
+	/**
+	 * ObservableList displayed in choicebox, contain all ontology classes name
+	 */
 	@FXML
 	private ObservableList<String> rootList = FXCollections.observableArrayList();
+	/**
+	 * 
+	 */
 	@FXML
 	private ChoiceBox<String> rootListBox = new ChoiceBox<>(rootList);
+	/**
+	 * determine if the ontology will be loaded inverted or not in CtrlMainView
+	 */
 	@FXML
 	private CheckBox invertedButton;
+	/**
+	 *  determine if the ontology will be loaded whitout user root selection 
+	 */
 	@FXML
 	private CheckBox autoButton;
+	/**
+	 *  display if the load button is clicked without ontology choose
+	 */
 	@FXML
 	private Label instructionRedLabel;
-
 	/**
+	 * set the ontologyDAO value by the static getter from CtrlMainView
+	 */
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		rootListBox.setValue("choose a root");
+		try {
+			setOntology(CtrlMainView.getOntology());
+		} catch (OWLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/*Initialize the view 
 	 * @throws IOException
 	 */
 	public static void showInterfaceLoad() throws IOException {
@@ -61,9 +108,10 @@ public class CtrlLoadOntology implements Initializable {
 		stage.showAndWait();
 
 	}
-
-	/**
-	 * @throws IOException
+	
+	/** when open(.owl) button is cliked, user can selected an owl file and set the ontolgyDAO with this file.
+	 * the label pathOwl will be set with the owl file path
+	 * @throws IOException and a alert frame display
 	 */
 	@FXML
 	public void openOWlFile() throws IOException {
@@ -87,12 +135,12 @@ public class CtrlLoadOntology implements Initializable {
 		}
 	}
 
-	/**
-	 * @param onto
+	/** set the ontology and pathOwl label with his path, set the rootlist with all classes of the loaded ontology
+	 * @param ontologyDAO to load
 	 * @throws OWLException
 	 * @throws IOException
 	 */
-	public void setOntology(OntologyDAO onto) throws OWLException, IOException {
+	public void setOntology(OntologyDAO onto) throws OWLException {
 		ontology = onto;
 		pathOwl.setText(ontology.getPath());
 		rootList.setAll(ontology.getClassesName());
@@ -100,7 +148,8 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * 
+	 * when the load button is pressed.
+	 *  if a owl file was selected, value of rootListBox, auto and inverted check box are store in static variable before closing the stage, else a red label appear
 	 */
 	@FXML
 	public void loadButtonPressed() {
@@ -118,7 +167,7 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * 
+	 * when auto check box is selected, rootListBox is disabled
 	 */
 	@FXML
 	public void hideChoiceBoxWhenAutoCheked() {
@@ -134,22 +183,7 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 *
-	 */
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		rootListBox.setValue("choose a root");
-		try {
-			setOntology(CtrlMainView.getOntology());
-		} catch (OWLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 
+	 * hide red Label
 	 */
 	@FXML
 	public void eventHideRedLabel() {
@@ -157,35 +191,35 @@ public class CtrlLoadOntology implements Initializable {
 	}
 
 	/**
-	 * @return
+	 * @return static value isInvertedButtonSelected, true if InvertedButton is selected, false else
 	 */
 	public static boolean isInvertedButtonSelected() {
 		return isInvertedButtonSelected;
 	}
 
 	/**
-	 * @return
+	 * @return static value isAutoButtonSelected, true if AutoButtonSelected is selected, false else
 	 */
 	public static boolean isAutoButtonSelected() {
 		return isAutoButtonSelected;
 	}
 
 	/**
-	 * @return
+	 * @return current stage
 	 */
 	public static Stage getStage() {
 		return stage;
 	}
 
 	/**
-	 * @return
+	 * @return value of RootListBox 
 	 */
 	public static String getValueRootListBox() {
 		return valueRootListBox;
 	}
 
 	/**
-	 * @return
+	 * @return ontologyDAO loaded
 	 */
 	public static OntologyDAO getOntology() {
 		return ontology;
